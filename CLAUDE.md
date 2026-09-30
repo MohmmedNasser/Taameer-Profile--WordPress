@@ -27,6 +27,8 @@ A static HTML/CSS/JS prototype of the bilingual (EN default / AR RTL) corporate 
 11. **Relative paths only.**
 12. JSON-rendered data needs a local server: `npx serve .` (see README).
 13. Every CSS/JS file starts with a header comment: purpose, components using it, WP enqueue notes.
+14. **Partials.** Every page carries the sprite, header (with skip link), footer, WhatsApp button and CTA band literally, wrapped in `<!-- PARTIAL:name START/END -->` (they become `header.php`/`footer.php`). Run `python scripts/check-partials.py` after every page; only the active nav state (`aria-current="page"`, header nav + mobile menu + footer quick links) and the language-switcher target may differ. Copy the blocks from index.html.
+15. **Per-page SEO head** (copy from about.html): unique `<title>` (page — brand) and meta description (>= 60 chars), Open Graph (`og:type`, `og:site_name`, `og:locale`, `og:title`, `og:description`, `og:image`) + `twitter:card`, and a *commented* canonical/hreflang block with the final URLs (filled in Phase 3 / WordPress; never a live link before then). Inner pages load `inner-pages.css`; pages with galleries/licenses/letters also `lightbox.css` + `lightbox.js` (triggers: `<a data-tp-lightbox="group" href="full.webp" data-caption="…">`).
 
 ## Design tokens (summary — see `assets/css/tokens.css`)
 - Light, architectural, restrained. **No dark mode, no dark sections** (footer too). Ink = text, lines and button fills.
@@ -53,10 +55,10 @@ A static HTML/CSS/JS prototype of the bilingual (EN default / AR RTL) corporate 
 CLAUDE.md  README.md  index.html  ar/ (Phase 3)
 docs/     PRD, logs, maps (index below)
 scripts/  extract_pdf.py → fetch_site.py → site_to_text.py → build_site_images.py → image_meta.py (re-runnable pipeline)
-          contrast.py, screenshot.mjs, interaction-test.mjs (QA; see README)
+          contrast.py, check-partials.py, screenshot.mjs, interaction-test.mjs (QA; see README)
 source/   PDF, pdf-text.md, extracted/, site/ (website mirror), site-content.md, screenshots/
-assets/css  tokens · base · layout · components · animations
-assets/js   animations · header · counters · projects · before-after
+assets/css  tokens · base · layout · components · inner-pages · lightbox · animations
+assets/js   animations · header · counters · projects · before-after · lightbox · service-nav
 assets/docs company profile PDF (download link)
 assets/img  <meaning>.webp + <meaning>-md.webp (900px) ; stock/ for stock images
 data/     projects.json · team.json · testimonials.json · site.json

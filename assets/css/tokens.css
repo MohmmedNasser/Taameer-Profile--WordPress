@@ -27,6 +27,7 @@
   --tp-color-header-scrolled: rgb(255 255 255 / 0.94);   /* bg at 94% for the sticky header */
   --tp-color-overlay-warm: rgb(255 255 255 / 0.55);      /* light veil (never dark overlays) */
   --tp-color-shadow: 13 13 13;                           /* official ink as RGB triplet for shadows */
+  --tp-color-lightbox: rgb(255 255 255 / 0.97);          /* lightbox veil: light, never a dark overlay */
 
   /* ---- Typography (official: Playfair Display headings 600, Inter body) ---- */
   --tp-font-display: "Playfair Display", Georgia, "Times New Roman", serif;
@@ -132,6 +133,7 @@
   /* ---- Layers ---- */
   --tp-z-base: 1;
   --tp-z-fab: 80;
+  --tp-z-subnav: 90;                 /* sticky service navigation, below the header */
   --tp-z-header: 100;
   --tp-z-menu: 200;
   --tp-z-skip: 300;
@@ -167,4 +169,15 @@
   --tp-icon: 1.25rem;
   --tp-plus: 0.75rem;                /* the "+" motif */
   --tp-ba-handle: 2.75rem;
+
+  /* ---- Inner pages ---- */
+  --tp-chipbar-h: 3.5rem;            /* sticky service navigation bar */
+  --tp-sticky-offset: calc(var(--tp-header-h-mobile) + var(--tp-chipbar-h));   /* header + chip bar (desktop: see inner-pages.css) */
+  --tp-lightbox-btn: 3rem;
+  --tp-lightbox-chrome: 7rem;        /* caption bar + gaps reserved below the lightbox image */
+  --tp-lightbox-chrome-mobile: 11rem;
+  --tp-lightbox-pad: clamp(1rem, 0.5rem + 2vw, 2.5rem);
+  --tp-team-photo-ratio: 700 / 736;  /* native aspect of the leadership portraits */
+  --tp-license-preview-w: 8rem;
+  --tp-spec-col-min: 9rem;           /* compact spec (licenses, team experience): min column width */
 }

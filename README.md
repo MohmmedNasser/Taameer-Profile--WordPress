@@ -19,8 +19,9 @@ Then open http://localhost:3000. (VS Code Live Server also works.)
 | `python scripts/build_site_images.py` | Merge site + PDF images (keeps higher res, dedupes), writes `docs/image-map.md` |
 | `python scripts/image_meta.py` | Refresh `imageMeta` (width/height/-md) in `data/projects.json` |
 | `python scripts/contrast.py` | WCAG contrast of every token text/background pair |
+| `python scripts/check-partials.py` | Header/footer/sprite/WhatsApp/CTA blocks identical on every page; active nav state; SEO head; one h1 |
 | `node scripts/screenshot.mjs` | Playwright: 4 widths × LTR/RTL + reduced motion; console/network/overflow |
-| `node scripts/interaction-test.mjs` | Playwright: skip link, mobile menu focus trap/Esc, before/after keys + pointer (LTR/RTL) |
+| `node scripts/interaction-test.mjs` | Playwright: skip link, mobile menu, before/after, breadcrumbs, lightbox (keys, swipe, focus trap; LTR/RTL), service chip nav, related projects |
 
 Image pipeline order: `extract_pdf.py --export` → `build_site_images.py` → `image_meta.py`.
 

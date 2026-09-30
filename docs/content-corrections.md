@@ -21,6 +21,11 @@ Corrections fix spelling, grammar and formatting only — never facts. Source co
 | TAMEER PLUS (Atlas Copco letter address) | not quoted | — |
 | Al Waraaq 1st (website "Al Warqaa 1st") | Al Warqa 1st | projects.json |
 | PERFUME SHOP Fitout and Decoration | Perfume Shop Fit-out & Decoration | projects.json |
+| delivering project on schedule / to insure meeting the deadline | delivering projects on schedule / to ensure deadlines are met | services.html (Turnkey) |
+| Design And Build … related to … . . These steps | one full stop; "construction ability" → "constructability" | services.html (Design & Build) |
+| late of the art / latest of the art | state-of-the-art | about.html |
+| fitout / Decoration & Fitout | fit-out / Decoration & Fit-out | about.html, services.html |
+| multi-story with non-breaking hyphens (U+2011) | multi-storey (as on the homepage); ordinary hyphens | about.html |
 
 ## Source conflicts (website wins)
 

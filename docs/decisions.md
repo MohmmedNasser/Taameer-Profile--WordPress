@@ -2,6 +2,32 @@
 
 Non-obvious decisions. Format: **Context / Decision / Reason / Alternatives rejected.** Newest on top.
 
+### D-029 — License data read from the license images; PDFs copied locally
+- Context: taameer.ae renders the license fields blank in its text; the values live only in the two license scans (PDFs without a text layer).
+- Decision: fields read from the renewed licenses by eye and stored in `data/site.json → licenses` (Contracting 741846, expires 06/09/2027; Carpentry 1314264, expires 18/02/2027); PDFs copied to `assets/docs/`. The lightbox shows the 1920px image rendition with a "View PDF" link; without JS the button opens the PDF. A thumbnail and a button pointing to the same license count once in the gallery.
+- Reason: PRD 5.3 wants the licenses viewable and their key fields as text. The scans include the license-members table (names, ID numbers) and a personal mobile number/email: flagged to the client.
+
+### D-028 — Team experience is labelled and not clickable
+- Context: the four buildings are not company projects (PRD 6.4).
+- Decision: the website's wording "Large-scale projects by the Taameer Plus team", an explicit note beside the heading, a "Team experience" badge on every card, and cards are not links (no detail pages exist for them).
+
+### D-027 — Service → project-type mapping lives in data/site.json
+- Context: each service block shows up to 3 related projects "whose type matches".
+- Decision: `services[].relatedTypes`: construction → `construction`; decoration-fitout → `fit-out` + `landscaping` (the only landscaping project is "Fit-out & Landscaping"); renovation → `renovation-decoration`; design-build, maintenance, turnkey → `[]`. Empty means no related block (projects.js hides it; nothing renders empty). Turnkey links to `projects.html?type=construction` (`projectsLink`; PDF p13 ties turnkey work to villa structure and fit-out); decoration links to the wall cladding showcase. `projects.js` reads the mapping through `data-tp-service`.
+- Reason: Design & Build and Turnkey are contract models and Maintenance has no project, so tying them to a project type would invent claims. WordPress: a term relation on the service, queried by the Projects Grid widget.
+- Open: the client can name projects delivered as Design & Build or Maintenance; then add a `projectIds` override. Phase 2B's projects page must honour `?type=`.
+
+### D-026 — Shared blocks are literal, marked partials; two allowed differences
+- Context: header, footer, icon sprite, WhatsApp button and CTA band must be identical on every page (they become `header.php` / `footer.php`), but the static prototype has no include mechanism.
+- Decision: each is pasted literally between `<!-- PARTIAL:name START/END -->` markers; `scripts/check-partials.py` compares them with index.html and fails on any drift. Only two differences are normalised: `aria-current="page"` (active nav state, in header nav, mobile menu and footer quick links) and the language-switcher `href` (`ar/<this page>.html`, the equivalent page per PRD §7; Polylang later). The checker also enforces the per-page SEO head, one `<h1>`, `<main id="main">` and the shared stylesheet/script set.
+- Reason: no build step is allowed (CLAUDE.md), and copy-paste drift is the main risk of a multi-page static prototype.
+- Alternatives: JS `fetch()` includes (breaks without a server, invisible to SEO and to the WP port).
+
+### D-025 — SEO head pattern: canonical and hreflang stay comments until Phase 3
+- Context: hreflang pointed at `ar/index.html`, which does not exist yet; canonical needs the production domain.
+- Decision: every page has a unique `<title>`, meta description, Open Graph (`og:type/site_name/locale/title/description/image`) and `twitter:card`; canonical and hreflang are a commented block showing the final URLs. index.html's live hreflang links were converted to comments; check-partials.py fails if a live canonical/alternate link appears.
+- Reason: a link to a non-existent page is worse than none. WordPress will output these through Polylang and the SEO plugin.
+
 ### D-024 — Official brand locked in; switcher removed (Phase 2A)
 - Context: the client approved the Official brand after comparing both.
 - Decision: brand values merged into `tokens.css` (same token names, so components did not change); deleted brand-bronze/official/overrides CSS, the switcher (JS, CSS, first-paint script), `data-brand`, Cormorant/Manrope, and the two comparison scripts (`brand-compare.mjs` was tied to `?brand=` and the switcher; `brand-style-diff.mjs` was a one-off; `screenshot.mjs` covers general visual QA). `contrast.py` now reads `tokens.css`. The `v1-bronze` tag did not exist in the repo (it was only mentioned in docs), so it was created at the last bronze commit before deleting.

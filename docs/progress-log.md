@@ -2,6 +2,19 @@
 
 One entry per completed task, newest on top. Format: Did / Files / Issues / Next.
 
+### 2026-09-30 — Phase 2A · Part D: services.html
+- Did: page hero; sticky scrollable chip navigation (service-nav.js, IntersectionObserver, aria-current="true"); 6 alternating service blocks with anchor ids matching the homepage/footer links (no homepage change needed); website text + PDF paragraphs (Construction, Design & Build, Turnkey); related projects (projects.js `data-tp-service`, mapping in site.json, D-027); wall cladding showcase (6 images, lightbox); shared CTA.
+- Verified: interaction tests (chip keyboard activation, sticky offsets, highlight on scroll, related 3/3/3 and none for Design & Build / Maintenance / Turnkey); screenshots 375/768/1280/1920 LTR + RTL → source/screenshots/phase-2/; 0 console issues, no overflow.
+- Issues: all 6 wall-cladding photos are small (383–768px): shown as 4:3 thumbnails and never upscaled in the lightbox.
+
+### 2026-09-30 — Phase 2A · Part C: about.html
+- Did: page hero; full chairman's message (editorial, sticky portrait); About Us with highlighted 2015 fact; 4 aims; Why choose us; leadership (`tp-team`) + philosophy; team experience (`tp-exp`, labelled prior experience); 14-logo partner grid; two license cards with fields as text and lightbox/PDF; shared CTA.
+- License fields were read from the license scans (D-029).
+- Files: about.html, assets/css/inner-pages.css, data/site.json (licenses), assets/docs/license-*.pdf.
+
+### 2026-09-30 — Phase 2A · Part B: shared inner-page components
+- Did: PARTIAL markers (sprite/header/footer/whatsapp/cta) + `scripts/check-partials.py` (D-026); `aria-current` in header, mobile menu and footer; `tp-page-hero` + breadcrumbs; `lightbox.js/.css` (dialog, Esc, arrows mirrored in RTL, focus trap + return, swipe, counter, next/prev preload only, scroll lock, reduced motion, PDF rendition + View PDF); shared CTA marked as a partial; per-page SEO head pattern (D-025), index.html's live hreflang converted to comments; CLAUDE.md rules 14–15; interaction-test.mjs extended.
+
 ### 2026-09-30 — Phase 2A · Part A: Official brand locked in
 - Did: created git tag `v1-bronze` (it did not exist), merged brand-official.css into tokens.css, deleted bronze/official/overrides CSS, switcher JS/CSS, first-paint script, `data-brand`, Cormorant + Manrope, brand-compare.mjs, brand-style-diff.mjs. Renamed docs/brand-official.md → docs/brand.md; updated CLAUDE.md, elementor-mapping.md, contrast.py (reads tokens.css).
 - Verified: contrast 0 failing; validate-tokens 0 violations; interaction-test all PASS; homepage screenshots (375/768/1280/1920 LTR+RTL+reduced) in source/screenshots/phase-2/, 0 console issues, no overflow; pixel diff vs brand-compare/official-* differs only where scroll/animation state differs (accordion image mid-crossfade).

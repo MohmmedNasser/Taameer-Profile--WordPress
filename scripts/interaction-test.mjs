@@ -1,5 +1,6 @@
 /**
- * interaction-test.mjs — keyboard/ARIA checks for header menu, skip link and before/after slider.
+ * interaction-test.mjs — keyboard/ARIA checks for header menu, skip link, before/after slider, breadcrumbs,
+ *   lightbox (wall cladding, licenses; LTR + RTL) and the services chip navigation + related projects.
  *   python -m http.server 5173 ; PW_MODULE=<playwright path> node scripts/interaction-test.mjs
  */
 import { pathToFileURL } from 'node:url';
@@ -7,6 +8,8 @@ import path from 'node:path';
 const pwPath = process.env.PW_MODULE ? pathToFileURL(path.join(process.env.PW_MODULE, 'index.mjs')).href : 'playwright';
 const { chromium } = await import(pwPath);
 const BASE = process.env.BASE_URL || 'http://localhost:5173/index.html';
+const ORIGIN = new URL(BASE).origin + '/';
+const rtlInit = () => new MutationObserver((_, o) => { if (document.documentElement) { document.documentElement.dir = 'rtl'; o.disconnect(); } }).observe(document, { childList: true });
 const results = [];
 const check = (name, ok, detail = '') => results.push(`${ok ? 'PASS' : 'FAIL'}  ${name}${detail ? ' — ' + detail : ''}`);
 
@@ -74,6 +77,105 @@ for (const dir of ['ltr', 'rtl']) {
   // Visual: handle centre sits at the click point.
   const hb = await handle.boundingBox();
   check(`${dir}: handle follows pointer`, Math.abs(hb.x + hb.width / 2 - (box.x + box.width * 0.25)) < 3);
+  await page.close();
+}
+
+// ---- Inner pages: breadcrumbs, lightbox, service navigation ----
+{
+  const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
+  for (const [file, label] of [['about.html', 'About'], ['services.html', 'Services']]) {
+    await page.goto(ORIGIN + file, { waitUntil: 'networkidle' });
+    const bc = await page.evaluate(() => {
+      const nav = document.querySelector('nav[aria-label="Breadcrumb"]');
+      const cur = nav && nav.querySelectorAll('[aria-current="page"]');
+      return { has: !!nav, count: cur ? cur.length : 0, last: nav && nav.querySelector('li:last-child [aria-current="page"]') !== null };
+    });
+    check(`${file}: breadcrumb nav labelled, aria-current on last item only`, bc.has && bc.count === 1 && bc.last);
+    const active = await page.$$eval('.tp-nav__link[aria-current="page"]', (a) => a.map((x) => x.textContent.trim()));
+    check(`${file}: header nav marks ${label} as current`, active.length === 1 && active[0] === label, active.join(','));
+  }
+
+  // Lightbox: wall cladding gallery on services.html
+  for (const dir of ['ltr', 'rtl']) {
+    const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+    const pg = await ctx.newPage();
+    if (dir === 'rtl') await pg.addInitScript(rtlInit);
+    await pg.goto(ORIGIN + 'services.html', { waitUntil: 'networkidle' });
+    const first = pg.locator('[data-tp-lightbox="wall-cladding"]').first();
+    await first.scrollIntoViewIfNeeded();
+    await pg.waitForTimeout(800);
+    const y0 = await pg.evaluate(() => window.scrollY);
+    await first.focus();
+    await pg.keyboard.press('Enter');
+    await pg.waitForSelector('.tp-lightbox.is-open');
+    const st = await pg.evaluate(() => {
+      const d = document.querySelector('.tp-lightbox');
+      return { role: d.getAttribute('role'), modal: d.getAttribute('aria-modal'), labelled: !!document.getElementById(d.getAttribute('aria-labelledby')).textContent.trim(),
+        count: d.querySelector('.tp-lightbox__count').textContent, locked: document.body.classList.contains('tp-is-locked'),
+        focusIn: d.contains(document.activeElement) };
+    });
+    check(`${dir}: lightbox opens as labelled modal dialog, body locked, focus inside`, st.role === 'dialog' && st.modal === 'true' && st.labelled && st.locked && st.focusIn);
+    check(`${dir}: lightbox counter "1 / 6"`, st.count === '1 / 6', st.count);
+    // ArrowRight = next in LTR, previous (wraps to 6) in RTL
+    await pg.keyboard.press('ArrowRight');
+    const c1 = await pg.textContent('.tp-lightbox__count');
+    check(`${dir}: ArrowRight ${dir === 'ltr' ? 'goes to next (2 / 6)' : 'goes to previous (6 / 6)'}`, c1 === (dir === 'ltr' ? '2 / 6' : '6 / 6'), c1);
+    for (let i = 0; i < 8; i++) await pg.keyboard.press('Tab');
+    const trapped = await pg.evaluate(() => document.querySelector('.tp-lightbox').contains(document.activeElement));
+    check(`${dir}: Tab stays trapped inside the dialog`, trapped);
+    // Swipe toward the left edge (touch events dispatched synthetically)
+    await pg.evaluate(() => {
+      const el = document.querySelector('.tp-lightbox');
+      const t = (x) => new Touch({ identifier: 1, target: el, clientX: x, clientY: 300 });
+      el.dispatchEvent(new TouchEvent('touchstart', { bubbles: true, touches: [t(600)], changedTouches: [t(600)] }));
+      el.dispatchEvent(new TouchEvent('touchend', { bubbles: true, touches: [], changedTouches: [t(300)] }));
+    });
+    const c2 = await pg.textContent('.tp-lightbox__count');
+    check(`${dir}: swipe left ${dir === 'ltr' ? 'shows next' : 'shows previous'}`, dir === 'ltr' ? c2 === '3 / 6' : c2 === '5 / 6', `${c1} → ${c2}`);
+    await pg.keyboard.press('Escape');
+    const closed = await pg.evaluate(() => ({ hidden: document.querySelector('.tp-lightbox').hidden, unlocked: !document.body.classList.contains('tp-is-locked'),
+      focus: document.activeElement.getAttribute('data-tp-lightbox'), y: window.scrollY }));
+    check(`${dir}: Esc closes, unlocks scroll, returns focus to trigger`, closed.hidden && closed.unlocked && closed.focus === 'wall-cladding');
+    check(`${dir}: no scroll jump on close`, Math.abs(closed.y - y0) <= 2, `${y0} → ${closed.y}`);
+    await ctx.close();
+  }
+
+  // Lightbox: licenses on about.html (PDF trigger → image rendition + View PDF; thumbnail and button de-duplicated)
+  {
+    await page.goto(ORIGIN + 'about.html', { waitUntil: 'networkidle' });
+    const btn = page.locator('.tp-license__actions [data-tp-lightbox]').first();
+    await btn.scrollIntoViewIfNeeded();
+    await btn.click();
+    await page.waitForSelector('.tp-lightbox.is-open');
+    const lic = await page.evaluate(() => ({ src: document.querySelector('.tp-lightbox__img').getAttribute('src'),
+      pdf: !document.querySelector('.tp-lightbox__pdf').hidden && document.querySelector('.tp-lightbox__pdf').getAttribute('href'),
+      count: document.querySelector('.tp-lightbox__count').textContent }));
+    check('license lightbox shows the image rendition and a View PDF link', /license-.*\.webp$/.test(lic.src) && /\.pdf$/.test(lic.pdf), `${lic.src} ${lic.pdf}`);
+    check('license lightbox lists 2 licenses (thumbnail + button de-duplicated)', lic.count === '1 / 2', lic.count);
+    await page.keyboard.press('Escape');
+  }
+
+  // Service navigation
+  await page.goto(ORIGIN + 'services.html', { waitUntil: 'networkidle' });
+  const chipCount = await page.$$eval('[data-tp-service-nav] a', (a) => a.length);
+  check('service nav has 6 chips', chipCount === 6);
+  await page.locator('.tp-chip', { hasText: 'Renovation' }).focus();
+  await page.keyboard.press('Enter');
+  await page.waitForTimeout(1800);
+  const nav = await page.evaluate(() => ({ cur: [...document.querySelectorAll('.tp-chip[aria-current]')].map((a) => a.textContent.trim()),
+    top: document.getElementById('renovation').getBoundingClientRect().top, bar: document.querySelector('[data-tp-service-nav]').getBoundingClientRect().bottom,
+    hash: location.hash }));
+  check('keyboard activation scrolls to the section, hash set, chip becomes current', nav.hash === '#renovation' && nav.cur.length === 1 && nav.cur[0] === 'Renovation', JSON.stringify(nav));
+  check('target section sits below the sticky bars', nav.top >= nav.bar - 2, `${Math.round(nav.top)} vs ${Math.round(nav.bar)}`);
+  await page.evaluate(() => window.scrollTo({ top: document.getElementById('turnkey').offsetTop, behavior: 'instant' }));
+  await page.waitForTimeout(700);
+  const cur2 = await page.$$eval('.tp-chip[aria-current]', (a) => a.map((x) => x.textContent.trim()));
+  check('scrolling to Turnkey highlights the Turnkey chip', cur2.length === 1 && cur2[0] === 'Turnkey Projects', cur2.join(','));
+  const stuck = await page.evaluate(() => document.querySelector('[data-tp-service-nav]').getBoundingClientRect().top);
+  check('chip bar is sticky under the header', stuck > 0 && stuck < 120, String(Math.round(stuck)));
+  const rel = await page.evaluate(() => ({ construction: document.querySelectorAll('#construction .tp-project').length, fit: document.querySelectorAll('#decoration-fitout .tp-project').length,
+    reno: document.querySelectorAll('#renovation .tp-project').length, none: document.querySelectorAll('#maintenance [data-tp-related], #design-build [data-tp-related], #turnkey [data-tp-related]').length }));
+  check('related projects: 3 / 3 / 3, none for Design & Build / Maintenance / Turnkey', rel.construction === 3 && rel.fit === 3 && rel.reno === 3 && rel.none === 0, JSON.stringify(rel));
   await page.close();
 }
 

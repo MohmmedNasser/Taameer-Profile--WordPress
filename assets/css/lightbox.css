@@ -1,0 +1,146 @@
+/* ==========================================================================
+   lightbox.css — styles for the dialog built by lightbox.js
+   Used by: project gallery, licenses (About), wall cladding showcase (Services), appreciation letters.
+   Light veil (never a dark overlay). Images are shown at their natural size, never upscaled: several
+   sources are only 380–770px wide. No transitions under prefers-reduced-motion.
+   WP: register as 'tp-lightbox' and enqueue with lightbox.js on templates that contain triggers.
+   ========================================================================== */
+
+.tp-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: var(--tp-z-menu);
+  display: grid;
+  grid-template-columns: var(--tp-lightbox-btn) minmax(0, 1fr) var(--tp-lightbox-btn);
+  grid-template-rows: minmax(0, 1fr);
+  align-items: center;
+  column-gap: var(--tp-space-3);
+  padding: var(--tp-lightbox-pad);
+  opacity: 0;
+  transition: opacity var(--tp-dur-base) var(--tp-ease-out);
+}
+
+.tp-lightbox.is-open { opacity: 1; }
+
+.tp-lightbox__backdrop {
+  position: absolute;
+  inset: 0;
+  background: var(--tp-color-lightbox);
+  backdrop-filter: blur(var(--tp-blur-header));
+}
+
+.tp-lightbox__fig {
+  position: relative;
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--tp-space-4);
+  min-block-size: 0;
+  max-block-size: 100%;
+  pointer-events: none; /* clicks beside the image fall through to the backdrop */
+}
+
+.tp-lightbox__img {
+  flex: 0 1 auto;
+  min-block-size: 0;
+  max-inline-size: 100%;
+  max-block-size: calc(100dvh - 2 * var(--tp-lightbox-pad) - var(--tp-lightbox-chrome));
+  inline-size: auto;
+  block-size: auto;
+  object-fit: contain;
+  background: var(--tp-color-surface);
+  border-radius: var(--tp-radius-sm);
+  box-shadow: var(--tp-shadow-lg);
+  pointer-events: auto;
+  transition: opacity var(--tp-dur-base) var(--tp-ease-out);
+}
+
+.tp-lightbox.is-loading .tp-lightbox__img { opacity: 0; }
+
+.tp-lightbox__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--tp-space-2) var(--tp-space-5);
+  inline-size: 100%;
+  max-inline-size: var(--tp-container-narrow);
+  pointer-events: auto;
+}
+
+.tp-lightbox__caption {
+  flex: 1 1 14rem;
+  font-size: var(--tp-fs-sm);
+  color: var(--tp-color-text);
+}
+
+.tp-lightbox__meta {
+  display: flex;
+  align-items: baseline;
+  gap: var(--tp-space-5);
+}
+
+.tp-lightbox__count {
+  font-size: var(--tp-fs-xs);
+  font-weight: var(--tp-fw-semibold);
+  letter-spacing: var(--tp-tracking-eyebrow);
+  color: var(--tp-meta-color);
+  font-variant-numeric: tabular-nums;
+}
+
+.tp-lightbox__btn {
+  position: relative;
+  z-index: var(--tp-z-base);
+  display: grid;
+  place-items: center;
+  inline-size: var(--tp-lightbox-btn);
+  block-size: var(--tp-lightbox-btn);
+  padding: 0;
+  background: var(--tp-color-surface);
+  color: var(--tp-color-text);
+  border: var(--tp-hairline);
+  border-radius: var(--tp-radius-round);
+  box-shadow: var(--tp-shadow-sm);
+  transition: background-color var(--tp-dur-fast) var(--tp-ease-out), color var(--tp-dur-fast) var(--tp-ease-out);
+}
+
+.tp-lightbox__btn:hover {
+  background: var(--tp-btn-bg-hover);
+  color: var(--tp-btn-fg-hover);
+}
+
+.tp-lightbox__prev { grid-column: 1; grid-row: 1; }
+.tp-lightbox__next { grid-column: 3; grid-row: 1; }
+
+.tp-lightbox__close {
+  position: absolute;
+  inset-block-start: var(--tp-lightbox-pad);
+  inset-inline-end: var(--tp-lightbox-pad);
+}
+
+/* The logo "+" rotated 45° is the close mark. */
+.tp-lightbox__close svg { transform: rotate(45deg); }
+
+/* Previous points toward the inline-start edge, next toward the inline-end edge. */
+.tp-lightbox__prev svg { transform: scaleX(-1); }
+
+@media (max-width: 40em) {
+  /* Small screens: buttons drop below the image row; swipe also navigates. */
+  .tp-lightbox { grid-template-columns: 1fr 1fr; grid-template-rows: minmax(0, 1fr) auto; row-gap: var(--tp-space-4); }
+  .tp-lightbox__fig { grid-column: 1 / -1; grid-row: 1; }
+  .tp-lightbox__prev { grid-column: 1; grid-row: 2; justify-self: start; }
+  .tp-lightbox__next { grid-column: 2; grid-row: 2; justify-self: end; }
+  .tp-lightbox__img { max-block-size: calc(100dvh - 2 * var(--tp-lightbox-pad) - var(--tp-lightbox-chrome-mobile)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tp-lightbox,
+  .tp-lightbox__img,
+  .tp-lightbox__btn { transition: none; }
+}
+
+/* ---- [dir="rtl"] — mirrored arrows (the dialog gets dir from <html>) ---- */
+[dir="rtl"] .tp-lightbox__prev svg { transform: none; }
+[dir="rtl"] .tp-lightbox__next svg { transform: scaleX(-1); }

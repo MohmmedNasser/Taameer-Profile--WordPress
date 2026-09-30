@@ -5,6 +5,9 @@
    Container attributes (map 1:1 to widget controls):
      data-tp-src="data/projects.json"  data-tp-featured="true|false"  data-tp-count="6"
      data-tp-type="construction|renovation-decoration|fit-out|landscaping" (optional)
+     data-tp-service="construction|design-build|…" (optional; Services page related projects): the project types
+       come from services[].relatedTypes in data/site.json (data-tp-site, default "data/site.json"); a service with
+       no types or no matching project hides the enclosing [data-tp-related] block instead of rendering it empty.
    Card link: project.html?id=<slug>. Order: completion date, newest first; ongoing first.
    Uses imageMeta for width/height (no layout shift) and the -md srcset when that file exists.
    Language: <html lang> picks the "en"/"ar" string, falling back to "en".
@@ -76,7 +79,7 @@
     return p.status === 'ongoing' ? '9999-99' : p.completion || '0000-00';
   }
 
-  function render(container, data) {
+  function render(container, data, types) {
     var featured = container.dataset.tpFeatured === 'true';
     var type = container.dataset.tpType;
     var count = parseInt(container.dataset.tpCount, 10) || Infinity;
@@ -85,11 +88,17 @@
       if (p.type === 'showcase') return false;
       if (featured && !p.featured) return false;
       if (type && p.type !== type) return false;
+      if (types && types.indexOf(p.type) === -1) return false;
       return true;
     });
     list.sort(function (a, b) { return sortKey(b).localeCompare(sortKey(a)); });
     list = list.slice(0, count);
 
+    if (!list.length) {
+      var wrap = container.closest('[data-tp-related]');
+      if (wrap) wrap.hidden = true;
+      return;
+    }
     container.innerHTML = list.map(function (p) { return card(p, data); }).join('');
     container.classList.add('tp-stagger');
     if (TP.refreshAnimations) TP.refreshAnimations(container.parentNode);
@@ -110,8 +119,14 @@
   function init() {
     document.querySelectorAll('[data-tp-projects]').forEach(function (container) {
       var src = container.dataset.tpSrc || 'data/projects.json';
-      load(src)
-        .then(function (data) { render(container, data); })
+      var service = container.dataset.tpService;
+      var ready = service
+        ? Promise.all([load(src), load(container.dataset.tpSite || 'data/site.json')]).then(function (r) {
+            var match = (r[1].services || []).filter(function (x) { return x.id === service; })[0];
+            render(container, r[0], (match && match.relatedTypes) || []);
+          })
+        : load(src).then(function (data) { render(container, data); });
+      ready
         .catch(function (err) {
           // Keep the server-rendered fallback link (file:// or network failure).
           if (window.console) console.warn('[tp-projects] ' + err.message + ' — serve the site with `npx serve .`');
