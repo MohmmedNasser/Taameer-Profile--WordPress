@@ -1,5 +1,5 @@
 {
-  "_note": "Global settings. Contact block maps to the WP Customizer (PRD 5.1); nav maps to Appearance → Menus. Strings are {en, ar}.",
+  "_note": "Global settings. services[].relatedTypes maps each service to the project types shown as its related projects on services.html (max 3, newest first; empty = no related block); projectsLink = a link to a filtered projects page for services that are a contract model rather than a project type; more = extra paragraph from the PDF. Contact block maps to the WP Customizer (PRD 5.1); nav maps to Appearance → Menus. Strings are {en, ar}.",
   "company": {
     "name": { "en": "Taameer Plus Contracting LLC", "ar": "" },
     "tagline": { "en": "Construct A Better Tomorrow", "ar": "" },
@@ -36,12 +36,50 @@
     { "title": { "en": "Uncompromising Quality", "ar": "" }, "text": { "en": "Rigorous quality control, trustworthy relations with private and government agencies, and reliable delivery timelines.", "ar": "" } }
   ],
   "services": [
-    { "id": "construction", "title": { "en": "Construction", "ar": "" }, "text": { "en": "Full-scale construction ranging from G+1 luxury villas to G+4 residential and commercial buildings, with complete structural integrity.", "ar": "" }, "image": "assets/img/project-dubai-g-residential-villa-02.webp", "icon": "source/site/images/services/icons/1.jpg" },
-    { "id": "design-build", "title": { "en": "Design & Build", "ar": "" }, "text": { "en": "Direct single-contract solutions covering structural, architectural, and electromechanical works, evaluated for cost and buildability by one team.", "ar": "" }, "image": "assets/img/project-al-awir-villas-02.webp", "icon": "source/site/images/services/icons/2.jpg" },
-    { "id": "decoration-fitout", "title": { "en": "Decoration & Fit-out", "ar": "" }, "text": { "en": "Premium corporate, retail, hospitality, and residential fit-out and decoration, including custom wall cladding and joinery through our carpentry division.", "ar": "" }, "image": "assets/img/project-kf-inc-headquarters-05.webp", "icon": "source/site/images/services/icons/3.jpg" },
-    { "id": "renovation", "title": { "en": "Renovation", "ar": "" }, "text": { "en": "Complete building and villa refurbishments, interior modernisations, and structural updates executed on schedule.", "ar": "" }, "image": "assets/img/project-dubai-marina-triplex-villa-04.webp", "icon": "source/site/images/services/icons/4.jpg" },
-    { "id": "maintenance", "title": { "en": "Maintenance", "ar": "" }, "text": { "en": "Ongoing technical services, active maintenance, and facility support that keep structures in prime condition long after handover.", "ar": "" }, "image": "assets/img/project-atlas-copco-headquarters-03.webp", "icon": "source/site/images/services/icons/5.jpg" },
-    { "id": "turnkey", "title": { "en": "Turnkey Projects", "ar": "" }, "text": { "en": "Experienced professionals handling all phases of construction — new build to renovation — coordinated with qualified subcontractors to meet deadlines.", "ar": "" }, "image": "assets/img/project-al-warqa-1st-g2-villa-06.webp", "icon": "source/site/images/services/icons/6.jpg" }
+    { "id": "construction", "title": { "en": "Construction", "ar": "" }, "text": { "en": "Full-scale construction ranging from G+1 luxury villas to G+4 residential and commercial buildings, with complete structural integrity.", "ar": "" }, "relatedTypes": ["construction"], "more": { "en": "As an approved G+4 contractor, Taameer Plus has successfully completed many turnkey projects, including the structure and full fit-out of villas and service blocks, with remarkable quality.", "ar": "" }, "image": "assets/img/project-dubai-g-residential-villa-02.webp", "icon": "source/site/images/services/icons/1.jpg" },
+    { "id": "design-build", "title": { "en": "Design & Build", "ar": "" }, "text": { "en": "Direct single-contract solutions covering structural, architectural, and electromechanical works, evaluated for cost and buildability by one team.", "ar": "" }, "relatedTypes": [], "more": { "en": "Taameer Plus handles Design-Build projects by entering into a direct contract with the client to provide all design aspects related to structural, architectural and electromechanical works. The team evaluates alternative materials and methods efficiently and accurately, and value engineering and constructability are applied continuously and more effectively when designers and Taameer Plus work together as one team throughout the design process. These steps ultimately save the owner significant amounts of money and time.", "ar": "" }, "image": "assets/img/project-al-awir-villas-02.webp", "icon": "source/site/images/services/icons/2.jpg" },
+    { "id": "decoration-fitout", "title": { "en": "Decoration & Fit-out", "ar": "" }, "text": { "en": "Premium corporate, retail, hospitality, and residential fit-out and decoration, including custom wall cladding and joinery through our carpentry division.", "ar": "" }, "relatedTypes": ["fit-out", "landscaping"], "showcaseLink": "#wall-cladding", "image": "assets/img/project-kf-inc-headquarters-05.webp", "icon": "source/site/images/services/icons/3.jpg" },
+    { "id": "renovation", "title": { "en": "Renovation", "ar": "" }, "text": { "en": "Complete building and villa refurbishments, interior modernisations, and structural updates executed on schedule.", "ar": "" }, "relatedTypes": ["renovation-decoration"], "image": "assets/img/project-dubai-marina-triplex-villa-04.webp", "icon": "source/site/images/services/icons/4.jpg" },
+    { "id": "maintenance", "title": { "en": "Maintenance", "ar": "" }, "text": { "en": "Ongoing technical services, active maintenance, and facility support that keep structures in prime condition long after handover.", "ar": "" }, "relatedTypes": [], "image": "assets/img/project-atlas-copco-headquarters-03.webp", "icon": "source/site/images/services/icons/5.jpg" },
+    { "id": "turnkey", "title": { "en": "Turnkey Projects", "ar": "" }, "text": { "en": "Experienced professionals handling all phases of construction — new build to renovation — coordinated with qualified subcontractors to meet deadlines.", "ar": "" }, "relatedTypes": [], "projectsLink": "projects.html?type=construction", "more": { "en": "Taameer Plus provides experienced and knowledgeable professionals to handle all phases of project construction. As a general contractor, we handle all types and volumes of projects, from new construction to renovations. Our project management team maintains full coordination throughout every phase with our field staff and qualified subcontractors, delivering projects on schedule with the highest standards of safety and quality to ensure deadlines are met.", "ar": "" }, "image": "assets/img/project-al-warqa-1st-g2-villa-06.webp", "icon": "source/site/images/services/icons/6.jpg" }
+  ],
+  "licenses": [
+    {
+      "id": "contracting",
+      "company": { "en": "Taameer Plus Contracting LLC", "ar": "" },
+      "licenseNo": "741846",
+      "legalType": { "en": "Limited Liability Company (LLC)", "ar": "" },
+      "registerNo": "1857822",
+      "dcciNo": "257369",
+      "issueDate": "2015-09-07",
+      "expiryDate": "2027-09-06",
+      "activities": [
+        { "en": "Building Contracting", "ar": "" },
+        { "en": "Decoration Design & Implementation", "ar": "" },
+        { "en": "Building Maintenance", "ar": "" }
+      ],
+      "status": { "en": "Active", "ar": "" },
+      "image": "assets/img/license-contracting.webp",
+      "pdf": "assets/docs/license-taameer-plus-contracting.pdf",
+      "note": "Read from the renewed licence (printed 31/08/2026) on taameer.ae"
+    },
+    {
+      "id": "carpentry",
+      "company": { "en": "Taameer Plus Carpentry LLC", "ar": "" },
+      "licenseNo": "1314264",
+      "legalType": { "en": "Limited Liability Company (LLC)", "ar": "" },
+      "registerNo": "2230336",
+      "dcciNo": "520139",
+      "issueDate": "2024-02-19",
+      "expiryDate": "2027-02-18",
+      "activities": [
+        { "en": "Carpentry", "ar": "" }
+      ],
+      "status": { "en": "Active", "ar": "" },
+      "image": "assets/img/license-carpentry.webp",
+      "pdf": "assets/docs/license-taameer-plus-carpentry.pdf",
+      "note": "Read from the licence (printed 27/02/2026) on taameer.ae"
+    }
   ],
   "partners": [
     { "name": "Al Gurm Real Estate", "logo": "assets/img/partner-al-gurm.webp", "blend": false },
