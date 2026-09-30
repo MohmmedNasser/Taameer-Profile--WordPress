@@ -2,6 +2,12 @@
 
 Non-obvious decisions. Format: **Context / Decision / Reason / Alternatives rejected.** Newest on top.
 
+### D-024 — Official brand locked in; switcher removed (Phase 2A)
+- Context: the client approved the Official brand after comparing both.
+- Decision: brand values merged into `tokens.css` (same token names, so components did not change); deleted brand-bronze/official/overrides CSS, the switcher (JS, CSS, first-paint script), `data-brand`, Cormorant/Manrope, and the two comparison scripts (`brand-compare.mjs` was tied to `?brand=` and the switcher; `brand-style-diff.mjs` was a one-off; `screenshot.mjs` covers general visual QA). `contrast.py` now reads `tokens.css`. The `v1-bronze` tag did not exist in the repo (it was only mentioned in docs), so it was created at the last bronze commit before deleting.
+- Reason: one design, one stylesheet set; bronze stays recoverable from git.
+- Alternatives: keep the brand layer for future rebrands (rejected: dead code in the WP port).
+
 ### D-023 — Brands as token sets; shared HTML/JS/component CSS
 - Context: the client must choose between the bronze design and the taameer.ae identity.
 - Decision: `tokens.css` keeps shared values (spacing, layout, motion, z-index, scale base). `brands/brand-<name>.css` holds colours, font families, display sizes (h1–h4, display, quote), display weight, button tracking, radii, shadows and button hover under `:root[data-brand="…"]`, with identical token names. `data-brand="bronze"` is the default on `<html>`. `brand-official-overrides.css` exists but is empty: no component needed a structural override.

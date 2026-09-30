@@ -1,7 +1,7 @@
 # Elementor mapping (Phase 4–5 build sheet)
 
 Every built section → how it is rebuilt in WordPress. Anchor = the `<!-- ELEMENTOR: … -->` / `HEADER` / `FOOTER` comment above each section in the HTML file (search for the section class).
-Global Colors = `--tp-color-*` tokens; Global Fonts = Cormorant Garamond (display) / Manrope (body); Arabic fonts added in Phase 3.
+Global Colors = `--tp-color-*` tokens; Global Fonts = Playfair Display (display) / Inter (body); Arabic fonts added in Phase 3.
 Animations: paste the class names into **Advanced → CSS Classes** (`tp-reveal`, `tp-stagger`, `tp-img-reveal`, `tp-parallax`, `tp-split`, `tp-counter`); Custom HTML attributes are an Elementor **Pro** feature, so on native widgets `data-tp-delay` / `data-tp-speed` are unavailable and the defaults apply; custom widgets expose delay, speed and counter values as controls.
 
 | Page | Section | HTML anchor | Build method | Editable controls |
@@ -25,26 +25,26 @@ Animations: paste the class names into **Advanced → CSS Classes** (`tp-reveal`
 `tp-hero`, `tp-marquee`, `tp-stats`, `tp-services-list`, `tp-projects-grid`, `tp-spec`, `tp-before-after`, `tp-testimonials` (PRD 8.2 lists Hero, Projects Grid, Before/After, Stats Counter, Team Cards, Testimonials, Marquee; `tp-services-list` and `tp-spec` are additions — see D-015).
 
 
-## Global Colors & Fonts (per brand — set up whichever brand the client chooses)
-Site Settings → Global Colors / Global Fonts. Values come from `assets/css/brands/brand-*.css`. In the child theme they live in one `brand.css` (`:root { … }`, no `data-brand` attribute once the choice is made).
+## Global Colors & Fonts
+Site Settings → Global Colors / Global Fonts. Values come from `assets/css/tokens.css`. In the child theme they live in one `:root { … }` block (`brand.css` or the theme's `tokens.css`).
 
-| Elementor Global Color | Token | Bronze | Official |
-|---|---|---|---|
-| Background | `--tp-color-bg` | `#FAF8F5` | `#FFFFFF` |
-| Surface | `--tp-color-surface` | `#FFFFFF` | `#FFFFFF` |
-| Section alt (Sand / Fog) | `--tp-color-sand` | `#EFE9E1` | `#F4F4F4` |
-| Border (Stone / Line) | `--tp-color-stone` | `#DDD4C7` | `#D9D9D9` |
-| Primary / Accent | `--tp-color-accent` | `#B08D57` | `#0D0D0D` |
-| Accent text | `--tp-color-accent-text` | `#826437` | `#262626` |
-| Secondary | `--tp-color-secondary` | `#546D74` | `#595959` |
-| Text | `--tp-color-text` | `#2E2A26` | `#0D0D0D` |
-| Text muted | `--tp-color-text-muted` | `#6B645C` | `#595959` |
-| On accent | `--tp-color-on-accent` | `#2E2A26` | `#FFFFFF` |
+| Elementor Global Color | Token | Value |
+|---|---|---|
+| Background | `--tp-color-bg` | `#FFFFFF` |
+| Surface | `--tp-color-surface` | `#FFFFFF` |
+| Section alt (Fog) | `--tp-color-sand` | `#F4F4F4` |
+| Border (Line) | `--tp-color-stone` | `#D9D9D9` |
+| Primary / Accent (Ink) | `--tp-color-accent` | `#0D0D0D` |
+| Accent text (Charcoal) | `--tp-color-accent-text` | `#262626` |
+| Secondary (Slate) | `--tp-color-secondary` | `#595959` |
+| Text | `--tp-color-text` | `#0D0D0D` |
+| Text muted | `--tp-color-text-muted` | `#595959` |
+| On accent | `--tp-color-on-accent` | `#FFFFFF` |
 
-| Elementor Global Font | Token | Bronze | Official |
-|---|---|---|---|
-| Primary (headings) | `--tp-font-display` | Cormorant Garamond, weight 300 | Playfair Display, weight 500 |
-| Secondary (body) | `--tp-font-body` | Manrope 400–600 | Inter 400–600 |
-| Arabic headings / body | `--tp-font-display-ar` / `--tp-font-body-ar` | Noto Kufi Arabic / IBM Plex Sans Arabic | same |
+| Elementor Global Font | Token | Value |
+|---|---|---|
+| Primary (headings) | `--tp-font-display` | Playfair Display, weight 500 (italic 400/500 for quotes) |
+| Secondary (body) | `--tp-font-body` | Inter 400–600 |
+| Arabic headings / body | `--tp-font-display-ar` / `--tp-font-body-ar` | Noto Kufi Arabic / IBM Plex Sans Arabic (Phase 3) |
 
-Elementor Free note: Global Colors take a hex only, so shadows, radii, the display scale (h1–h4 sizes, `--tp-fw-light`), button tracking and button hover colours stay in the theme's `brand.css`; they are not Elementor settings.
+Elementor Free note: Global Colors take a hex only, so shadows, radii, the display scale (h1–h4 sizes, `--tp-fw-light`), button tracking and button hover colours stay in the theme's token stylesheet; they are not Elementor settings.

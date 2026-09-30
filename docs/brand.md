@@ -1,4 +1,6 @@
-# Official brand identity (extracted from taameer.ae)
+# Brand identity (extracted from taameer.ae) — the only brand
+
+This is the one and only brand of the site (the client approved it over the warm-bronze variant, tag `v1-bronze`). It is implemented in `assets/css/tokens.css`.
 
 Source: the live site's inline `<style>` in `source/site/index.html` (the site has **no external stylesheet**; only Google Fonts + Font Awesome links) and the two logo JPGs. Nothing here is guessed; counts are occurrences in that stylesheet.
 

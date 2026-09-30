@@ -20,7 +20,7 @@ A static HTML/CSS/JS prototype of the bilingual (EN default / AR RTL) corporate 
 4. **BEM with `tp-` prefix**: `tp-hero`, `tp-hero__title`, `tp-card--featured`.
 5. **Elementor structure**: `<section class="tp-section …"> → <div class="tp-container"> → blocks`. Layouts must be buildable with Flexbox Containers. CSS Grid only inside blocks that become custom widgets.
 6. **Annotate every section**: `<!-- ELEMENTOR: native — Heading + Text Editor + Button -->` or `<!-- ELEMENTOR: custom widget "tp-projects-grid" — controls: … -->`.
-7. **All design values are tokens.** Shared ones in `assets/css/tokens.css`; brand ones (colors, font families, display sizes, radii, shadows, button hover) in `assets/css/brands/brand-<name>.css` under `:root[data-brand="…"]` with **identical token names in every brand**. No hard-coded colors/fonts/spacing/radii/shadows/durations in component CSS. Brands: `bronze` (default, tag `v1-bronze`) and `official` (taameer.ae identity, docs/brand-official.md). A brand-specific component treatment goes in `brands/brand-official-overrides.css` only if tokens cannot express it. New pages must carry `data-brand`, the head script and the brand `<link>`s. The switcher (`brand-switcher.js/.css` + head script) is **review-only** and is removed once the client chooses.
+7. **All design values are tokens**, all in `assets/css/tokens.css` (primitive/semantic brand values, then shared scales, then the component layer). No hard-coded colors/fonts/spacing/radii/shadows/durations in component CSS. One brand only: the taameer.ae identity on a light layout (`docs/brand.md`). The earlier warm-bronze design is recoverable via git tag `v1-bronze`; there is no brand switcher and no `data-brand` attribute.
 8. **Animation is class-driven** (below). No JS that targets elements by ID for animation.
 9. **Accessibility**: landmarks, one `<h1>` per page, visible focus, alt on every image, keyboard-operable widgets, WCAG AA contrast, full `prefers-reduced-motion`.
 10. **Performance**: `width`/`height` on every `<img>`, `loading="lazy"` below the fold, `srcset` with `-md` variant, `fetchpriority="high"` on the hero image.
@@ -29,11 +29,11 @@ A static HTML/CSS/JS prototype of the bilingual (EN default / AR RTL) corporate 
 13. Every CSS/JS file starts with a header comment: purpose, components using it, WP enqueue notes.
 
 ## Design tokens (summary — see `assets/css/tokens.css`)
-- Light, calm-luxury, architectural. **No dark mode, no dark sections** (footer too). Charcoal = text only.
-- Colors: `--tp-color-bg #FAF8F5`, `-surface #FFF`, `-sand #EFE9E1`, `-stone #DDD4C7`, `-accent #B08D57` (bronze, decorative/large only), `-accent-text #8A6A3B` (small bronze text), `-secondary #5E7A82`, `-text #2E2A26`, `-text-muted #6B645C`. Contrast results: `docs/decisions.md`.
-- Fonts: EN display **Cormorant Garamond** 300–500, EN body **Manrope** 400–600; AR display **Noto Kufi Arabic**, AR body **IBM Plex Sans Arabic** (tokens only until Phase 3).
-- Fluid type via `clamp()`; radii 4–8px; warm soft shadows; "+" logo motif for markers, bullets, separators and hover cues.
-- Signature: bronze "+" setting-out marks on framed images (`.tp-frame`), drawing title-block facts (`.tp-spec`). Tokens have 3 layers (primitive → semantic → component); `validate-tokens.cjs` from the design-system skill must report 0 violations. Accent-text/secondary were darkened for AA (D-013).
+- Light, architectural, restrained. **No dark mode, no dark sections** (footer too). Ink = text, lines and button fills.
+- Colors (monochrome ink/grey/white): `--tp-color-bg #FFF`, `-surface #FFF`, `-sand #F4F4F4`, `-stone #D9D9D9`, `-accent #0D0D0D` (ink: marks, hairlines, button fills), `-accent-text #262626`, `-secondary #595959`, `-text #0D0D0D`, `-text-muted #595959`. Contrast: `python scripts/contrast.py` (0 failing), `docs/decisions.md`.
+- Fonts: EN display **Playfair Display** (400–600, weight token 500), EN body **Inter** (400–600); AR display **Noto Kufi Arabic**, AR body **IBM Plex Sans Arabic** (tokens only until Phase 3).
+- Fluid type via `clamp()`; radii 2–10px; neutral soft shadows; "+" logo motif for markers, bullets, separators and hover cues.
+- Signature: ink "+" setting-out marks on framed images (`.tp-frame`), drawing title-block facts (`.tp-spec`). Tokens have 3 layers (primitive → semantic → component); `validate-tokens.cjs` from the design-system skill must report 0 violations.
 
 ## Animation classes (`animations.css` + `animations.js`)
 | Class | Behavior |

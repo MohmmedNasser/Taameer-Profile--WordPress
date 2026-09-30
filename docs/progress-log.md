@@ -2,6 +2,12 @@
 
 One entry per completed task, newest on top. Format: Did / Files / Issues / Next.
 
+### 2026-09-30 — Phase 2A · Part A: Official brand locked in
+- Did: created git tag `v1-bronze` (it did not exist), merged brand-official.css into tokens.css, deleted bronze/official/overrides CSS, switcher JS/CSS, first-paint script, `data-brand`, Cormorant + Manrope, brand-compare.mjs, brand-style-diff.mjs. Renamed docs/brand-official.md → docs/brand.md; updated CLAUDE.md, elementor-mapping.md, contrast.py (reads tokens.css).
+- Verified: contrast 0 failing; validate-tokens 0 violations; interaction-test all PASS; homepage screenshots (375/768/1280/1920 LTR+RTL+reduced) in source/screenshots/phase-2/, 0 console issues, no overflow; pixel diff vs brand-compare/official-* differs only where scroll/animation state differs (accordion image mid-crossfade).
+- Housekeeping: `git worktree prune` + `git worktree list` → only the main worktree; no stale worktree registered.
+- Issues: playwright 1.63 copy in npm-cache `_npx/e41f203b7505f1fb` matches installed browsers (1.61 copy does not).
+
 ### 2026-09-30 — Official brand variant + review switcher
 - Did: git init, commit `Phase 1: bronze design (v1)`, tag `v1-bronze`. Extracted the taameer.ae identity (docs/brand-official.md). Audit: the CSS had no hard-coded colours, font names, shadows, radii or durations (grep of base/layout/components/animations found only `transparent`, `currentColor` and the `--tp-mask-solid` token); the only findings were two token-usage bugs in `.tp-fab` (foreground `--tp-color-text` on the accent fill; hover swapping text/bg instead of the button-hover tokens), fixed with unchanged bronze values. Split tokens into `tokens.css` (shared) + `brands/brand-bronze.css` (moved unchanged) + `brands/brand-official.css` + empty `brand-official-overrides.css`. Review switcher: `brand-switcher.js/.css` (REVIEW ONLY); a head script applies `?brand=` / the saved choice before first paint. `contrast.py` takes a brand argument. New `scripts/brand-compare.mjs`.
 - Verified: bronze vs `v1-bronze` tag = 0 computed-style differences on 506 elements (full-page pixel diffs differ only through marquee/animation timing); 12 screenshots (both brands × 375/768/1280/1920, plus RTL at 375/1280) in source/screenshots/brand-compare/ with no console errors, no horizontal overflow, `data-brand` set before DOMContentLoaded; official contrast 0 failing pairs; RTL mirrors in both brands.

@@ -3,7 +3,7 @@
 
 | | |
 |---|---|
-| **Version** | 1.2 — Draft for client review |
+| **Version** | 1.3 — Homepage design approved |
 | **Date** | 30 September 2026 |
 | **Prepared by** | Mohammed (Frontend Developer) |
 | **Client** | Taameer Plus Contracting LLC, Dubai, UAE |
@@ -183,7 +183,7 @@ The 4 buildings on PDF pages 32–33 (hotel in Al Barsha, residential tower in N
 
 - English is the default language with no URL prefix; Arabic uses `/ar/`.
 - Arabic pages render right-to-left with mirrored layouts, animations, sliders and marquee direction.
-- Arabic typography uses dedicated Arabic fonts (Noto Kufi Arabic for headings, IBM Plex Sans Arabic for body).
+- Arabic typography uses dedicated Arabic fonts: IBM Plex Sans Arabic for body; the Arabic heading font will be chosen in Phase 3 to pair with Playfair Display.
 - Every page, project, team member and testimonial has an Arabic version linked through Polylang.
 - Theme strings (buttons, labels, form fields, 404 text) are translatable through Polylang string translation.
 - The language switcher links to the equivalent page in the other language, not to the homepage.
@@ -228,9 +228,10 @@ Entrance and scroll animations are applied by adding CSS classes in Elementor's 
 
 ## 9. Design requirements
 
-- Light, modern, architectural aesthetic inspired by the materials in the project photography: warm stone, travertine, oak, bronze.
-- **No dark mode and no dark sections.** Dark tones are used for text only.
-- Serif display typography echoing the thin-serif logo; clean sans-serif body text.
+- **Approved identity: "Official"**, derived from the company's current website: a monochrome palette of ink `#0D0D0D`, charcoal `#262626`, slate `#595959`, line `#D9D9D9`, fog `#F4F4F4` and white. No chromatic accent color. The neutral frame lets the project photography carry the color.
+- Typography: Playfair Display (headings) and Inter (body, UI). Uppercase buttons with small radius.
+- **No dark mode and no dark sections.** Ink is used for text, the "+" motif, hairlines, solid buttons and small elements only; section backgrounds are white and fog.
+- The alternative "bronze" design is archived in git (tag `v1-bronze`) and is not part of the build.
 - The "+" from the logo is used as a recurring design motif.
 - Motion is subtle and purposeful; all motion is disabled when the user's system requests reduced motion.
 - Full design tokens (colors, type scale, spacing) are defined in the static prototype and mapped to Elementor Global Colors and Fonts.
@@ -276,7 +277,7 @@ Entrance and scroll animations are applied by adding CSS classes in Elementor's 
 - Tokens, animation system, header, footer and homepage complete
 - No console errors, no horizontal scroll at any tested width
 - Layout mirrors correctly when `dir="rtl"` is applied
-- **Gate: client approves the homepage design before Phase 2**
+- **Gate: client approves the homepage design before Phase 2** — ✅ Approved: Official identity
 
 ### Phase 2 — Remaining English pages
 - About, Services, Projects (with filtering), Project detail, Testimonials, Contact, 404
@@ -312,15 +313,16 @@ The source PDF contains spelling and grammar errors that are corrected on the we
 
 | # | Question | Blocks |
 |---|---|---|
-| 1 | Can you provide the logo in vector format (SVG, AI or PDF)? The website logo is a JPG. | Phase 1 final |
-| 2 | Do you have original high-resolution photos for projects not on the current website? | Phase 2 |
-| 3 | If the license files on the current website are not the renewed versions, can you send them? (The PDF copy of license 741846 shows expiry 6 September 2026.) | Phase 2 |
-| 4 | Office working hours? | Phase 2 |
-| 5 | Where should contact form submissions be sent? | Phase 5 |
-| 6 | Does the Jan's Noodles appreciation letter have a text version we can quote? | Phase 2 |
-| 7 | Who will review and approve the Arabic copy? | Phase 3 |
-| 8 | Should the partner logos be linked to the partners' websites? | Phase 2 |
-| 9 | The new site replaces the current taameer.ae. Are there existing URLs or Google rankings to preserve with redirects? | Phase 5 |
+| 1 | Can you provide the logo in vector format (SVG, AI or PDF)? The website logo is a JPG. | Launch |
+| 2 | Are original high-resolution photos available? 108 of 191 images are under 1200px, including the Palm Jumeirah villa and all PDF-only projects, plus unwatermarked Jumeirah Golf Estates photos. | Phase 2 |
+| 3 | Do originals exist for the services banner and hero background that return errors on the current website? | Phase 2 |
+| 4 | Please confirm letter-to-project links: Atlas Copco → Atlas Copco HQ; Bella Cure → Mirdif beauty lounge. Which project was Jan's Noodles, and does that letter have a text version? | Phase 2 |
+| 5 | What is the company behind the "R" monogram partner logo? Should partner logos link to their websites? | Phase 2 |
+| 6 | Office working hours? | Phase 2 |
+| 7 | Please review edited copy, including the spellings "Al-Ali" and "Al-Otaibi". | Phase 2 |
+| 8 | Where should contact form submissions be sent? | Phase 5 |
+| 9 | Who will review and approve the Arabic copy? | Phase 3 |
+| 10 | The new site replaces the current taameer.ae. Are there existing URLs or Google rankings to preserve with redirects? | Phase 5 |
 
 ---
 
@@ -342,5 +344,6 @@ The source PDF contains spelling and grammar errors that are corrected on the we
 | Version | Date | Change |
 |---|---|---|
 | 1.0 | 30 Sep 2026 | Initial draft |
+| 1.3 | Phase 1 review | Homepage approved with the Official identity (monochrome, Playfair Display + Inter); bronze archived; renewed contracting license (expires 06/09/2027) confirmed from website; open questions updated from Phase 1 findings |
 | 1.2 | 30 Sep 2026 | Current website taameer.ae added as a second, higher-priority source: updated stats, 6 services, Why Choose Us, partners, contact channels, 1 new project, project fact corrections; open questions reduced |
 | 1.1 | 30 Sep 2026 | All PDF images and data approved for use, including licenses and all letters; stock images allowed for gaps; documentation and single-agent rules added |

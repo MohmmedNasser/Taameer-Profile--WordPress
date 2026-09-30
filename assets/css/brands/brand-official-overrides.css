@@ -1,7 +1,0 @@
-/* ==========================================================================
-   brand-official-overrides.css — component treatments the "official" brand needs beyond token values.
-   Keep as small as possible; every rule states why a token could not do the job.
-   Components using it: see each rule. WP: merge into the child theme only if the official brand is chosen.
-   ========================================================================== */
-
-/* (none yet) */
