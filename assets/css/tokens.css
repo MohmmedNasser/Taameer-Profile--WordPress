@@ -1,0 +1,125 @@
+/* ==========================================================================
+   tokens.css — Taameer Plus SHARED design tokens (spacing, type scale base, layout, motion, z-index, sizes)
+   Brand tokens (colors, font families, display sizes, radii, shadows, button hover) live in brands/brand-*.css,
+   scoped by :root[data-brand="…"] with IDENTICAL names in every brand. Component CSS references tokens only.
+   WP: enqueue first (handle "tp-tokens"), then the chosen brand file; all other styles depend on both.
+       Colors map to Elementor Global Colors, font families to Global Fonts (see docs/elementor-mapping.md).
+   Contrast of every text/background pair: python scripts/contrast.py <brand>.
+   ========================================================================== */
+
+:root {
+  /* ---- Typography: families ---- */
+  --tp-font-display-ar: "Noto Kufi Arabic", "Segoe UI", Tahoma, sans-serif;     /* Phase 3 */
+  --tp-font-body-ar: "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;    /* Phase 3 */
+
+  /* ---- Typography: weights ---- */
+  --tp-fw-regular: 400;
+  --tp-fw-medium: 500;
+  --tp-fw-semibold: 600;
+
+  /* ---- Typography: fluid scale (360px → 1920px viewport) ---- */
+  --tp-fs-xs: clamp(0.75rem, 0.73rem + 0.08vw, 0.8125rem);
+  --tp-fs-sm: clamp(0.875rem, 0.86rem + 0.06vw, 0.9375rem);
+  --tp-fs-base: clamp(1rem, 0.97rem + 0.12vw, 1.0625rem);
+  --tp-fs-lg: clamp(1.125rem, 1.07rem + 0.24vw, 1.3125rem);
+
+  --tp-lh-tight: 1.05;
+  --tp-lh-heading: 1.15;
+  --tp-lh-body: 1.7;
+  --tp-lh-snug: 1.35;
+  --tp-lh-none: 1;
+  --tp-tracking-eyebrow: 0.22em;
+  --tp-tracking-display: -0.01em;
+
+  /* ---- Spacing ---- */
+  --tp-space-1: 0.25rem;
+  --tp-space-2: 0.5rem;
+  --tp-space-3: 0.75rem;
+  --tp-space-4: 1rem;
+  --tp-space-5: 1.5rem;
+  --tp-space-6: 2rem;
+  --tp-space-7: 3rem;
+  --tp-space-8: 4rem;
+  --tp-space-9: 6rem;
+  --tp-space-10: 8rem;
+  --tp-section-pad: clamp(4.5rem, 3.2rem + 5.5vw, 9.5rem);
+  --tp-section-pad-tight: clamp(2.5rem, 2rem + 2vw, 4rem);
+  --tp-gutter: clamp(1.25rem, 0.6rem + 3vw, 3rem);
+  --tp-gap: clamp(1.5rem, 1rem + 2vw, 3.5rem);
+
+  /* ---- Layout ---- */
+  --tp-container: 82.5rem;           /* 1320px */
+  --tp-container-narrow: 52rem;
+  --tp-header-h: 5rem;
+  --tp-header-h-mobile: 4.25rem;
+  --tp-measure: 38rem;               /* max line length for body copy */
+  --tp-hero-lead-w: 34rem;
+  --tp-hero-media-w: 36rem;          /* hero photo is 576px native: keep it near 1x on desktop */
+  --tp-portrait-w: 26rem;
+  --tp-ba-max-w: 36rem;              /* before/after sources are ~460px */
+  --tp-partner-max-w: 10rem;
+  --tp-footer-blurb-w: 30rem;
+  --tp-footer-label-w: 3.75rem;
+  --tp-bp-nav: 64rem;                /* documentation only: nav collapses below 1024px (media queries can't use vars) */
+
+  /* ---- Borders & radii ---- */
+  --tp-border-w: 1px;
+  --tp-hairline: var(--tp-border-w) solid var(--tp-color-stone);
+  --tp-hairline-accent: var(--tp-border-w) solid var(--tp-color-accent);
+  --tp-radius-round: 50%;            /* the WhatsApp button only */
+  --tp-focus-ring: 2px solid var(--tp-color-focus);
+  --tp-focus-offset: 3px;
+
+  /* ---- Shadows: see brands/brand-*.css ---- */
+
+  /* ---- Motion ---- */
+  --tp-dur-fast: 200ms;
+  --tp-dur-base: 400ms;
+  --tp-dur-slow: 800ms;
+  --tp-dur-reveal: 1000ms;
+  --tp-dur-marquee: 45s;
+  --tp-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --tp-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --tp-reveal-distance: 2.5rem;
+  --tp-stagger-step: 110ms;
+  --tp-hover-zoom: 1.05;
+
+  /* ---- Layers ---- */
+  --tp-z-base: 1;
+  --tp-z-fab: 80;
+  --tp-z-header: 100;
+  --tp-z-menu: 200;
+  --tp-z-skip: 300;
+
+  /* ==== Component layer (primitive → semantic → component; components read only these or semantic) ==== */
+  --tp-btn-bg: var(--tp-color-accent);
+  --tp-btn-fg: var(--tp-color-on-accent);
+  --tp-btn-pad-block: 0.95rem;
+  --tp-btn-pad-inline: 1.75rem;
+  --tp-card-bg: var(--tp-color-surface);
+  --tp-card-radius: var(--tp-radius-md);
+  --tp-card-shadow: var(--tp-shadow-sm);
+  --tp-card-shadow-hover: var(--tp-shadow-md);
+  --tp-mark-color: var(--tp-color-accent);     /* setting-out "+" marks on framed images */
+  --tp-mark-size: 1.125rem;
+  --tp-mark-offset: -0.5625rem;                /* half the mark: centres the cross on the frame corner */
+  --tp-frame-inset: clamp(0.75rem, 0.5rem + 1vw, 1.5rem);
+  --tp-eyebrow-color: var(--tp-color-accent-text);
+  --tp-meta-color: var(--tp-color-secondary);
+
+  /* ---- Component sizes ---- */
+  --tp-touch: 2.75rem;               /* 44px minimum touch target */
+  --tp-nav-gap: clamp(1rem, 0.2rem + 1.5vw, 2.25rem);
+  --tp-marquee-gap: clamp(2.5rem, 1.5rem + 4vw, 5.5rem);
+  --tp-cta-pad: clamp(2rem, 1rem + 5vw, 6rem);
+  --tp-letter-thumb: 3.25rem;
+  --tp-blur-header: 10px;
+  --tp-mask-solid: #000;             /* mask-image opacity stop (not a visible colour) */
+  --tp-logo-h: 2.75rem;
+  --tp-logo-h-footer: 3.25rem;
+  --tp-partner-h: 3rem;
+  --tp-fab-size: 3.5rem;
+  --tp-icon: 1.25rem;
+  --tp-plus: 0.75rem;                /* the "+" motif */
+  --tp-ba-handle: 2.75rem;
+}

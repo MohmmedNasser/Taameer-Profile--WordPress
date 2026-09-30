@@ -1,0 +1,120 @@
+/* ==========================================================================
+   animations.css — class-driven motion system (pairs with assets/js/animations.js + counters.js)
+   Classes (apply in Elementor: Advanced → CSS Classes):
+     tp-reveal [--up|--down|--start|--end|--scale]  fade + move on enter
+     tp-stagger     parent; children reveal in sequence (JS sets --tp-i on each child)
+     tp-parallax    scroll parallax (JS sets --tp-py); data-tp-speed
+     tp-split       headline revealed line by line (JS wraps lines)
+     tp-img-reveal  clip-path wipe from the inline-start edge
+     tp-counter     count-up, JS only (data-tp-target / -from / -prefix / -suffix)
+   data-tp-delay="ms" on any of them (JS copies it to --tp-delay).
+   Hidden initial states apply ONLY under html.tp-js, so content is visible if JS fails.
+   prefers-reduced-motion: reduce → no hidden states, no motion, marquee becomes a static wrapped row.
+   WP: enqueue after components.css (handle "tp-animations").
+   ========================================================================== */
+
+:root {
+  --tp-dir-x: 1; /* -1 in RTL (see bottom) so start/end variants flip */
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+  /* ---- tp-reveal ---- */
+  .tp-js .tp-reveal {
+    opacity: 0;
+    transform: translate3d(0, var(--tp-reveal-distance), 0);
+    transition:
+      opacity var(--tp-dur-reveal) var(--tp-ease-out),
+      transform var(--tp-dur-reveal) var(--tp-ease-out);
+    transition-delay: var(--tp-delay, 0ms);
+  }
+
+  .tp-js .tp-reveal--down { transform: translate3d(0, calc(-1 * var(--tp-reveal-distance)), 0); }
+  .tp-js .tp-reveal--start { transform: translate3d(calc(-1 * var(--tp-dir-x) * var(--tp-reveal-distance)), 0, 0); }
+  .tp-js .tp-reveal--end { transform: translate3d(calc(var(--tp-dir-x) * var(--tp-reveal-distance)), 0, 0); }
+  .tp-js .tp-reveal--scale { transform: scale(0.94); }
+
+  .tp-js .tp-reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ---- tp-stagger ---- */
+  .tp-js .tp-stagger > * {
+    opacity: 0;
+    transform: translate3d(0, var(--tp-reveal-distance), 0);
+    transition:
+      opacity var(--tp-dur-reveal) var(--tp-ease-out),
+      transform var(--tp-dur-reveal) var(--tp-ease-out);
+    transition-delay: calc(var(--tp-delay, 0ms) + var(--tp-i, 0) * var(--tp-stagger-step));
+  }
+
+  .tp-js .tp-stagger.is-visible > * {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ---- tp-img-reveal ---- */
+  .tp-js .tp-img-reveal {
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path calc(var(--tp-dur-reveal) * 1.3) var(--tp-ease-in-out);
+    transition-delay: var(--tp-delay, 0ms);
+  }
+
+  .tp-js .tp-img-reveal.is-visible { clip-path: inset(0); }
+
+  /* ---- tp-split (lines built by animations.js) ---- */
+  .tp-split__line {
+    display: block;
+    overflow: hidden;
+    padding-block-end: 0.08em; /* keeps descenders inside the mask */
+  }
+
+  .tp-split__inner {
+    display: inline-block;
+    transform: translate3d(0, 105%, 0);
+    transition: transform var(--tp-dur-reveal) var(--tp-ease-out);
+    transition-delay: calc(var(--tp-delay, 0ms) + var(--tp-i, 0) * var(--tp-stagger-step));
+  }
+
+  .tp-split.is-visible .tp-split__inner { transform: none; }
+
+  /* ---- tp-parallax (image is scaled so moving it never exposes an edge) ---- */
+  .tp-js .tp-parallax {
+    transform: translate3d(0, var(--tp-py, 0px), 0) scale(1.12);
+    will-change: transform;
+  }
+}
+
+/* ---- Reduced motion: everything static and visible ---- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .tp-marquee { mask-image: none; }
+  .tp-marquee__track {
+    flex-wrap: wrap;
+    justify-content: center;
+    flex: 1 1 auto;
+    padding-inline: var(--tp-gutter);
+    row-gap: var(--tp-space-6);
+    animation: none;
+  }
+  .tp-marquee__track[aria-hidden="true"] { display: none; }
+}
+
+/* ---- RTL: flip start/end reveal and the wipe origin ---- */
+[dir="rtl"] { --tp-dir-x: -1; }
+
+@media (prefers-reduced-motion: no-preference) {
+  [dir="rtl"].tp-js .tp-img-reveal,
+  [dir="rtl"] .tp-js .tp-img-reveal { clip-path: inset(0 0 0 100%); }
+  [dir="rtl"].tp-js .tp-img-reveal.is-visible,
+  [dir="rtl"] .tp-js .tp-img-reveal.is-visible { clip-path: inset(0); }
+}

@@ -1,0 +1,52 @@
+/* REVIEW ONLY — remove before WordPress conversion */
+/* ==========================================================================
+   brand-switcher.css — floating "Bronze | Official" pill for client review.
+   Used by: assets/js/brand-switcher.js (injects .tp-brandswitch). Not part of the theme.
+   ========================================================================== */
+
+.tp-brandswitch {
+  position: fixed;
+  inset-block-end: var(--tp-space-5);
+  inset-inline-start: var(--tp-space-5);
+  z-index: var(--tp-z-fab);
+  display: inline-flex;
+  padding: var(--tp-space-1);
+  gap: var(--tp-space-1);
+  background: var(--tp-color-surface);
+  border: var(--tp-hairline);
+  border-radius: 999px;
+  box-shadow: var(--tp-shadow-lg);
+  font-family: var(--tp-font-body);
+  font-size: var(--tp-fs-xs);
+}
+
+.tp-brandswitch__btn {
+  min-block-size: var(--tp-touch);
+  padding-inline: var(--tp-space-4);
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--tp-color-text);
+  font: inherit;
+  font-weight: var(--tp-fw-semibold);
+  letter-spacing: var(--tp-tracking-button);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color var(--tp-dur-fast) var(--tp-ease-out), color var(--tp-dur-fast) var(--tp-ease-out);
+}
+
+.tp-brandswitch__btn:hover { background: var(--tp-color-sand); }
+
+.tp-brandswitch__btn[aria-pressed="true"] {
+  background: var(--tp-btn-bg);
+  color: var(--tp-btn-fg);
+}
+
+.tp-brandswitch__btn:focus-visible {
+  outline: var(--tp-focus-ring);
+  outline-offset: var(--tp-focus-offset);
+}
+
+@media print {
+  .tp-brandswitch { display: none; }
+}

@@ -1,0 +1,62 @@
+{
+  "_note": "Global settings. Contact block maps to the WP Customizer (PRD 5.1); nav maps to Appearance → Menus. Strings are {en, ar}.",
+  "company": {
+    "name": { "en": "Taameer Plus Contracting LLC", "ar": "" },
+    "tagline": { "en": "Construct A Better Tomorrow", "ar": "" },
+    "footerBlurb": { "en": "A leading contracting, design, fit-out and technical services provider based in Dubai, UAE — building trust before concrete since 2015.", "ar": "" },
+    "logo": "assets/img/logo-taameer-plus.webp",
+    "profilePdf": "assets/docs/taameer-plus-company-profile.pdf",
+    "copyright": { "en": "© 2026 Taameer Plus Contracting LLC. All rights reserved.", "ar": "" }
+  },
+  "contact": {
+    "address": { "en": "Sky Business Building, Office M30, Festival City, Dubai, UAE", "ar": "" },
+    "officePhone": { "display": "+971 4 329 0500", "tel": "+97143290500" },
+    "mobile": { "display": "+971 50 302 9281", "tel": "+971503029281" },
+    "whatsapp": { "display": "+971 50 302 9281", "url": "https://wa.me/971503029281" },
+    "email": "info@taameer.ae",
+    "instagram": { "handle": "@taameer_contracting", "url": "https://instagram.com/taameer_contracting" },
+    "website": "https://www.taameer.ae"
+  },
+  "nav": [
+    { "label": { "en": "Home", "ar": "" }, "href": "index.html" },
+    { "label": { "en": "About", "ar": "" }, "href": "about.html" },
+    { "label": { "en": "Services", "ar": "" }, "href": "services.html" },
+    { "label": { "en": "Projects", "ar": "" }, "href": "projects.html" },
+    { "label": { "en": "Testimonials", "ar": "" }, "href": "testimonials.html" },
+    { "label": { "en": "Contact", "ar": "" }, "href": "contact.html" }
+  ],
+  "stats": [
+    { "value": 2015, "display": "2015", "counter": true, "suffix": "", "label": { "en": "Established in Dubai", "ar": "" } },
+    { "value": null, "display": "G+4", "counter": false, "suffix": "", "label": { "en": "Approved Contractor", "ar": "" } },
+    { "value": 100, "display": "100+", "counter": true, "suffix": "+", "label": { "en": "Delivered Projects", "ar": "" } }
+  ],
+  "whyUs": [
+    { "title": { "en": "Approved G+4 Contractor", "ar": "" }, "text": { "en": "Licensed by the Government of Dubai for multi-story residential and commercial structural developments.", "ar": "" } },
+    { "title": { "en": "Turnkey & Value Engineering", "ar": "" }, "text": { "en": "Design-Build contracts covering structural, architectural, and electromechanical works under one roof, saving cost and time.", "ar": "" } },
+    { "title": { "en": "Uncompromising Quality", "ar": "" }, "text": { "en": "Rigorous quality control, trustworthy relations with private and government agencies, and reliable delivery timelines.", "ar": "" } }
+  ],
+  "services": [
+    { "id": "construction", "title": { "en": "Construction", "ar": "" }, "text": { "en": "Full-scale construction ranging from G+1 luxury villas to G+4 residential and commercial buildings, with complete structural integrity.", "ar": "" }, "image": "assets/img/project-dubai-g-residential-villa-02.webp", "icon": "source/site/images/services/icons/1.jpg" },
+    { "id": "design-build", "title": { "en": "Design & Build", "ar": "" }, "text": { "en": "Direct single-contract solutions covering structural, architectural, and electromechanical works, evaluated for cost and buildability by one team.", "ar": "" }, "image": "assets/img/project-al-awir-villas-02.webp", "icon": "source/site/images/services/icons/2.jpg" },
+    { "id": "decoration-fitout", "title": { "en": "Decoration & Fit-out", "ar": "" }, "text": { "en": "Premium corporate, retail, hospitality, and residential fit-out and decoration, including custom wall cladding and joinery through our carpentry division.", "ar": "" }, "image": "assets/img/project-kf-inc-headquarters-05.webp", "icon": "source/site/images/services/icons/3.jpg" },
+    { "id": "renovation", "title": { "en": "Renovation", "ar": "" }, "text": { "en": "Complete building and villa refurbishments, interior modernisations, and structural updates executed on schedule.", "ar": "" }, "image": "assets/img/project-dubai-marina-triplex-villa-04.webp", "icon": "source/site/images/services/icons/4.jpg" },
+    { "id": "maintenance", "title": { "en": "Maintenance", "ar": "" }, "text": { "en": "Ongoing technical services, active maintenance, and facility support that keep structures in prime condition long after handover.", "ar": "" }, "image": "assets/img/project-atlas-copco-headquarters-03.webp", "icon": "source/site/images/services/icons/5.jpg" },
+    { "id": "turnkey", "title": { "en": "Turnkey Projects", "ar": "" }, "text": { "en": "Experienced professionals handling all phases of construction — new build to renovation — coordinated with qualified subcontractors to meet deadlines.", "ar": "" }, "image": "assets/img/project-al-warqa-1st-g2-villa-06.webp", "icon": "source/site/images/services/icons/6.jpg" }
+  ],
+  "partners": [
+    { "name": "Al Gurm Real Estate", "logo": "assets/img/partner-al-gurm.webp", "blend": false },
+    { "name": "Al Bastaki Business Services", "logo": "assets/img/partner-al-bastaki.webp", "blend": true },
+    { "name": "A.M.E.C.", "logo": "assets/img/partner-amec.webp", "blend": false },
+    { "name": "Al Sondos Holding", "logo": "assets/img/partner-al-sondos.webp", "blend": true },
+    { "name": "Atlas Copco", "logo": "assets/img/partner-atlas-copco.webp", "blend": true },
+    { "name": "Cooltech, a Tabreed company", "logo": "assets/img/partner-cooltech.webp", "blend": true },
+    { "name": "CIFA, a Zoomlion company", "logo": "assets/img/partner-cifa.webp", "blend": false },
+    { "name": "Innovative Consultants", "logo": "assets/img/partner-innovative-consultants.webp", "blend": true },
+    { "name": "KF INC Investment Group", "logo": "assets/img/partner-kf-inc.webp", "blend": true },
+    { "name": "Nahas Interiors", "logo": "assets/img/partner-nahas-interiors.webp", "blend": false },
+    { "name": "Oceanworld Group of Companies", "logo": "assets/img/partner-oceanworld.webp", "blend": false },
+    { "name": "RD2 Design", "logo": "assets/img/partner-rd2-design.webp", "blend": false },
+    { "name": "Partner (R monogram)", "logo": "assets/img/partner-r-monogram.webp", "blend": false },
+    { "name": "OWA", "logo": "assets/img/partner-owa.webp", "blend": true }
+  ]
+}

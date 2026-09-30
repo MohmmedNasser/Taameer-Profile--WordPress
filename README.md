@@ -1,0 +1,31 @@
+# Taameer Plus — static prototype
+
+Bilingual (EN / AR) corporate site prototype for Taameer Plus Contracting LLC. Vanilla HTML/CSS/JS, no build step. Will be ported to a Hello Elementor child theme. Read `CLAUDE.md` first, then `docs/PRD.md`.
+
+## Run locally
+Some sections are rendered from `data/*.json` with `fetch()`, which browsers block on `file://`. Serve the folder:
+
+```
+npx serve .
+```
+Then open http://localhost:3000. (VS Code Live Server also works.)
+
+## Scripts
+| Script | Purpose |
+|---|---|
+| `python scripts/extract_pdf.py` | PDF → text + images (`--raw`, `--export`) |
+| `python scripts/fetch_site.py` | Mirror images/docs from taameer.ae (polite, skips existing) |
+| `python scripts/site_to_text.py` | Site HTML → `source/site-content.md` |
+| `python scripts/build_site_images.py` | Merge site + PDF images (keeps higher res, dedupes), writes `docs/image-map.md` |
+| `python scripts/image_meta.py` | Refresh `imageMeta` (width/height/-md) in `data/projects.json` |
+| `python scripts/contrast.py` | WCAG contrast of every token text/background pair |
+| `node scripts/screenshot.mjs` | Playwright: 4 widths × LTR/RTL + reduced motion; console/network/overflow |
+| `node scripts/interaction-test.mjs` | Playwright: skip link, mobile menu focus trap/Esc, before/after keys + pointer (LTR/RTL) |
+
+Image pipeline order: `extract_pdf.py --export` → `build_site_images.py` → `image_meta.py`.
+
+Playwright is not a dependency. If it is not resolvable, point `PW_MODULE` at an installed copy, e.g.
+`PW_MODULE=~/AppData/Local/npm-cache/_npx/<hash>/node_modules/playwright node scripts/screenshot.mjs`
+(serve first: `python -m http.server 5173`).
+
+Requires Python 3 with `pymupdf pillow`; Node 18+ with Playwright for screenshots.
