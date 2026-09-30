@@ -86,6 +86,6 @@ data/     projects.json · team.json · testimonials.json · site.json
 5. Content import + Elementor page builds exported as JSON templates
 
 ## Current state
-- **Phase:** 1 complete — **awaiting client choice between the bronze and official brands** (then homepage approval, PRD gate)
-- **Last completed task:** Official brand variant + review switcher (`?brand=official|bronze`; screenshots in source/screenshots/brand-compare/)
-- **Next task (after the brand is chosen; first delete the other brand file, the switcher and unused fonts):** Phase 2 — about.html first (reuse tp-frame, tp-spec, team.json, licenses, teamExperience); then services, projects (filter), project (JSON template), testimonials, contact, 404. Open client questions: see last progress-log entry / PRD §14.
+- **Phase:** Phase 2A complete; next: Phase 2B (projects, project detail, testimonials, contact, 404).
+- **Last completed task:** about.html and services.html on the locked-in Official brand, with shared partials, lightbox, page hero and SEO head (see docs/progress-log.md).
+- **Next task:** Phase 2B — projects.html (filter; honour `?type=` used by the Turnkey link), project.html (JSON template, gallery in the lightbox, before/after), testimonials.html (letters in the lightbox), contact.html, 404.html; then Phase 2 acceptance (Lighthouse). Reuse `tp-page-hero`, `lightbox.js`, `tp-projects-grid`, the PARTIAL blocks (copy from index.html; run `scripts/check-partials.py`). Open client questions: PRD §14 + last progress-log entries.
