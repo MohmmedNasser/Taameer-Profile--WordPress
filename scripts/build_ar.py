@@ -91,6 +91,10 @@ def fix_tag(tag, page):
     name = re.match(r'<\s*/?\s*([A-Za-z0-9-]+)', tag)
     name = name.group(1).lower() if name else ''
 
+    # Phone numbers, e-mail addresses and handles must never be reordered by the bidi algorithm.
+    if name == 'a' and re.search(r'href="(?:tel:|mailto:|https://wa\.me/|https://instagram\.com/)', tag) and ' dir=' not in tag:
+        tag = tag[:-1] + ' dir="ltr">'
+
     def attr(m):
         sp, k, eq, v = m.group(1), m.group(2), m.group(3), m.group(4)
         raw = html.unescape(v)
