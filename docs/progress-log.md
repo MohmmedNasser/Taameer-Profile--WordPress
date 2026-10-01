@@ -2,6 +2,10 @@
 
 One entry per completed task, newest on top. Format: Did / Files / Issues / Next.
 
+### 2026-10-01 — Phase 3 · Part B: Arabic glossary
+- Did: `docs/glossary-ar.md` (rules, company/business terms, navigation/interface, places in UAE forms, people, durations with number–noun agreement). People and the Carpentry LLC name are marked for client confirmation.
+- Next: Part C (Arabic content in data/*.json and page copy).
+
 ### 2026-10-01 — Phase 3 · Part A done: font chosen
 - Did: owner chose El Messiri 500 (headings, quote, stats) + IBM Plex Sans Arabic. Token `--tp-font-display-ar` updated, `--tp-fw-display-ar: 500` added, D-034 written, test page reduced to the final combination (H1–H4 + stat + quote + body + mixed), screenshots at 1280 and 375; H3/H4 legible on mobile.
 - Next: Part B glossary.
