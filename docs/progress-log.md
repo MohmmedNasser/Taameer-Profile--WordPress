@@ -2,6 +2,10 @@
 
 One entry per completed task, newest on top. Format: Did / Files / Issues / Next.
 
+### 2026-10-01 — Phase 3 · Part A: Arabic heading font test (waiting for the owner)
+- Did: `source/font-test/index.html` (not part of the site): El Messiri, Noto Naskh Arabic and Amiri side by side with the real tokens, IBM Plex Sans Arabic body, no letter-spacing, heading line-height `--tp-lh-snug` (1.35; the English 1.05 clips Arabic marks). Screenshots `source/screenshots/phase-3/font-test-1280.png` and `-375.png`; no horizontal overflow. Chairman quote is a draft translation. CLAUDE.md docs index gained the `docs/prompts/` line.
+- Next: owner picks the font; record it in decisions.md, then Part B.
+
 ### 2026-10-01 — Part 0 complete (PRD v1.6 decisions + animation options as classes)
 - Did: every animation `data-` attribute converted to a class and removed from all 7 pages: `data-tp-delay` → `tp-delay-1…5`; `data-tp-target/-suffix` dropped (`tp-counter` reads number and suffix from its text); `data-tp-from` → `tp-counter--year`; `data-tp-speed` → `tp-parallax--slow/--fast`; `data-tp-stagger="false"` inverted to a `tp-stagger` class in markup; `data-tp-start` (before/after) removed. New tokens `--tp-delay-step`, `--tp-parallax-speed-*`. Wrote D-033 (data-attribute rule + theme-template exception); wp-mapping: E2 header-menu wording, R1/R2/R3/R5/R6 resolved, R5 per-section replacement table; CLAUDE.md animation table updated; page comments for R2/R5 no longer say REPORT.
 - Verified: check-partials OK, contrast 0 failing, check-links OK, projects-test 49/49, interaction-test all pass, browser check (delay var, parallax speed 0.1, counters end at 2015 / 100+, no console errors). `interaction-test.mjs` licence block was stale since the R6 change (licences open the PDF directly, no lightbox): rewritten to assert that.

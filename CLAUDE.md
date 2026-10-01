@@ -88,6 +88,7 @@ data/     projects.json · team.json · testimonials.json · site.json
 | `docs/image-credits.md` | Every stock image → source, author, URL, license, usage |
 | `docs/content-corrections.md` | Every text correction: original → corrected → where used |
 | `docs/wp-mapping.md` | Every section of every page → destination (Atomic / Theme / Interaction / Report), atomic tree, global classes, responsive notes; master tables of global variables and global classes (regenerate with `python scripts/gen-wp-tables.py`); REPORT list |
+| `docs/prompts/` | The owner's phase prompts; read the current phase's prompt at the start of every session |
 
 ## Roadmap
 1. Design system + English homepage
