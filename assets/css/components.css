@@ -607,8 +607,8 @@
   line-height: var(--tp-lh-snug);
 }
 
-.tp-letter__quote p::before { content: "“"; color: var(--tp-color-accent); }
-.tp-letter__quote p::after { content: "”"; color: var(--tp-color-accent); }
+.tp-letter__quote p::before { content: var(--tp-quote-open); color: var(--tp-color-accent); }
+.tp-letter__quote p::after { content: var(--tp-quote-close); color: var(--tp-color-accent); }
 
 .tp-letter__by {
   display: flex;

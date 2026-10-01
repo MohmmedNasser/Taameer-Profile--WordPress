@@ -4,7 +4,9 @@
 
 For each *.html in the project root: href/src/srcset targets must exist on disk; #fragments must match an id in
 the target page (or the same page); project.html?id=<slug> must match data/projects.json; projects.html?type=<slug>
-must be a known project type. Links into ar/ (Phase 3) are listed as skipped, not failed. External links
+must be a known project type. Both languages are checked (*.html and ar/*.html; relative paths resolve from the
+page's own folder). Every language-switcher link and every canonical / hreflang URL (https://www.taameer.ae/[ar/]<slug>/)
+must map to an existing page. External links
 (http, mailto, tel) are not fetched. Also checks that every project card link generated from the JSON data
 (cover/gallery images and ids) resolves.
 """
@@ -32,8 +34,16 @@ def main():
     project_ids = {p["id"] for p in data["projects"] if p["type"] != "showcase"}
     types = set(data["types"]) - {"showcase"}
     count = 0
-    for page in sorted(ROOT.glob("*.html")):
+    pages = sorted(ROOT.glob("*.html")) + sorted((ROOT / "ar").glob("*.html"))
+    for page in pages:
         html = re.sub(r"<!--.*?-->", "", page.read_text(encoding="utf-8"), flags=re.S)
+        for url in re.findall(r'<link rel="(?:canonical|alternate)"[^>]*href="([^"]+)"', html):
+            m = re.fullmatch(r"https://www\.taameer\.ae/(ar/)?([\w-]*)/?", url)
+            slug = m.group(2) if m else None
+            target = None if slug is None else ROOT / (m.group(1) or "") / ((slug or "index") + ".html")
+            if target is None or not target.exists():
+                failures.append(f"{page.relative_to(ROOT).as_posix()}: hreflang/canonical {url} maps to no page")
+        base = page.parent
         refs = re.findall(r'\s(?:href|src)="([^"]*)"', html)
         for ss in re.findall(r'\ssrcset="([^"]*)"', html):
             refs += [part.strip().split()[0] for part in ss.split(",") if part.strip()]
@@ -42,20 +52,18 @@ def main():
                 continue
             count += 1
             u = urlparse(ref)
-            if u.path.startswith("ar/"):
-                skipped.add(u.path)
-                continue
-            target = page if not u.path else (ROOT / u.path)
+            target = page if not u.path else (base / u.path).resolve()
+            label = page.relative_to(ROOT).as_posix()
             if not target.exists():
-                failures.append(f"{page.name}: missing file {ref}")
+                failures.append(f"{label}: missing file {ref}")
                 continue
             if u.fragment and target.suffix == ".html" and u.fragment not in ids_of(target):
-                failures.append(f"{page.name}: no #{u.fragment} in {target.name}")
+                failures.append(f"{label}: no #{u.fragment} in {target.name}")
             q = parse_qs(u.query)
-            if u.path == "project.html" and q.get("id", [""])[0] not in project_ids:
-                failures.append(f"{page.name}: unknown project id in {ref}")
-            if u.path == "projects.html" and "type" in q and q["type"][0] not in types:
-                failures.append(f"{page.name}: unknown project type in {ref}")
+            if Path(u.path).name == "project.html" and u.query and q.get("id", [""])[0] not in project_ids:  # bare = language switcher (JS adds ?id=)
+                failures.append(f"{label}: unknown project id in {ref}")
+            if Path(u.path).name == "projects.html" and "type" in q and q["type"][0] not in types:
+                failures.append(f"{label}: unknown project type in {ref}")
     # Links generated from the data
     for p in data["projects"]:
         for key in ["cover"] + list(p.get("gallery", [])) + ([p["beforeImage"]] if p.get("beforeImage") else []):
@@ -67,9 +75,7 @@ def main():
             failures.append(f"testimonials.json {t['id']}: missing {t['letterImage']}")
         if t.get("relatedProject") and t["relatedProject"] not in project_ids:
             failures.append(f"testimonials.json {t['id']}: unknown relatedProject {t['relatedProject']}")
-    print(f"checked {count} references in {len(list(ROOT.glob('*.html')))} pages")
-    if skipped:
-        print(f"skipped (Phase 3 Arabic pages): {', '.join(sorted(skipped))}")
+    print(f"checked {count} references in {len(pages)} pages (EN + AR)")
     if failures:
         print(f"\n{len(failures)} FAILURE(S):")
         for f in failures:

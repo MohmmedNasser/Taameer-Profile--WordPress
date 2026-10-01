@@ -79,6 +79,8 @@
   --tp-tracking-eyebrow: 0.22em;
   --tp-tracking-display: -0.01em;
   --tp-transform-label: uppercase;   /* eyebrows, buttons, labels (Latin only; Arabic = none) */
+  --tp-quote-open: "“";           /* quotation marks around letter excerpts (Arabic: guillemets) */
+  --tp-quote-close: "”";
   --tp-style-quote: italic;          /* pull-quotes (Latin only; Arabic = normal) */
 
   /* ---- Spacing ---- */
@@ -208,6 +210,8 @@
   --tp-tracking-display: 0;
   --tp-transform-label: none;
   --tp-style-quote: normal;
+  --tp-quote-open: "«";
+  --tp-quote-close: "»";
   --tp-lh-tight: 1.35;
   --tp-lh-heading: 1.4;
   --tp-lh-snug: 1.4;

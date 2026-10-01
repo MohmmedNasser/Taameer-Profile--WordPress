@@ -687,8 +687,8 @@
   line-height: var(--tp-lh-snug);
 }
 
-.tp-project-letter__quote p::before { content: "“"; color: var(--tp-color-accent); }
-.tp-project-letter__quote p::after { content: "”"; color: var(--tp-color-accent); }
+.tp-project-letter__quote p::before { content: var(--tp-quote-open); color: var(--tp-color-accent); }
+.tp-project-letter__quote p::after { content: var(--tp-quote-close); color: var(--tp-color-accent); }
 
 .tp-project-letter__by { display: flex; flex-direction: column; gap: var(--tp-space-1); }
 

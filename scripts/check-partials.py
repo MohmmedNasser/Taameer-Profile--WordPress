@@ -10,7 +10,10 @@ per-page facts that are allowed to differ:
   2. the language-switcher target (ar/<this page>.html; the Polylang switcher in WordPress)
 Also checks: exactly one active nav link per nav, pointing at the right page; the per-page SEO head
 (title, description, Open Graph, canonical/hreflang placeholder); one <h1>; the shared stylesheet set.
-Scans *.html in the project root and ar/*.html (Phase 3). Exit code 1 on any failure.
+Two partial sets: English (reference index.html, pages in the root) and Arabic (reference ar/index.html, pages in ar/).
+Arabic pages must match ar/index.html; the Arabic partials must also have the same tag/class skeleton as the English ones
+(text may differ). Arabic pages: lang="ar" dir="rtl", assets under ../, language switcher -> ../<page>.html.
+Exit code 1 on any failure.
 """
 import re
 import sys
@@ -40,28 +43,52 @@ def block(html, name):
 def normalize(text):
     text = text.replace('\r\n', '\n')
     text = re.sub(r' aria-current="page"', "", text)
-    text = re.sub(r'href="(?:\.\./)?ar/[\w-]+\.html"', 'href="ar/PAGE.html"', text)
+    text = re.sub(r'href="(?:\.\./)?(?:ar/)?[\w-]+\.html"(?= lang="(?:ar|en)" hreflang)', 'href="LANG-SWITCH"', text)
     return text
 
 
-def pages():
-    files = sorted(ROOT.glob("*.html")) + sorted((ROOT / "ar").glob("*.html"))
-    return files
+def skeleton(text):
+    """Tag names and classes only: proves the Arabic partial mirrors the English one."""
+    tags = re.findall(r"<([A-Za-z][\w-]*)([^>]*)>", re.sub(r"<!--.*?-->", "", text, flags=re.S))
+    out = []
+    for name, attrs in tags:
+        if name == "bdi":  # bidi isolation added around Latin runs in Arabic text
+            continue
+        cls = re.search(r'class="([^"]*)"', attrs)
+        out.append(name + "." + (cls.group(1) if cls else ""))
+    return out
+
+
+def pages(ar=None):
+    en = sorted(ROOT.glob("*.html"))
+    arp = sorted((ROOT / "ar").glob("*.html"))
+    return en + arp if ar is None else (arp if ar else en)
 
 
 def main():
-    ref_path = ROOT / REFERENCE
-    ref_html = ref_path.read_text(encoding="utf-8")
-    ref = {n: normalize(block(ref_html, n) or "") for n in PARTS}
+    refs = {}
+    for is_ar, name in ((False, REFERENCE), (True, "ar/" + REFERENCE)):
+        ref_html = (ROOT / name).read_text(encoding="utf-8")
+        refs[is_ar] = {n: normalize(block(ref_html, n) or "") for n in PARTS}
+        for n in PARTS:
+            if not refs[is_ar][n].strip():
+                fail(name, f"reference has no PARTIAL:{n} block")
     for n in PARTS:
-        if not ref[n].strip():
-            fail(REFERENCE, f"reference has no PARTIAL:{n} block")
+        if skeleton(refs[False][n]) != skeleton(refs[True][n]):
+            fail("ar/index.html", f"PARTIAL:{n} has a different tag/class skeleton from index.html")
 
     checked = 0
     for path in pages():
         rel = path.relative_to(ROOT).as_posix()
         html = path.read_text(encoding="utf-8")
         checked += 1
+        is_ar = path.parent.name == "ar"
+        ref = refs[is_ar]
+        prefix = "../" if is_ar else ""
+        if is_ar and '<html lang="ar" dir="rtl">' not in html:
+            fail(rel, 'Arabic page must be <html lang="ar" dir="rtl">')
+        if not is_ar and '<html lang="en" dir="ltr">' not in html:
+            fail(rel, 'English page must be <html lang="en" dir="ltr">')
 
         for n in PARTS:
             b = block(html, n)
@@ -108,15 +135,34 @@ def main():
         for prop in ("og:type", "og:site_name", "og:title", "og:description", "og:image"):
             if f'property="{prop}"' not in head:
                 fail(rel, f"missing {prop}")
-        if "canonical" not in head or "hreflang" not in head:
-            fail(rel, "missing canonical/hreflang placeholder comment")
-        if re.search(r'<link rel="(canonical|alternate)"', re.sub(r"<!--.*?-->", "", head, flags=re.S)):
-            fail(rel, "live canonical/hreflang link found — they stay comments until Phase 3")
+        live = re.sub(r"<!--.*?-->", "", head, flags=re.S)
+        if name in ("project.html", "404.html"):
+            if "canonical" not in head and name == "project.html":
+                fail(rel, "missing canonical/hreflang template comment")
+            if re.search(r'<link rel="(canonical|alternate)"', live):
+                fail(rel, "template/noindex page must not carry live canonical/hreflang links")
+        else:
+            slug = "" if name == "index.html" else name[:-5] + "/"
+            want = {
+                "canonical": "https://www.taameer.ae/" + ("ar/" if is_ar else "") + slug,
+                "en": "https://www.taameer.ae/" + slug,
+                "ar": "https://www.taameer.ae/ar/" + slug,
+                "x-default": "https://www.taameer.ae/" + slug,
+            }
+            if f'<link rel="canonical" href="{want["canonical"]}">' not in live:
+                fail(rel, f"canonical should be {want['canonical']}")
+            for lang in ("en", "ar", "x-default"):
+                if f'<link rel="alternate" hreflang="{lang}" href="{want[lang]}">' not in live:
+                    fail(rel, f"missing hreflang {lang} -> {want[lang]}")
+        sw = re.findall(r'<a class="tp-lang__link" href="([^"]+)"', html)
+        sw_want = (("../" if is_ar else "ar/") + name)
+        if len(sw) != 3 or any(x != sw_want for x in sw):
+            fail(rel, f"language switcher should link to {sw_want} (3 times), found {sw}")
         for f in SHARED_CSS:
-            if f"assets/css/{f}" not in head:
+            if f"{prefix}assets/css/{f}" not in head:
                 fail(rel, f"missing stylesheet {f}")
         for f in SHARED_JS:
-            if f"assets/js/{f}" not in head:
+            if f"{prefix}assets/js/{f}" not in head:
                 fail(rel, f"missing script {f}")
         if 'data-brand' in html or 'brand-switcher' in html:
             fail(rel, "brand switcher remnants")

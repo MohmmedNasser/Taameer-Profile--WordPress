@@ -111,7 +111,7 @@ def fix_tag(tag, page):
     return tag
 
 
-LANG_AR = ('<p class="tp-lang">\n{i}  <span class="tp-lang__current" aria-current="true" lang="ar">عربي</span>\n'
+LANG_AR = ('<p class="tp-lang">\n{i}  <span class="tp-lang__current" aria-current="true" lang="ar"><abbr title="العربية">عربي</abbr></span>\n'
            '{i}  <span class="tp-lang__sep" aria-hidden="true">|</span>\n'
            '{i}  <a class="tp-lang__link" href="../{page}.html" lang="en" hreflang="en">English</a>\n{i}</p>')
 LANG_BLOCK = re.compile(r'<p class="tp-lang">.*?</p>', re.S)
@@ -230,7 +230,7 @@ def build(page):
     def label(m):
         indent = m.group(1)
         return m.group(0) + '\n' + indent + '<p class="tp-caption">' + TRANSLATED_LABEL + '</p>'
-    s = re.sub(r'([ \t]*)<blockquote class="tp-letter(?:-page)?__(?:quote|excerpt)">.*?</blockquote>', label, s, flags=re.S)
+    s = re.sub(r'([ \t]*)<blockquote class="tp-(?:project-)?letter(?:-page)?__(?:quote|excerpt)">.*?</blockquote>', label, s, flags=re.S)
 
     os.makedirs(os.path.join(ROOT, 'ar'), exist_ok=True)
     open(os.path.join(ROOT, 'ar', page + '.html'), 'w', encoding='utf-8', newline='').write(s)
