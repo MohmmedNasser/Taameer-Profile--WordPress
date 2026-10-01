@@ -2,6 +2,10 @@
 
 One entry per completed task, newest on top. Format: Did / Files / Issues / Next.
 
+### 2026-10-01 — Phase 4 spike · Part B: owner steps written
+- Did: `docs/spike-owner-steps.md` (variables, six global classes with responsive/hover/filter, Spike EN page, form, loop, Spike AR via Polylang, export). Waiting for the owner's "done" before Part C.
+- Next: Part C checks.
+
 ### 2026-10-01 — Phase 4 spike · Part A: environment and minimal child theme
 - Did: `wp db check` OK after `DB_HOST=localhost:10011` (D-037). Versions: WordPress 7.1.2, PHP 8.2.29, MySQL 8.4.0, URL http://taameer.local. Installed and activated Hello Elementor 3.5.1, Elementor 4.3.3, Polylang 3.8.10 (nothing else). **Atomic editor needs no toggle:** `e_atomic_elements` (beta) and `e_opt_in_v4` (alpha) are active by default (`state=default`); `container`, `nested-elements`, `e_optimized_markup` also on; `e_optimized_css_files`, `e_assets_manager` off. Child theme `wp-theme/taameer-child/` linked into Local by directory junction; `wp theme list` sees it, activated; the four files are enqueued after Elementor (verified in the front-end HTML). Polylang EN (default, no prefix) + AR (`/ar/`, RTL); `/ar/` returns 200. 2 throwaway `tp_spike_project` posts (ids 7, 8).
 - Files: `wp-theme/taameer-child/{style.css,functions.php,assets/css/{animations,theme}.css,assets/js/{animations,interactions}.js}`, `wp-cli.yml`.
