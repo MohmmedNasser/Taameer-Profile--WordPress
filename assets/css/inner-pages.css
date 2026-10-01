@@ -467,3 +467,75 @@
 
 /* Nothing physical is used above: rows, flips, sticky offsets and the "+" markers all follow the
    writing direction through logical properties and row-reverse. */
+
+/* ---- 13. Testimonials page: editorial letters ----
+   Elementor: Container (row, --flip = row-reverse) > [Container > Link > Image + Paragraph] + [Container > Paragraph + Heading + Paragraphs + Link]. */
+
+.tp-letters-page__list { display: flex; flex-direction: column; gap: var(--tp-space-10); }
+
+.tp-letter-page {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--tp-space-8);
+  scroll-margin-block-start: var(--tp-space-8);
+}
+
+.tp-letter-page--flip { flex-direction: row-reverse; }
+
+.tp-letter-page__sheet { flex: 0 1 var(--tp-letter-sheet-w); inline-size: 100%; }
+
+.tp-letter-page__thumb {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  background: var(--tp-color-surface);
+  border: var(--tp-hairline);
+  border-radius: var(--tp-radius-sm);
+  box-shadow: var(--tp-shadow-lg);
+  text-decoration: none;
+  color: var(--tp-color-text);
+}
+
+.tp-letter-page__thumb img { inline-size: 100%; block-size: auto; }
+
+.tp-letter-page__zoom {
+  position: absolute;
+  inset-inline: var(--tp-space-4);
+  inset-block-end: var(--tp-space-4);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--tp-space-2);
+  padding: var(--tp-space-3) var(--tp-space-4);
+  background: var(--tp-color-surface);
+  border-radius: var(--tp-radius-sm);
+  box-shadow: var(--tp-shadow-sm);
+  font-size: var(--tp-fs-xs);
+  font-weight: var(--tp-fw-semibold);
+  letter-spacing: var(--tp-tracking-button);
+  text-transform: uppercase;
+}
+
+.tp-letter-page__thumb:hover .tp-letter-page__zoom,
+.tp-letter-page__thumb:focus-visible .tp-letter-page__zoom { background: var(--tp-btn-bg); color: var(--tp-btn-fg); }
+
+.tp-letter-page__text { flex: 1 1 22rem; display: flex; flex-direction: column; align-items: flex-start; gap: var(--tp-space-5); }
+
+.tp-letter-page__date { font-size: var(--tp-fs-xs); font-weight: var(--tp-fw-semibold); letter-spacing: var(--tp-tracking-eyebrow); text-transform: uppercase; color: var(--tp-meta-color); }
+
+.tp-letter-page__excerpt {
+  font-family: var(--tp-font-display);
+  font-size: var(--tp-fs-h3);
+  font-weight: var(--tp-fw-regular);
+  line-height: var(--tp-lh-snug);
+  max-inline-size: var(--tp-measure);
+}
+
+.tp-letter-page__excerpt p::before { content: "“"; color: var(--tp-color-accent); }
+.tp-letter-page__excerpt p::after { content: "”"; color: var(--tp-color-accent); }
+
+.tp-letter-page__by { display: flex; flex-direction: column; gap: var(--tp-space-1); padding-block-start: var(--tp-space-4); border-block-start: var(--tp-hairline); }
+.tp-letter-page__author { font-weight: var(--tp-fw-semibold); }
+.tp-letter-page__role,
+.tp-letter-page__note { font-size: var(--tp-fs-sm); color: var(--tp-color-text-muted); }

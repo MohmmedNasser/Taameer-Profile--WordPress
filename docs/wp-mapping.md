@@ -126,6 +126,15 @@ Card markup lives in `<template id="tp-project-card">` (copy into PHP). Taxonomy
 
 Meta: `<title>` = "name â€” Taameer Plus Contracting LLC"; description = project description or a generated sentence; OG image = cover. `project-page.js` is PROTOTYPE ONLY.
 
+
+### Testimonials (`testimonials.html`) â€” Atomic
+
+| Section | Dest | Tree / classes | Tablet / mobile |
+|---|---|---|---|
+| Page hero + breadcrumbs | Atomic | as About | |
+| 4 letters | Atomic + Interaction + **Report** | `Flexbox.tp-lightbox > 4 أ— Flexbox.tp-letter-page(--flip) > [Flexbox.tp-letter-page__sheet > Link.tp-letter-page__thumb > Image + Paragraph(zoom label)] + [Flexbox.tp-letter-page__text > Paragraph.tp-eyebrow + Heading H2 + Paragraph(date) + Paragraph.tp-letter-page__excerpt + Paragraph(author) + Paragraph(role) + Link.tp-link(project)]`. Jan's Noodles: company name + letter only | rows stack, sheet above text; `--flip` only reverses the desktop row |
+| CTA band | Atomic | as Home | |
+
 <!-- PAGES-2B:END -->
 
 <!-- GENERATED:START -->

@@ -172,6 +172,7 @@
   /* ---- Inner pages ---- */
   --tp-chipbar-h: 3.5rem;            /* sticky service navigation bar */
   --tp-sticky-offset: calc(var(--tp-header-h-mobile) + var(--tp-chipbar-h));   /* header + chip bar (desktop: see inner-pages.css) */
+  --tp-letter-sheet-w: 26rem;        /* original letter on the testimonials page (sources are 675–1800px wide) */
   --tp-project-cover-h: 80vh;        /* tallest a project cover may grow (portrait covers stay on screen) */
   --tp-masonry-col: 17rem;           /* gallery masonry column width */
   --tp-lbox-btn: 3rem;
