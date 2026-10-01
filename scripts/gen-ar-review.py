@@ -4,7 +4,7 @@
 
 Page by page, English | Arabic for every piece of copy (text, image alt text, SEO title/description), then the data
 files (projects, team, testimonials, services), then the glossary. Rows that need the client's confirmation are marked ⚠
-(names, the Chairman's message, translated third-party letters, gender-dependent titles, the Carpentry company name).
+(names, the Chairman's message, translated third-party letters).
 The Arabic is read from the same sources the pages are built from (scripts/ar_text.py, scripts/ar_data.py), so the
 document cannot drift from the site; regenerate after any copy change.
 """
@@ -22,8 +22,8 @@ PAGES = [('index', 'Home'), ('about', 'About'), ('services', 'Services'), ('proj
          ('project', 'Project template (text on the page; project data is in the data tables)'),
          ('testimonials', 'Testimonials'), ('contact', 'Contact'), ('404', '404')]
 
-NAMES = ['Fahim', 'Mohannad', 'Rauof', 'Mohammad Amer', 'Nicole Rowe', 'Maitha Ahli', 'Abdulla Al Zaabi', 'Carpentry LLC']
-GENDER = ['Regional Human Resources Manager', 'Owner']
+NAMES = ['Fahim', 'Mohannad', 'Rauof', 'Mohammad Amer', 'Nicole Rowe', 'Maitha Ahli', 'Abdulla Al Zaabi']
+GENDER = []  # job-title gender was confirmed by the owner (both authors are women)
 CHAIRMAN = ['Welcome to our company', 'I am confident that after meeting', 'we build trust before concrete.', '“After meeting the Taameer Plus family']
 
 TESTI = set()
@@ -95,7 +95,7 @@ def table(rows):
 def main():
     out = ['# Arabic copy review (for the client)', '',
            'Written for the client\'s review of the Arabic website. Each page lists every piece of copy: English on the left, the proposed Arabic on the right. '
-           'Rows marked **⚠** need your confirmation: personal names (Arabic spellings are our best transliteration, not taken from official documents), the Chairman\'s message (his personal voice), translations of third-party letters, the gender of job titles, and the Arabic name of Taameer Plus Carpentry LLC.',
+           'Rows marked **⚠** need your confirmation: personal names (Arabic spellings are our best transliteration, not taken from official documents), the Chairman\'s message (his personal voice), translations of third-party letters, and translations of third-party letters.',
            '', '- Numerals are Western digits (0–9) throughout; building notations (G+4, G+4P+H+22+R, 2B+G+6+HC) and brand names stay in Latin script.',
            '- Testimonial excerpts are labelled on the site "ترجمة عن الأصل الإنجليزي" (translation from the English original); the original signed letters stay available.',
            '- The glossary at the end fixes one Arabic term per concept; please check it first, since changes there apply everywhere.', '',

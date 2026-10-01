@@ -1,6 +1,6 @@
 # Arabic copy review (for the client)
 
-Written for the client's review of the Arabic website. Each page lists every piece of copy: English on the left, the proposed Arabic on the right. Rows marked **⚠** need your confirmation: personal names (Arabic spellings are our best transliteration, not taken from official documents), the Chairman's message (his personal voice), translations of third-party letters, the gender of job titles, and the Arabic name of Taameer Plus Carpentry LLC.
+Written for the client's review of the Arabic website. Each page lists every piece of copy: English on the left, the proposed Arabic on the right. Rows marked **⚠** need your confirmation: personal names (Arabic spellings are our best transliteration, not taken from official documents), the Chairman's message (his personal voice), translations of third-party letters, and translations of third-party letters.
 
 - Numerals are Western digits (0–9) throughout; building notations (G+4, G+4P+H+22+R, 2B+G+6+HC) and brand names stay in Latin script.
 - Testimonial excerpts are labelled on the site "ترجمة عن الأصل الإنجليزي" (translation from the English original); the original signed letters stay available.
@@ -132,10 +132,10 @@ Written for the client's review of the Arabic website. Each page lists every pie
 | Read all letters | اقرأ جميع الخطابات |  |
 | They made very good recommendations during the design phase of the project and the communication from their team was very good. It was a pleasure working with your team. | قدّموا توصيات ممتازة جداً خلال مرحلة تصميم المشروع، وكان التواصل مع فريقهم جيداً للغاية. وكان من دواعي سرورنا العمل مع فريقكم. | ⚠ translated third-party letter |
 | Letter of appreciation from Atlas Copco (thumbnail) | خطاب شكر من Atlas Copco (صورة مصغّرة) |  |
-| Nicole Rowe, Regional Human Resources Manager | نيكول رو، مدير الموارد البشرية الإقليمي | ⚠ name / company name |
+| Nicole Rowe, Regional Human Resources Manager | نيكول رو، مديرة الموارد البشرية الإقليمية | ⚠ name / company name |
 | The Taameer Plus Contracting LLC team accomplished designing and constructing work for the beauty lounge successfully, and adhered professionally to project completion budget, schedule and quality. | أنجز فريق تعمير بلس للمقاولات ش.ذ.م.م أعمال تصميم صالون التجميل وتنفيذه بنجاح، والتزم باحترافية بميزانية إنجاز المشروع وجدوله الزمني ومعايير جودته. | ⚠ translated third-party letter |
 | Letter of appreciation from Bella Cure Beauty Lounge (thumbnail) | خطاب شكر من Bella Cure Beauty Lounge (صورة مصغّرة) |  |
-| Maitha Ahli, Owner | ميثاء الأهلي، المالك | ⚠ name / company name |
+| Maitha Ahli, Owner | ميثاء الأهلي، مالكة Bella Cure Beauty Lounge | ⚠ name / company name |
 | Taameer Plus completed the entire works in accordance with the contract specifications and specified construction timeline, showing a satisfactory degree of proper planning, coordination, safety and quality of workmanship. | أنجزت تعمير بلس جميع الأعمال وفق مواصفات العقد والجدول الزمني المحدد للإنشاء، وأظهرت درجة مرضية من التخطيط السليم والتنسيق والسلامة وجودة التنفيذ. | ⚠ translated third-party letter |
 | Letter of appreciation from TODAY Engineering Consultants (thumbnail) | خطاب شكر من TODAY Engineering Consultants (صورة مصغّرة) |  |
 | Abdulla Al Zaabi, Chairman | عبدالله الزعابي، رئيس مجلس الإدارة | ⚠ name / company name |
@@ -245,8 +245,8 @@ Written for the client's review of the Arabic website. Each page lists every pie
 | Building Maintenance | صيانة المباني |  |
 | View license | عرض الرخصة |  |
 | (PDF, opens in a new tab) | (PDF، يفتح في تبويب جديد) |  |
-| Preview of the commercial license of Taameer Plus Carpentry LLC | معاينة الرخصة التجارية لشركة تعمير بلس للنجارة ش.ذ.م.م | ⚠ name / company name |
-| Taameer Plus Carpentry LLC | تعمير بلس للنجارة ش.ذ.م.م | ⚠ name / company name |
+| Preview of the commercial license of Taameer Plus Carpentry LLC | معاينة الرخصة التجارية لشركة نجارة تعمير بلس ش.ذ.م.م |  |
+| Taameer Plus Carpentry LLC | نجارة تعمير بلس ش.ذ.م.م |  |
 | 19 February 2024 | 19 فبراير 2024 |  |
 | 18 February 2027 | 18 فبراير 2027 |  |
 | Carpentry | النجارة |  |
@@ -394,14 +394,14 @@ Written for the client's review of the Arabic website. Each page lists every pie
 | 30 August 2023 | 30 أغسطس 2023 |  |
 | They made very good recommendations during the design phase of the project and the communication from their team was very good. It was a pleasure working with your team. | قدّموا توصيات ممتازة جداً خلال مرحلة تصميم المشروع، وكان التواصل مع فريقهم جيداً للغاية. وكان من دواعي سرورنا العمل مع فريقكم. | ⚠ translated third-party letter |
 | Nicole Rowe | نيكول رو | ⚠ name / company name |
-| Regional Human Resources Manager, Power Technique | مدير الموارد البشرية الإقليمي، Power Technique | ⚠ gender of job title |
+| Regional Human Resources Manager, Power Technique | مديرة الموارد البشرية الإقليمية، Power Technique |  |
 | View the project: Renovation & Decoration of Atlas Copco Headquarters | عرض المشروع: تجديد وديكور المقر الرئيسي لشركة Atlas Copco |  |
 | Open the original letter from Bella Cure Beauty Lounge | افتح الخطاب الأصلي من Bella Cure Beauty Lounge |  |
 | Original letter of appreciation from Bella Cure Beauty Lounge | الخطاب الأصلي للشكر والتقدير من Bella Cure Beauty Lounge |  |
 | November 2022 | نوفمبر 2022 |  |
 | Taameer Plus Contracting LLC team accomplished designing and constructing work for the beauty lounge successfully, and adhered professionally to project completion budget, schedule, and quality. | أنجز فريق تعمير بلس للمقاولات ش.ذ.م.م أعمال تصميم صالون التجميل وتنفيذه بنجاح، والتزم باحترافية بميزانية إنجاز المشروع وجدوله الزمني ومعايير جودته. | ⚠ translated third-party letter |
 | Maitha Ahli | ميثاء الأهلي | ⚠ name / company name |
-| Owner | المالك | ⚠ gender of job title |
+| Owner | مالكة Bella Cure Beauty Lounge |  |
 | View the project: Fit-out of Ladies Beauty Lounge & Spa | عرض المشروع: تشطيبات داخلية لصالون تجميل وسبا نسائي |  |
 | Open the original letter from TODAY Engineering Consultants | افتح الخطاب الأصلي من TODAY Engineering Consultants |  |
 | Original letter of appreciation from TODAY Engineering Consultants | الخطاب الأصلي للشكر والتقدير من TODAY Engineering Consultants |  |
@@ -508,7 +508,7 @@ Written for the client's review of the Arabic website. Each page lists every pie
 | Decoration Design & Implementation | تصميم وتنفيذ الديكور |  |
 | Building Maintenance | صيانة المباني |  |
 | Active | سارية |  |
-| Taameer Plus Carpentry LLC | تعمير بلس للنجارة ش.ذ.م.م | ⚠ name / company name |
+| Taameer Plus Carpentry LLC | نجارة تعمير بلس ش.ذ.م.م |  |
 | Carpentry | النجارة |  |
 | Sky Business Building, Office M30, Festival City, Dubai, UAE | مبنى سكاي بزنس، مكتب M30، دبي فستيفال سيتي، دبي، الإمارات العربية المتحدة |  |
 
@@ -534,11 +534,11 @@ Written for the client's review of the Arabic website. Each page lists every pie
 |---|---|---|
 | They made very good recommendations during the design phase of the project and the communication from their team was very good. It was a pleasure working with your team. | قدّموا توصيات ممتازة جداً خلال مرحلة تصميم المشروع، وكان التواصل مع فريقهم جيداً للغاية. وكان من دواعي سرورنا العمل مع فريقكم. | ⚠ translated third-party letter |
 | Nicole Rowe | نيكول رو | ⚠ name / company name |
-| Regional Human Resources Manager, Power Technique | مدير الموارد البشرية الإقليمي، Power Technique | ⚠ gender of job title |
+| Regional Human Resources Manager, Power Technique | مديرة الموارد البشرية الإقليمية، Power Technique |  |
 | Atlas Copco Services Middle East OMC | Atlas Copco Services Middle East OMC |  |
 | Taameer Plus Contracting LLC team accomplished designing and constructing work for the beauty lounge successfully, and adhered professionally to project completion budget, schedule, and quality. | أنجز فريق تعمير بلس للمقاولات ش.ذ.م.م أعمال تصميم صالون التجميل وتنفيذه بنجاح، والتزم باحترافية بميزانية إنجاز المشروع وجدوله الزمني ومعايير جودته. | ⚠ translated third-party letter |
 | Maitha Ahli | ميثاء الأهلي | ⚠ name / company name |
-| Owner | المالك | ⚠ gender of job title |
+| Owner | مالكة Bella Cure Beauty Lounge |  |
 | Bella Cure Beauty Lounge | Bella Cure Beauty Lounge |  |
 | M/s Taameer Plus Contracting LLC have completed the entire works in accordance with the contract specifications and specified construction timeline, showing a satisfactory degree of proper planning, coordination, safety, and quality of workmanship. | أنجزت شركة تعمير بلس للمقاولات ش.ذ.م.م جميع الأعمال وفق مواصفات العقد والجدول الزمني المحدد للإنشاء، وأظهرت درجة مرضية من التخطيط السليم والتنسيق والسلامة وجودة التنفيذ. | ⚠ translated third-party letter |
 | Abdulla Al Zaabi | عبدالله الزعابي | ⚠ name / company name |
@@ -643,7 +643,7 @@ Every term used in more than one place has exactly one translation. Use these fo
 | English | Arabic |
 |---|---|
 | Taameer Plus Contracting LLC | تعمير بلس للمقاولات ش.ذ.م.م (as on the trade license) |
-| Taameer Plus Carpentry LLC | تعمير بلس للنجارة ش.ذ.م.م ⚠ |
+| Taameer Plus Carpentry LLC | نجارة تعمير بلس ش.ذ.م.م (as on the trade license, PDF page 8) |
 | Taameer Plus (short form) | تعمير بلس |
 | Construct A Better Tomorrow | نبني غداً أفضل |
 | Construction | الإنشاءات |
@@ -737,7 +737,7 @@ Every term used in more than one place has exactly one translation. Use these fo
 | Maitha Ahli | ميثاء الأهلي ⚠ |
 | Abdulla Al Zaabi | عبدالله الزعابي ⚠ |
 
-Job titles of testimonial authors use the masculine default (the sources give no gender); ⚠ confirm gender for Nicole Rowe and Maitha Ahli.
+Both testimonial authors with a gendered title are women (confirmed by the owner): Nicole Rowe — مديرة الموارد البشرية الإقليمية؛ Maitha Ahli — مالكة Bella Cure Beauty Lounge.
 
 ### Durations
 

@@ -108,6 +108,8 @@ if (run('switcher')) {
 if (run('menu')) {
   const pg = await open('index', { w: 375, h: 812 });
   await pg.click('[data-tp-menu-toggle]');
+  // interactions.js moves focus into the panel one animation frame after opening: wait for it instead of racing it
+  await pg.waitForFunction(() => !!document.activeElement.closest('[data-tp-menu]'));
   const st = await pg.evaluate(() => ({ exp: document.querySelector('[data-tp-menu-toggle]').getAttribute('aria-expanded'), hidden: document.querySelector('[data-tp-menu]').hidden,
     label: document.querySelector('.tp-menu-toggle__label').textContent.trim(), focus: !!document.activeElement.closest('[data-tp-menu]'), locked: document.body.classList.contains('tp-is-locked') }));
   check('menu: opens, focus inside, scroll locked, label becomes "إغلاق"', st.exp === 'true' && !st.hidden && st.focus && st.locked && st.label === 'إغلاق', JSON.stringify(st));

@@ -112,12 +112,12 @@ TEXT = {
     'Commercial licenses issued by the Dubai Department of Economy and Tourism. Open a license to view the full document (PDF).':
         'رخص تجارية صادرة عن دائرة الاقتصاد والسياحة في دبي. افتح الرخصة لعرض المستند كاملاً (PDF).',
     'Preview of the commercial license of Taameer Plus Contracting LLC': 'معاينة الرخصة التجارية لشركة ' + COMP,
-    'Preview of the commercial license of Taameer Plus Carpentry LLC': 'معاينة الرخصة التجارية لشركة تعمير بلس للنجارة ش.ذ.م.م',
+    'Preview of the commercial license of Taameer Plus Carpentry LLC': 'معاينة الرخصة التجارية لشركة نجارة تعمير بلس ش.ذ.م.م',
     'Active': 'سارية', 'License No.': 'رقم الرخصة', 'Legal type': 'الشكل القانوني', 'Register No.': 'رقم السجل',
     'DCCI No.': 'رقم عضوية غرفة تجارة دبي', 'Issue date': 'تاريخ الإصدار', 'Expiry date': 'تاريخ الانتهاء',
     '7 September 2015': '7 سبتمبر 2015', '6 September 2027': '6 سبتمبر 2027', '19 February 2024': '19 فبراير 2024', '18 February 2027': '18 فبراير 2027',
     'Primary activities': 'الأنشطة الرئيسية', 'View license': 'عرض الرخصة', '(PDF, opens in a new tab)': '(PDF، يفتح في تبويب جديد)',
-    'Taameer Plus Carpentry LLC': 'تعمير بلس للنجارة ش.ذ.م.م',
+    'Taameer Plus Carpentry LLC': 'نجارة تعمير بلس ش.ذ.م.م',
 
     # ---------- Contact ----------
     'Contact — Taameer Plus Contracting LLC': 'اتصل بنا — ' + COMP,
@@ -182,11 +182,11 @@ TEXT = {
     'Before: the same structure during construction': 'قبل: المبنى نفسه أثناء الإنشاء',
     'Client endorsements': 'شهادات العملاء', 'Letters of appreciation': 'خطابات الشكر والتقدير', 'Read all letters': 'اقرأ جميع الخطابات',
     'Letter of appreciation from Atlas Copco (thumbnail)': 'خطاب شكر من Atlas Copco (صورة مصغّرة)',
-    'Nicole Rowe, Regional Human Resources Manager': 'نيكول رو، مدير الموارد البشرية الإقليمي',
+    'Nicole Rowe, Regional Human Resources Manager': 'نيكول رو، مديرة الموارد البشرية الإقليمية',
     'The Taameer Plus Contracting LLC team accomplished designing and constructing work for the beauty lounge successfully, and adhered professionally to project completion budget, schedule and quality.':
         'أنجز فريق ' + COMP + ' أعمال تصميم صالون التجميل وتنفيذه بنجاح، والتزم باحترافية بميزانية إنجاز المشروع وجدوله الزمني ومعايير جودته.',
     'Letter of appreciation from Bella Cure Beauty Lounge (thumbnail)': 'خطاب شكر من Bella Cure Beauty Lounge (صورة مصغّرة)',
-    'Maitha Ahli, Owner': 'ميثاء الأهلي، المالك',
+    'Maitha Ahli, Owner': 'ميثاء الأهلي، مالكة Bella Cure Beauty Lounge',
     'Taameer Plus completed the entire works in accordance with the contract specifications and specified construction timeline, showing a satisfactory degree of proper planning, coordination, safety and quality of workmanship.':
         'أنجزت تعمير بلس جميع الأعمال وفق مواصفات العقد والجدول الزمني المحدد للإنشاء، وأظهرت درجة مرضية من التخطيط السليم والتنسيق والسلامة وجودة التنفيذ.',
     'Letter of appreciation from TODAY Engineering Consultants (thumbnail)': 'خطاب شكر من TODAY Engineering Consultants (صورة مصغّرة)',
@@ -259,11 +259,11 @@ TEXT = {
     'Original letter of appreciation from Atlas Copco': 'الخطاب الأصلي للشكر والتقدير من Atlas Copco',
     'View original letter': 'عرض الخطاب الأصلي', 'Letter of appreciation': 'خطاب شكر وتقدير',
     '30 August 2023': '30 أغسطس 2023', 'Nicole Rowe': 'نيكول رو',
-    'Regional Human Resources Manager, Power Technique': 'مدير الموارد البشرية الإقليمي، Power Technique',
+    'Regional Human Resources Manager, Power Technique': 'مديرة الموارد البشرية الإقليمية، Power Technique',
     'View the project: Renovation & Decoration of Atlas Copco Headquarters': 'عرض المشروع: تجديد وديكور المقر الرئيسي لشركة Atlas Copco',
     'Open the original letter from Bella Cure Beauty Lounge': 'افتح الخطاب الأصلي من Bella Cure Beauty Lounge',
     'Original letter of appreciation from Bella Cure Beauty Lounge': 'الخطاب الأصلي للشكر والتقدير من Bella Cure Beauty Lounge',
-    'November 2022': 'نوفمبر 2022', 'Maitha Ahli': 'ميثاء الأهلي', 'Owner': 'المالك',
+    'November 2022': 'نوفمبر 2022', 'Maitha Ahli': 'ميثاء الأهلي', 'Owner': 'مالكة Bella Cure Beauty Lounge',
     'View the project: Fit-out of Ladies Beauty Lounge & Spa': 'عرض المشروع: تشطيبات داخلية لصالون تجميل وسبا نسائي',
     'Open the original letter from TODAY Engineering Consultants': 'افتح الخطاب الأصلي من TODAY Engineering Consultants',
     'Original letter of appreciation from TODAY Engineering Consultants': 'الخطاب الأصلي للشكر والتقدير من TODAY Engineering Consultants',

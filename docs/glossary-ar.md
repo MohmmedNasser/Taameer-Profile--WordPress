@@ -14,7 +14,7 @@ Every term used in more than one place has exactly one translation. Use these fo
 | English | Arabic |
 |---|---|
 | Taameer Plus Contracting LLC | تعمير بلس للمقاولات ش.ذ.م.م (as on the trade license) |
-| Taameer Plus Carpentry LLC | تعمير بلس للنجارة ش.ذ.م.م ⚠ |
+| Taameer Plus Carpentry LLC | نجارة تعمير بلس ش.ذ.م.م (as on the trade license, PDF page 8) |
 | Taameer Plus (short form) | تعمير بلس |
 | Construct A Better Tomorrow | نبني غداً أفضل |
 | Construction | الإنشاءات |
@@ -108,7 +108,7 @@ Every term used in more than one place has exactly one translation. Use these fo
 | Maitha Ahli | ميثاء الأهلي ⚠ |
 | Abdulla Al Zaabi | عبدالله الزعابي ⚠ |
 
-Job titles of testimonial authors use the masculine default (the sources give no gender); ⚠ confirm gender for Nicole Rowe and Maitha Ahli.
+Both testimonial authors with a gendered title are women (confirmed by the owner): Nicole Rowe — مديرة الموارد البشرية الإقليمية؛ Maitha Ahli — مالكة Bella Cure Beauty Lounge.
 
 ## Durations
 

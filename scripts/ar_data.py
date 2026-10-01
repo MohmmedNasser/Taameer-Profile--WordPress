@@ -62,7 +62,7 @@ TR = {
         'توفّر تعمير بلس متخصصين ذوي خبرة ومعرفة لإدارة جميع مراحل إنشاء المشروع. وبصفتنا مقاولاً عاماً، نتولى مختلف أنواع المشاريع وأحجامها، من الإنشاءات الجديدة إلى أعمال التجديد. ويحافظ فريق إدارة المشاريع لدينا على التنسيق الكامل في كل مرحلة مع فرقنا الميدانية ومقاولينا من الباطن المؤهلين، لتسليم المشاريع في موعدها وفق أعلى معايير السلامة والجودة، بما يضمن الالتزام بالمواعيد النهائية.',
 
     # ---- licenses ----
-    'Taameer Plus Carpentry LLC': 'تعمير بلس للنجارة ش.ذ.م.م',
+    'Taameer Plus Carpentry LLC': 'نجارة تعمير بلس ش.ذ.م.م',
     'Limited Liability Company (LLC)': 'شركة ذات مسؤولية محدودة (ش.ذ.م.م)',
     'Building Contracting': 'مقاولات المباني',
     'Decoration Design & Implementation': 'تصميم وتنفيذ الديكور',
@@ -166,8 +166,8 @@ TR = {
     'M/s Taameer Plus Contracting LLC have completed the entire works in accordance with the contract specifications and specified construction timeline, showing a satisfactory degree of proper planning, coordination, safety, and quality of workmanship.':
         'أنجزت شركة ' + COMP + ' جميع الأعمال وفق مواصفات العقد والجدول الزمني المحدد للإنشاء، وأظهرت درجة مرضية من التخطيط السليم والتنسيق والسلامة وجودة التنفيذ.',
     'Nicole Rowe': 'نيكول رو', 'Maitha Ahli': 'ميثاء الأهلي', 'Abdulla Al Zaabi': 'عبدالله الزعابي',
-    'Regional Human Resources Manager, Power Technique': 'مدير الموارد البشرية الإقليمي، Power Technique',
-    'Owner': 'المالك', 'Chairman': 'رئيس مجلس الإدارة',
+    'Regional Human Resources Manager, Power Technique': 'مديرة الموارد البشرية الإقليمية، Power Technique',
+    'Owner': 'مالكة Bella Cure Beauty Lounge', 'Chairman': 'رئيس مجلس الإدارة',
     'Atlas Copco Services Middle East OMC': 'Atlas Copco Services Middle East OMC',
     'Bella Cure Beauty Lounge': 'Bella Cure Beauty Lounge',
     'TODAY Engineering Consultants': 'TODAY Engineering Consultants',
