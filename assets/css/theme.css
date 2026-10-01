@@ -739,3 +739,36 @@
 /* ---- single template: RTL (physical flips) ---- */
 [dir="rtl"] .tp-project-nav__prev .tp-project-nav__label svg { transform: none; }
 [dir="rtl"] .tp-project-nav__next .tp-project-nav__label svg { transform: scaleX(-1); }
+
+/* ---- 10. 404 (404.php) ---- */
+
+.tp-404__hero {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--tp-space-8);
+  padding-block-end: var(--tp-space-9);
+}
+
+.tp-404__code {
+  position: relative;
+  flex: 0 1 auto;
+  font-family: var(--tp-font-display);
+  font-size: clamp(6rem, 3rem + 14vw, 14rem);
+  font-weight: var(--tp-fw-light);
+  line-height: var(--tp-lh-tight);
+  letter-spacing: var(--tp-tracking-display);
+  padding-inline-end: 0.3em;
+  color: var(--tp-color-text);
+}
+
+.tp-404__plus {
+  position: absolute;
+  inset-block-start: 0.1em;
+  inset-inline-end: 0;
+  color: var(--tp-color-accent);
+}
+
+.tp-404__text { flex: 1 1 22rem; display: flex; flex-direction: column; align-items: flex-start; gap: var(--tp-space-5); }
+
+.tp-404__projects { padding-block-start: var(--tp-space-8); border-block-start: var(--tp-hairline); }

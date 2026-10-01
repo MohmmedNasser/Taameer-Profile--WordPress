@@ -148,6 +148,16 @@ Meta: `<title>` = "name â€” Taameer Plus Contracting LLC"; description = pr
 
 JSON-LD `GeneralContractor` (also on Home) is printed by the theme or the SEO plugin, not Elementor: name, url, logo, image, description, telephone, email, foundingDate, PostalAddress, sameAs Instagram.
 
+
+### 404 (`404.html`) â€” theme template `404.php` (E1)
+
+| Section | Dest | Tree / classes | Tablet / mobile |
+|---|---|---|---|
+| Message + "+" motif + links | Theme | `.tp-404__hero > .tp-404__code (404 + SVG +) + .tp-404__text > eyebrow + H1 + lead + 2 buttons (Home, Projects)`; `<meta name="robots" content="noindex">` | stacks |
+| 3 featured projects | Theme | `.tp-404__projects > .tp-projects-grid--related` (PHP loop; cards from `<template id="tp-project-card">`) | 3 â†’ 1 |
+
+Asset URLs are relative in the prototype; `404.php` uses `get_stylesheet_directory_uri()` so the page works from any path. No CTA band (the page ends on the projects).
+
 <!-- PAGES-2B:END -->
 
 <!-- GENERATED:START -->

@@ -2,6 +2,11 @@
 
 One entry per completed task, newest on top. Format: Did / Files / Issues / Next.
 
+### 2026-10-01 — Phase 2B · Part E: 404.html
+- Did: on-brand 404 (large "404" with the "+" motif, message, buttons to Home and Projects, 3 featured projects from the card template), `noindex`, no active nav item, no CTA band. Relative asset paths in the prototype; the WordPress `404.php` prints absolute theme URIs so it works from any path.
+- Verified: projects-test 404 block 2/2; check-partials OK on 8 pages.
+- Next: Part F acceptance.
+
 ### 2026-10-01 — Phase 2B · Part D: contact.html
 - Did: page hero with the website's contact intro; contact details from `data/site.json` (address, office and mobile `tel:`, `mailto:`, WhatsApp, Instagram; no office hours); location block with the "+" motif and an "Open in Google Maps" button (no iframe); form (name, email, phone, project type = 6 services + Other, message, honeypot) with native constraints, inline errors linked by `aria-describedby`, `role="alert"` summary, focus to the first invalid field, success state, nothing sent (`contact-form.js`, PROTOTYPE ONLY). `GeneralContractor` JSON-LD on contact.html and index.html (parsed with `json.loads`).
 - Verified: projects-test contact block 7/7; check-partials OK.
