@@ -119,9 +119,8 @@
       var img = a.querySelector('img');
       var m = meta[src] || [];
       a.href = src;
-      a.setAttribute('data-caption', caption);
       img.src = src;
-      img.alt = title + ' — image ' + (i + 1) + ' of ' + all.length;
+      img.alt = caption + ' — image ' + (i + 1) + ' of ' + all.length;
       if (m[0]) { img.width = m[0]; img.height = m[1]; }
       if (m[2]) img.srcset = src.replace(/\.webp$/, '-md.webp') + ' 900w, ' + src + ' ' + m[0] + 'w';
       img.sizes = '(min-width: 64em) 30vw, (min-width: 40em) 45vw, 100vw';

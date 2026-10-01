@@ -389,8 +389,7 @@
   </section>
 
   <!-- ATOMIC: Flexbox(.tp-section .tp-section--sand) > section head + Flexbox(.tp-licenses .tp-lightbox) > 2 x Flexbox(.tp-license) > Link-wrapped Image(.tp-license__preview) + Heading H3 + Flexbox(.tp-spec) rows (Paragraph label + Paragraph value) + Button(.tp-btn--ghost "View license") -->
-  <!-- INTERACTION: tp-lightbox (interactions.js) — the container class groups the previews and buttons; the PDF links carry data-image (needs custom attributes on links) -->
-  <!-- REPORT: lightbox for the PDF licenses needs `data-image` (and `data-caption`) on links. If Elementor v4 cannot set custom link attributes, fall back to linking the PDF directly (opens in a new tab, no lightbox) or add an image-only link beside each PDF link. -->
+  <!-- RESOLVED (R6): the license previews and buttons link straight to the PDF and open it in a new tab; no lightbox, no custom attributes -->
   <section class="tp-section tp-section--sand tp-licenses-section" aria-labelledby="tp-licenses-title" id="licenses">
     <div class="tp-container">
       <div class="tp-section-head tp-row tp-row--end tp-row--between">
@@ -399,12 +398,12 @@
           <h2 class="tp-h2 tp-reveal" id="tp-licenses-title">Official licenses</h2>
         </div>
         <div class="tp-col tp-col--4">
-          <p class="tp-reveal">Commercial licenses issued by the Dubai Department of Economy and Tourism. Open a license to view the full document.</p>
+          <p class="tp-reveal">Commercial licenses issued by the Dubai Department of Economy and Tourism. Open a license to view the full document (PDF).</p>
         </div>
       </div>
-      <ul class="tp-licenses tp-lightbox tp-stagger" role="list">
+      <ul class="tp-licenses tp-stagger" role="list">
         <li class="tp-license">
-          <a class="tp-license__preview" href="assets/docs/license-taameer-plus-contracting.pdf" data-image="assets/img/license-contracting.webp" data-caption="Commercial license — Taameer Plus Contracting LLC">
+          <a class="tp-license__preview" href="assets/docs/license-taameer-plus-contracting.pdf" target="_blank" rel="noopener">
             <img src="assets/img/license-contracting-md.webp" width="900" height="1273" alt="Preview of the commercial license of Taameer Plus Contracting LLC" loading="lazy" decoding="async">
           </a>
           <div class="tp-license__body">
@@ -426,13 +425,12 @@
               </dd></div>
             </dl>
             <p class="tp-license__actions">
-              <a class="tp-btn tp-btn--ghost" href="assets/docs/license-taameer-plus-contracting.pdf" data-image="assets/img/license-contracting.webp" data-caption="Commercial license — Taameer Plus Contracting LLC">View license</a>
-              <a class="tp-link" href="assets/docs/license-taameer-plus-contracting.pdf" target="_blank" rel="noopener">Open PDF<span class="tp-visually-hidden"> (opens in a new tab)</span></a>
+              <a class="tp-btn tp-btn--ghost" href="assets/docs/license-taameer-plus-contracting.pdf" target="_blank" rel="noopener">View license<span class="tp-visually-hidden"> (PDF, opens in a new tab)</span></a>
             </p>
           </div>
         </li>
         <li class="tp-license">
-          <a class="tp-license__preview" href="assets/docs/license-taameer-plus-carpentry.pdf" data-image="assets/img/license-carpentry.webp" data-caption="Commercial license — Taameer Plus Carpentry LLC">
+          <a class="tp-license__preview" href="assets/docs/license-taameer-plus-carpentry.pdf" target="_blank" rel="noopener">
             <img src="assets/img/license-carpentry-md.webp" width="900" height="1273" alt="Preview of the commercial license of Taameer Plus Carpentry LLC" loading="lazy" decoding="async">
           </a>
           <div class="tp-license__body">
@@ -452,8 +450,7 @@
               </dd></div>
             </dl>
             <p class="tp-license__actions">
-              <a class="tp-btn tp-btn--ghost" href="assets/docs/license-taameer-plus-carpentry.pdf" data-image="assets/img/license-carpentry.webp" data-caption="Commercial license — Taameer Plus Carpentry LLC">View license</a>
-              <a class="tp-link" href="assets/docs/license-taameer-plus-carpentry.pdf" target="_blank" rel="noopener">Open PDF<span class="tp-visually-hidden"> (opens in a new tab)</span></a>
+              <a class="tp-btn tp-btn--ghost" href="assets/docs/license-taameer-plus-carpentry.pdf" target="_blank" rel="noopener">View license<span class="tp-visually-hidden"> (PDF, opens in a new tab)</span></a>
             </p>
           </div>
         </li>

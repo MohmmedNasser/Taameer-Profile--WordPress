@@ -1,7 +1,7 @@
 /* ==========================================================================
    interactions.js — class-driven interactive behaviour (approved exception E2, docs/PRD.md 8.2.1)
    One IIFE, six separate sections. A behaviour starts only when its class is present on the page:
-     tp-lightbox     container = one gallery; every <a href="image|pdf"> inside it opens in the dialog
+     tp-lightbox     container = one gallery; every <a href="image"> inside it opens in the dialog
      tp-before-after container with two <img>: .tp-before-after__after + .tp-before-after__before
      tp-scrollspy    container of <a href="#id"> links; marks the section in view with aria-current="true"
      tp-filter       container with .tp-filter__btn[data-tp-filter] buttons and [data-tp-type] items
@@ -20,7 +20,7 @@
   var STRINGS = {
     en: {
       menu: 'Menu', closeMenu: 'Close',
-      close: 'Close', prev: 'Previous image', next: 'Next image', pdf: 'View PDF', newTab: ' (opens in a new tab)', of: ' / ',
+      close: 'Close', prev: 'Previous image', next: 'Next image', of: ' / ',
       before: 'Before', after: 'After', divider: 'Before and after comparison divider', shown: '% before image shown',
       showing: 'Showing {n} projects', showingOne: 'Showing 1 project'
     }
@@ -98,22 +98,19 @@
 
   /* ======================================================================
      2. Lightbox — .tp-lightbox
-     Every <a href="x.webp|x.pdf"> inside a .tp-lightbox container belongs to that container's gallery, in DOM
-     order; one entry per distinct image. Optional attributes on the link:
-       data-caption   caption (falls back to the thumbnail alt, then aria-label)
-       href="x.pdf" + data-image="x.webp"   PDF documents (licenses): the dialog shows the image rendition and a
-                                            "View PDF" link; without JS the link simply opens the PDF
-       data-pdf       PDF link for an image href
+     Every <a href="x.webp"> inside a .tp-lightbox container belongs to that container's gallery, in DOM order;
+     one entry per distinct image. Standard markup only (PRD v1.6 R6): the full-size image is the link's href, the
+     caption is the thumbnail's alt (falls back to the link's aria-label). PDF links are not lightbox entries: they
+     open normally.
      Dialog: role="dialog" aria-modal, labelled by the caption; Esc closes; ← → navigate (mirrored in RTL); Tab is
      trapped; focus returns to the trigger; swipe on touch; counter "3 / 8"; next/previous preloaded only; scroll lock.
      Public: TP.lightbox.open(link) / close().
      ====================================================================== */
   (function lightbox() {
     var IMAGE = /\.(webp|jpe?g|png|avif|gif)(\?|#|$)/i;
-    var PDF = /\.pdf(\?|#|$)/i;
     var FOCUSABLE = 'a[href], button:not([disabled])';
     var SWIPE_MIN = 48;
-    var root, imgEl, capEl, countEl, pdfEl, prevBtn, nextBtn, closeBtn;
+    var root, imgEl, capEl, countEl, prevBtn, nextBtn, closeBtn;
     var items = [];
     var index = 0;
     var opener = null;
@@ -135,8 +132,6 @@
           '<figcaption class="tp-lbox__bar">' +
             '<span class="tp-lbox__caption" id="tp-lbox-caption"></span>' +
             '<span class="tp-lbox__meta">' +
-              '<a class="tp-lbox__pdf tp-link" href="#" target="_blank" rel="noopener" hidden>' + s('pdf') +
-                '<span class="tp-visually-hidden">' + s('newTab') + '</span></a>' +
               '<span class="tp-lbox__count" aria-live="polite"></span>' +
             '</span>' +
           '</figcaption>' +
@@ -152,7 +147,6 @@
       imgEl = root.querySelector('.tp-lbox__img');
       capEl = root.querySelector('.tp-lbox__caption');
       countEl = root.querySelector('.tp-lbox__count');
-      pdfEl = root.querySelector('.tp-lbox__pdf');
       closeBtn = root.querySelector('.tp-lbox__close');
       prevBtn = root.querySelector('.tp-lbox__prev');
       nextBtn = root.querySelector('.tp-lbox__next');
@@ -178,15 +172,9 @@
     }
 
     function describe(a) {
-      var href = a.getAttribute('href') || '';
-      var isPdf = PDF.test(href);
       var thumb = a.querySelector('img');
-      return {
-        src: isPdf ? a.getAttribute('data-image') || '' : href,
-        pdf: isPdf ? href : a.getAttribute('data-pdf') || '',
-        caption: a.getAttribute('data-caption') || (thumb && thumb.getAttribute('alt')) || a.getAttribute('aria-label') || '',
-        alt: (thumb && thumb.getAttribute('alt')) || a.getAttribute('data-caption') || ''
-      };
+      var alt = (thumb && thumb.getAttribute('alt')) || '';
+      return { src: a.getAttribute('href') || '', caption: alt || a.getAttribute('aria-label') || '', alt: alt };
     }
 
     function preload(i) {
@@ -204,7 +192,6 @@
       it.loaded = true;
       capEl.textContent = it.caption;
       countEl.textContent = items.length > 1 ? index + 1 + s('of') + items.length : '';
-      if (it.pdf) { pdfEl.href = it.pdf; pdfEl.hidden = false; } else { pdfEl.hidden = true; }
       var many = items.length > 1;
       prevBtn.hidden = !many;
       nextBtn.hidden = !many;
@@ -217,7 +204,7 @@
 
     function isTrigger(a) {
       var href = a.getAttribute('href') || '';
-      return IMAGE.test(href) || (PDF.test(href) && a.getAttribute('data-image'));
+      return IMAGE.test(href);
     }
 
     // Returns false when the link is not a lightbox entry, so the browser follows it normally.

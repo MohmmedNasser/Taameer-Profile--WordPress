@@ -1,5 +1,5 @@
 /* ==========================================================================
-   animations.css — class-driven motion system (pairs with assets/js/animations.js + counters.js)
+   animations.css — class-driven motion system (pairs with assets/js/animations.js)
    Classes (apply in Elementor: Advanced → CSS Classes):
      tp-reveal [--up|--down|--start|--end|--scale]  fade + move on enter
      tp-stagger     parent; children reveal in sequence (JS sets --tp-i on each child)
@@ -7,6 +7,7 @@
      tp-split       headline revealed line by line (JS wraps lines)
      tp-img-reveal  clip-path wipe from the inline-start edge
      tp-counter     count-up, JS only (data-tp-target / -from / -prefix / -suffix)
+     tp-marquee     continuous logo strip; reduced motion = static wrapped grid; reversed in RTL
    data-tp-delay="ms" on any of them (JS copies it to --tp-delay).
    Hidden initial states apply ONLY under html.tp-js, so content is visible if JS fails.
    prefers-reduced-motion: reduce → no hidden states, no motion, marquee becomes a static wrapped row.
@@ -16,6 +17,53 @@
 :root {
   --tp-dir-x: 1; /* -1 in RTL (see bottom) so start/end variants flip */
 }
+
+/* ---- tp-marquee: continuous logo strip (PRD v1.6 R2) ----
+   Markup: .tp-marquee > .tp-marquee__track > logos. animations.js clones the track once (aria-hidden) so the loop is
+   seamless. Hover/focus pauses. Reduced motion: static wrapped grid (see the media query above). RTL: reversed. */
+
+.tp-marquee {
+  display: flex;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, var(--tp-mask-solid) 8%, var(--tp-mask-solid) 92%, transparent);
+}
+
+.tp-marquee__track {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--tp-marquee-gap);
+  padding-inline-end: var(--tp-marquee-gap); /* equals gap so the loop seam is invisible */
+  animation: tp-marquee var(--tp-dur-marquee) linear infinite;
+}
+
+.tp-marquee:hover .tp-marquee__track,
+.tp-marquee:focus-within .tp-marquee__track { animation-play-state: paused; }
+
+.tp-marquee__logo {
+  block-size: var(--tp-partner-h);
+  inline-size: auto;
+  max-inline-size: var(--tp-partner-max-w);
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: 0.6;
+  transition: filter var(--tp-dur-base) var(--tp-ease-out), opacity var(--tp-dur-base) var(--tp-ease-out);
+}
+
+.tp-marquee__logo:hover { filter: none; opacity: 1; }
+
+/* White-box JPG logos: multiply makes the white box disappear on the light section. */
+.tp-marquee__logo--blend { mix-blend-mode: multiply; }
+
+@keyframes tp-marquee {
+  to { transform: translateX(var(--tp-marquee-shift, -100%)); }
+}
+
+/* RTL: the strip travels the other way and the edge fade mirrors */
+[dir="rtl"] { --tp-marquee-shift: 100%; }
+[dir="rtl"] .tp-marquee,
+.tp-marquee-rtl { mask-image: linear-gradient(to left, transparent, var(--tp-mask-solid) 8%, var(--tp-mask-solid) 92%, transparent); }
+.tp-marquee-rtl { --tp-marquee-shift: 100%; }
 
 @media (prefers-reduced-motion: no-preference) {
 

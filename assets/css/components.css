@@ -2,7 +2,7 @@
 /* ==========================================================================
    components.css — every UI block of the site (BEM, tp- prefix)
    Used by: index.html (Phase 1); later all pages. Sections in order:
-     1 text atoms · 2 buttons & links · 3 frame + setting-out marks · 5 hero · 6 partners marquee
+     1 text atoms · 2 buttons & links · 3 frame + setting-out marks · 5 hero · 6 partners
      7 about/stats · 8 chairman quote · 9 section head · 10 services list · 11 why us
      12 projects grid/cards · 13 spec (title block) · 15 letters · 16 CTA · 19 [dir="rtl"] / -rtl exceptions
      (Header, footer, WhatsApp, before/after and lightbox moved to theme.css — Part 0 of Phase 2B.)
@@ -245,46 +245,9 @@
 
 .tp-compare__media { align-items: center; }
 
-/* ---- 6. Partners marquee (custom widget "tp-marquee") ---- */
+/* ---- 6. Partners (the logo marquee itself, class tp-marquee, lives in animations.css) ---- */
 
 .tp-partners__title { margin-block-end: var(--tp-space-6); }
-
-.tp-marquee {
-  display: flex;
-  overflow: hidden;
-  mask-image: linear-gradient(to right, transparent, var(--tp-mask-solid) 8%, var(--tp-mask-solid) 92%, transparent);
-}
-
-.tp-marquee__track {
-  display: flex;
-  flex: none;
-  align-items: center;
-  gap: var(--tp-marquee-gap);
-  padding-inline-end: var(--tp-marquee-gap); /* equals gap so the loop seam is invisible */
-  animation: tp-marquee var(--tp-dur-marquee) linear infinite;
-}
-
-.tp-marquee:hover .tp-marquee__track,
-.tp-marquee:focus-within .tp-marquee__track { animation-play-state: paused; }
-
-.tp-marquee__logo {
-  block-size: var(--tp-partner-h);
-  inline-size: auto;
-  max-inline-size: var(--tp-partner-max-w);
-  object-fit: contain;
-  filter: grayscale(1);
-  opacity: 0.6;
-  transition: filter var(--tp-dur-base) var(--tp-ease-out), opacity var(--tp-dur-base) var(--tp-ease-out);
-}
-
-.tp-marquee__logo:hover { filter: none; opacity: 1; }
-
-/* White-box JPG logos: multiply makes the white box disappear on the light section. */
-.tp-marquee__logo--blend { mix-blend-mode: multiply; }
-
-@keyframes tp-marquee {
-  to { transform: translateX(var(--tp-marquee-shift, -100%)); }
-}
 
 /* ---- 7. About + stats ---- */
 
@@ -357,10 +320,9 @@
 .tp-section-head { margin-block-end: var(--tp-space-8); }
 .tp-section-head .tp-col--4 { max-inline-size: var(--tp-measure); }
 
-/* ---- 10. Services list (custom widget "tp-services-list") ----
-   Desktop: each <li> is display:contents so its link and image become grid items — links stack in
-   column 1, all images share one sticky cell in column 2 and cross-fade on :hover/:focus-within.
-   No JS; every image stays inside its own row's markup. Mobile: plain stacked rows with inline image. */
+/* ---- 10. Services list (static rows, PRD v1.6 R3) ----
+   Each row is a Flexbox: link (title, text, "+") and one image of its own service. No hover swap, no sibling
+   state, no sticky image. Mobile: stacked rows with the image below the text. */
 
 .tp-service-list { border-block-start: var(--tp-hairline); }
 
@@ -380,7 +342,7 @@
   grid-column: 1;
   font-size: var(--tp-fs-h3);
   font-weight: var(--tp-fw-light);
-  transition: color var(--tp-dur-fast) var(--tp-ease-out), transform var(--tp-dur-base) var(--tp-ease-out);
+  transition: color var(--tp-dur-fast) var(--tp-ease-out);
 }
 
 .tp-service__text {
@@ -412,41 +374,24 @@
 }
 
 @media (min-width: 64em) {
-  .tp-service-list {
-    display: grid;
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    column-gap: var(--tp-space-9);
-    border-block-start: 0;
+  .tp-service {
+    display: flex;
+    align-items: center;
+    gap: var(--tp-space-9);
+    padding-block: var(--tp-space-6);
   }
-
-  .tp-service { display: contents; }
 
   .tp-service__link {
-    grid-column: 1;
-    border-block-end: var(--tp-hairline);
+    flex: 7 1 0;
+    min-inline-size: 0;
+    padding-block: 0;
   }
-
-  .tp-service:first-child .tp-service__link { border-block-start: var(--tp-hairline); }
-
-  .tp-service__link:hover .tp-service__title,
-  .tp-service__link:focus-visible .tp-service__title { transform: translateX(var(--tp-space-3)); }
 
   .tp-service__img {
-    grid-column: 2;
-    grid-row: 1 / span 6;
-    position: sticky;
-    inset-block-start: calc(var(--tp-header-h) + var(--tp-space-6));
-    align-self: start;
-    aspect-ratio: 4 / 5;
+    flex: 5 1 0;
+    min-inline-size: 0;
     margin: 0;
     box-shadow: var(--tp-shadow-md);
-    opacity: 0;
-    transition: opacity var(--tp-dur-slow) var(--tp-ease-out);
-  }
-
-  .tp-service:is(:hover, :focus-within) .tp-service__img,
-  .tp-service-list:not(:has(.tp-service:is(:hover, :focus-within))) .tp-service:first-child .tp-service__img {
-    opacity: 1;
   }
 }
 
@@ -726,28 +671,17 @@
    19. Direction-specific rules — the only physical values (transforms, gradients, keyframe distance).
    Prototype: selected by [dir="rtl"]. Elementor build (PRD 8.2.2): each global class above stays direction-neutral and
    the matching "-rtl" class below is added by hand to the same element on Arabic pages only:
-     tp-link-rtl · tp-card__more-rtl · tp-marquee-rtl · tp-service__link-rtl
+     tp-link-rtl · tp-card__more-rtl (the tp-marquee reversal is in animations.css)
    (header, before/after, lightbox and nav underline are theme parts: they follow <html dir> in theme.css.)
    ========================================================================== */
 
 [dir="rtl"] {
   --tp-origin-start: right;
-  --tp-marquee-shift: 100%;
 }
 
-[dir="rtl"] .tp-marquee,
-.tp-marquee-rtl { mask-image: linear-gradient(to left, transparent, var(--tp-mask-solid) 8%, var(--tp-mask-solid) 92%, transparent); }
-.tp-marquee-rtl { --tp-marquee-shift: 100%; }
 [dir="rtl"] .tp-link:hover svg,
 .tp-link-rtl:hover svg { transform: translateX(calc(-1 * var(--tp-space-1))) scaleX(-1); }
 [dir="rtl"] .tp-link svg,
 [dir="rtl"] .tp-card__more svg,
 .tp-link-rtl svg,
 .tp-card__more-rtl svg { transform: scaleX(-1); }
-
-@media (min-width: 64em) {
-  [dir="rtl"] .tp-service__link:hover .tp-service__title,
-  [dir="rtl"] .tp-service__link:focus-visible .tp-service__title,
-  .tp-service__link-rtl:hover .tp-service__title,
-  .tp-service__link-rtl:focus-visible .tp-service__title { transform: translateX(calc(-1 * var(--tp-space-3))); }
-}

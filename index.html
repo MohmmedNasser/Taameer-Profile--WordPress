@@ -248,8 +248,8 @@
     </div>
   </section>
 
-  <!-- ATOMIC: Flexbox(.tp-section .tp-services) > section head (Paragraph(.tp-eyebrow) + Heading H2 + Paragraph + Link) + 6 x Flexbox(.tp-service) > Link-wrapped Flexbox(.tp-service__link) > Heading H3(.tp-service__title) + Paragraph(.tp-service__text) + SVG(.tp-service__plus) ; Image(.tp-service__img) -->
-  <!-- REPORT: the desktop hover/focus image swap of the services list needs sibling-state CSS and a sticky CSS Grid image, which atomic global classes cannot express and no theme file covers (E1 is closed). Suggested solution: static rows with one image per service (two-column Flexbox), no swap. -->
+  <!-- ATOMIC: Flexbox(.tp-section .tp-services) > section head (Paragraph(.tp-eyebrow) + Heading H2 + Paragraph + Link) + 6 x Flexbox(.tp-service) > Link-wrapped Flexbox(.tp-service__link) > Heading H3(.tp-service__title) + Paragraph(.tp-service__text) + SVG(.tp-service__plus) ; Image(.tp-service__img) ; the row (.tp-service) is a Div Block replacing the list item -->
+  <!-- RESOLVED (R3): static rows, one image per service; no hover swap -->
   <section class="tp-section tp-services" aria-labelledby="tp-services-title">
     <div class="tp-container">
       <div class="tp-section-head tp-row tp-row--end tp-row--between">
