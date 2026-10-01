@@ -316,6 +316,8 @@
 
 .tp-spec--compact .tp-spec__row { flex-basis: var(--tp-spec-col-min); padding: var(--tp-space-3) 0; }
 .tp-spec--compact .tp-spec__row--wide { flex-basis: 100%; }
+/* One label/value pair per line (project detail sidebar). */
+.tp-spec--stack .tp-spec__row { flex-basis: 100%; }
 
 .tp-spec--compact .tp-spec__row dd {
   font-family: var(--tp-font-body);

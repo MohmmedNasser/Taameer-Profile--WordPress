@@ -172,6 +172,8 @@
   /* ---- Inner pages ---- */
   --tp-chipbar-h: 3.5rem;            /* sticky service navigation bar */
   --tp-sticky-offset: calc(var(--tp-header-h-mobile) + var(--tp-chipbar-h));   /* header + chip bar (desktop: see inner-pages.css) */
+  --tp-project-cover-h: 80vh;        /* tallest a project cover may grow (portrait covers stay on screen) */
+  --tp-masonry-col: 17rem;           /* gallery masonry column width */
   --tp-lbox-btn: 3rem;
   --tp-lbox-chrome: 7rem;        /* caption bar + gaps reserved below the lightbox image */
   --tp-lbox-chrome-mobile: 11rem;

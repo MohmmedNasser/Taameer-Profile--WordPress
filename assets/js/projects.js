@@ -84,13 +84,15 @@
     return node;
   }
 
-  function render(container, data, types) {
+  // opts ({ type, exclude, count }) override the container's data attributes (used by project.html).
+  function render(container, data, types, opts) {
+    opts = opts || {};
     var tpl = document.getElementById(container.dataset.tpTemplate || 'tp-project-card');
     if (!tpl) throw new Error('missing <template id="tp-project-card">');
     var featured = container.dataset.tpFeatured === 'true';
-    var type = container.dataset.tpType;
-    var exclude = container.dataset.tpExclude;
-    var count = parseInt(container.dataset.tpCount, 10) || Infinity;
+    var type = opts.type || container.dataset.tpType;
+    var exclude = opts.exclude || container.dataset.tpExclude;
+    var count = opts.count || parseInt(container.dataset.tpCount, 10) || Infinity;
 
     var list = sorted(data).filter(function (p) {
       if (featured && !p.featured) return false;
@@ -108,7 +110,7 @@
     var frag = document.createDocumentFragment();
     list.forEach(function (p) { frag.appendChild(card(tpl, p, data)); });
     container.replaceChildren(frag);
-    if (container.dataset.tpStagger !== 'false') container.classList.add('tp-stagger');
+    if (container.dataset.tpStagger !== 'false' && !opts.type) container.classList.add('tp-stagger');
     if (TP.refreshAnimations) TP.refreshAnimations(container.parentNode);
     container.dispatchEvent(new CustomEvent('tp:rendered', { bubbles: true }));
   }

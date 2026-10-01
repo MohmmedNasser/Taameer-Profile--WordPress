@@ -603,3 +603,139 @@
   text-align: center;
   color: var(--tp-color-text-muted);
 }
+
+/* ---- 9. Project single template (single-project.php) ---- */
+
+.tp-project-title { max-inline-size: 22ch; }
+
+/* Cover: never wider than its source (framed below 1200px) nor taller than the viewport allows. */
+.tp-project-cover-wrap { align-items: flex-start; }
+
+.tp-project-cover {
+  inline-size: min(100%, var(--tp-cover-w, 100%), calc(var(--tp-project-cover-h) * var(--tp-cover-ratio, 1.5)));
+}
+
+.tp-project-cover .tp-frame { inline-size: 100%; }
+.tp-project-cover .tp-frame__clip { aspect-ratio: var(--tp-cover-ratio, 1.5); }
+
+.tp-project-cover__plain {
+  inline-size: 100%;
+  aspect-ratio: var(--tp-cover-ratio, 1.5);
+  object-fit: cover;
+  border-radius: var(--tp-radius-sm);
+  box-shadow: var(--tp-shadow-md);
+}
+
+.tp-render-note {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--tp-space-3);
+  padding: var(--tp-space-4) var(--tp-space-5);
+  border: var(--tp-hairline);
+  border-radius: var(--tp-radius-sm);
+  font-size: var(--tp-fs-sm);
+  color: var(--tp-color-text-muted);
+}
+
+.tp-render-note svg { flex: none; margin-block-start: var(--tp-space-1); color: var(--tp-color-accent); }
+.tp-render-note strong { color: var(--tp-color-text); }
+
+/* Masonry with CSS columns only (no layout library). Items keep their own aspect ratio and are never upscaled past
+   their column; DOM order stays the reading and lightbox order. */
+.tp-masonry {
+  column-width: var(--tp-masonry-col);
+  column-gap: var(--tp-space-4);
+}
+
+.tp-masonry__item {
+  display: block;
+  margin-block-end: var(--tp-space-4);
+  break-inside: avoid;
+  overflow: hidden;
+  border-radius: var(--tp-radius-sm);
+  background: var(--tp-color-stone);
+}
+
+.tp-masonry__img {
+  inline-size: 100%;
+  block-size: auto;
+  transition: transform var(--tp-dur-slow) var(--tp-ease-out);
+}
+
+.tp-masonry__item:hover .tp-masonry__img,
+.tp-masonry__item:focus-visible .tp-masonry__img { transform: scale(var(--tp-hover-zoom)); }
+
+.tp-project-compare__media { display: flex; justify-content: flex-start; }
+
+.tp-project-letter__fig {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--tp-space-5);
+  max-inline-size: var(--tp-measure);
+}
+
+.tp-project-letter__quote {
+  font-family: var(--tp-font-display);
+  font-size: var(--tp-fs-h3);
+  font-weight: var(--tp-fw-regular);
+  line-height: var(--tp-lh-snug);
+}
+
+.tp-project-letter__quote p::before { content: "“"; color: var(--tp-color-accent); }
+.tp-project-letter__quote p::after { content: "”"; color: var(--tp-color-accent); }
+
+.tp-project-letter__by { display: flex; flex-direction: column; gap: var(--tp-space-1); }
+
+/* Previous / next */
+.tp-project-nav { border-block-start: var(--tp-hairline); }
+
+.tp-project-nav__inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tp-space-5);
+  justify-content: space-between;
+}
+
+.tp-project-nav__link {
+  flex: 1 1 18rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--tp-space-2);
+  padding-block: var(--tp-space-4);
+  color: var(--tp-color-text);
+  text-decoration: none;
+}
+
+.tp-project-nav__next { align-items: flex-end; text-align: end; }
+
+.tp-project-nav__label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tp-space-2);
+  font-size: var(--tp-fs-xs);
+  font-weight: var(--tp-fw-semibold);
+  letter-spacing: var(--tp-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--tp-meta-color);
+}
+
+/* The arrow glyph points inline-end; the previous link flips it. */
+.tp-project-nav__prev .tp-project-nav__label svg { transform: scaleX(-1); }
+
+.tp-project-nav__title {
+  font-family: var(--tp-font-display);
+  font-size: var(--tp-fs-h4);
+  line-height: var(--tp-lh-heading);
+  transition: color var(--tp-dur-fast) var(--tp-ease-out);
+}
+
+.tp-project-nav__link:hover .tp-project-nav__title { color: var(--tp-color-accent-text); text-decoration: underline; text-decoration-thickness: var(--tp-border-w); text-underline-offset: 0.2em; }
+.tp-project-nav__link:hover .tp-project-nav__label { color: var(--tp-color-text); }
+
+/* Not-found state inside the hero */
+.tp-notfound { margin-block-start: var(--tp-space-5); }
+
+/* ---- single template: RTL (physical flips) ---- */
+[dir="rtl"] .tp-project-nav__prev .tp-project-nav__label svg { transform: none; }
+[dir="rtl"] .tp-project-nav__next .tp-project-nav__label svg { transform: scaleX(-1); }

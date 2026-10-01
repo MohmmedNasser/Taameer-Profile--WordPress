@@ -2,6 +2,11 @@
 
 One entry per completed task, newest on top. Format: Did / Files / Issues / Next.
 
+### 2026-10-01 — Phase 2B · Part B: project.html
+- Did: single template for `?id=<slug>` filled by `project-page.js` (PROTOTYPE ONLY): not-found state in the hero (message, links to Projects and Home, `noindex`, no redirect; also for missing id and the showcase), title/description/OG from the data, spec block, cover (framed below 1200px or portrait, capped at 80vh, never upscaled), 3D Visualization notice, CSS-columns masonry gallery in one lightbox group, before/after only with a before image, related testimonial, previous/next in Projects-grid order with wrapping, up to 3 related projects. Templates for spec rows and gallery items. `projects.js` `render` accepts options instead of mutating data attributes. All card links already use `project.html?id=<slug>` (verified in Home, Services, Projects).
+- Verified: `projects-test.mjs` ids/detail/notfound blocks all PASS: all 22 ids render one H1, title, full gallery and no console errors.
+- Next: Part C testimonials.html.
+
 ### 2026-10-01 — Phase 2B · Part A: projects.html
 - Did: page hero ("Our Projects", intro from the website's portfolio text); filter bar (All / Construction / Renovation & Decoration / Fit-out / Landscaping with counts, `aria-pressed`, visually hidden `aria-live` "Showing N projects"); `?type=` read on load and written with `history.replaceState`; 22 project cards (showcase excluded) ordered ongoing first then newest completion; FLIP filter animation with the Web Animations API (instant under reduced motion; grid keeps its height during the move); cards cloned from `<template id="tp-project-card">`; "Team experience" section (About component and framing) below the grid; shared CTA. Even-column grid `tp-projects-grid--even` so hiding items never leaves gaps in the 7/5 rhythm.
 - Verified: `scripts/projects-test.mjs` filter block 20/20 (counts, ARIA, live region, URL state, invalid type, keyboard, no scroll jump, reduced motion, RTL); check-partials OK.

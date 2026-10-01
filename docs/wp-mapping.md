@@ -108,6 +108,24 @@ Responsive rule used everywhere: desktop rows (`Flexbox direction: row`) become 
 
 Card markup lives in `<template id="tp-project-card">` (copy into PHP). Taxonomy archive URLs `/projects/?type=fit-out` â†” `project-type` term links.
 
+
+### Project detail (`project.html?id=<slug>`) â€” theme template `single-project.php` (E3)
+
+| Section | Dest | Tree / classes | Tablet / mobile |
+|---|---|---|---|
+| Page hero + breadcrumbs (Home â€؛ Projects â€؛ name), H1 = title | Theme | `.tp-page-hero`, `.tp-h1`; also hosts the "Project not found" state (+ `noindex`) = WordPress 404 for an unknown slug | â€” |
+| Spec block | Theme | `dl.tp-spec.tp-spec--stack` rows: Type, Location, Duration, Completion (date or "Ongoing"), Consultant when present | column above cover |
+| Cover | Theme | `.tp-project-cover` (plain â‰¥ 1200px landscape, `.tp-frame` otherwise; never upscaled, max 80vh) | full width |
+| 3D Visualization notice | Theme | `.tp-render-note` when `isRender` | â€” |
+| Gallery | Theme + Interaction | `.tp-masonry.tp-lightbox > a.tp-masonry__item > img` (CSS columns, one lightbox group) | 3 â†’ 2 â†’ 1 columns |
+| Before / after | Theme + Interaction | `.tp-before-after` only when a before image exists | full width |
+| Related testimonial | Theme | `.tp-project-letter` (excerpt, author, link to `testimonials.html#<id>`) | â€” |
+| Previous / next | Theme | `.tp-project-nav` â€” Projects-grid order, wraps at the ends | stacks |
+| Related projects | Theme | `.tp-projects-grid--related`: up to 3 of the same type, excluding current | 3 â†’ 1 |
+| CTA band | Atomic-equivalent | as Home | |
+
+Meta: `<title>` = "name â€” Taameer Plus Contracting LLC"; description = project description or a generated sentence; OG image = cover. `project-page.js` is PROTOTYPE ONLY.
+
 <!-- PAGES-2B:END -->
 
 <!-- GENERATED:START -->

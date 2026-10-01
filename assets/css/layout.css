@@ -39,6 +39,7 @@
 }
 
 .tp-row--center { align-items: center; }
+.tp-row--start { align-items: flex-start; }
 .tp-row--end { align-items: flex-end; }
 .tp-row--between { justify-content: space-between; }
 
