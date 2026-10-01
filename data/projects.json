@@ -3,23 +3,23 @@
   "types": {
     "construction": {
       "en": "Construction",
-      "ar": ""
+      "ar": "الإنشاءات"
     },
     "renovation-decoration": {
       "en": "Renovation & Decoration",
-      "ar": ""
+      "ar": "التجديد والديكور"
     },
     "fit-out": {
       "en": "Fit-out",
-      "ar": ""
+      "ar": "التشطيبات الداخلية"
     },
     "landscaping": {
       "en": "Landscaping",
-      "ar": ""
+      "ar": "تنسيق الحدائق والمساحات الخارجية"
     },
     "showcase": {
       "en": "Showcase",
-      "ar": ""
+      "ar": "معرض أعمال"
     }
   },
   "projects": [
@@ -27,16 +27,16 @@
       "id": "palm-jumeirah-villa",
       "title": {
         "en": "Private Villa Renovation",
-        "ar": ""
+        "ar": "تجديد فيلا خاصة"
       },
       "type": "renovation-decoration",
       "location": {
         "en": "Palm Jumeirah, UAE",
-        "ar": ""
+        "ar": "نخلة جميرا، الإمارات"
       },
       "period": {
         "en": "8 Months",
-        "ar": ""
+        "ar": "8 أشهر"
       },
       "completion": "2025-11",
       "status": "completed",
@@ -64,16 +64,16 @@
       "id": "dubai-g-residential-villa",
       "title": {
         "en": "Proposed G Residential Villa",
-        "ar": ""
+        "ar": "فيلا سكنية مقترحة G"
       },
       "type": "construction",
       "location": {
         "en": "Dubai, UAE",
-        "ar": ""
+        "ar": "دبي، الإمارات"
       },
       "period": {
         "en": "10 Months",
-        "ar": ""
+        "ar": "10 أشهر"
       },
       "completion": "2025-07",
       "status": "completed",
@@ -107,16 +107,16 @@
       "id": "kf-inc-headquarters",
       "title": {
         "en": "Fit-out of KF INC Headquarters Office",
-        "ar": ""
+        "ar": "تشطيبات داخلية لمكتب المقر الرئيسي لشركة KF INC"
       },
       "type": "fit-out",
       "location": {
         "en": "Al Saadiyat Island, Abu Dhabi",
-        "ar": ""
+        "ar": "جزيرة السعديات، أبوظبي"
       },
       "period": {
         "en": "120 Days",
-        "ar": ""
+        "ar": "120 يوماً"
       },
       "completion": "2024-07",
       "status": "completed",
@@ -148,16 +148,16 @@
       "id": "dubai-marina-triplex-villa",
       "title": {
         "en": "Renovation & Decoration of G+2 Triplex Villa",
-        "ar": ""
+        "ar": "تجديد وديكور فيلا تريبلكس G+2"
       },
       "type": "renovation-decoration",
       "location": {
         "en": "Dubai Marina, Dubai",
-        "ar": ""
+        "ar": "دبي مارينا، دبي"
       },
       "period": {
         "en": "120 Days",
-        "ar": ""
+        "ar": "120 يوماً"
       },
       "completion": "2024-02",
       "status": "completed",
@@ -188,16 +188,16 @@
       "id": "atlas-copco-headquarters",
       "title": {
         "en": "Renovation & Decoration of Atlas Copco Headquarters",
-        "ar": ""
+        "ar": "تجديد وديكور المقر الرئيسي لشركة Atlas Copco"
       },
       "type": "renovation-decoration",
       "location": {
         "en": "Gold & Diamond Park by EMAAR, Dubai",
-        "ar": ""
+        "ar": "غولد آند دايموند بارك من EMAAR، دبي"
       },
       "period": {
         "en": "60 Days",
-        "ar": ""
+        "ar": "60 يوماً"
       },
       "completion": "2023-08",
       "status": "completed",
@@ -228,16 +228,16 @@
       "id": "al-warqa-1st-g2-villa",
       "title": {
         "en": "Construction of G+2 Private Villa",
-        "ar": ""
+        "ar": "إنشاء فيلا خاصة G+2"
       },
       "type": "construction",
       "location": {
         "en": "Al Warqa 1st, Dubai",
-        "ar": ""
+        "ar": "الورقاء 1، دبي"
       },
       "period": {
         "en": "12 Months",
-        "ar": ""
+        "ar": "12 شهراً"
       },
       "completion": "2023-11",
       "status": "completed",
@@ -267,16 +267,16 @@
       "id": "jvc-residential-retail-building",
       "title": {
         "en": "Full Renovation of Residential & Retail Building (G+4P+H+22+R)",
-        "ar": ""
+        "ar": "تجديد شامل لمبنى سكني وتجاري (G+4P+H+22+R)"
       },
       "type": "renovation-decoration",
       "location": {
         "en": "JVC, Al Barsha 4th, Dubai",
-        "ar": ""
+        "ar": "قرية جميرا الدائرية (JVC)، البرشاء 4، دبي"
       },
       "period": {
         "en": "7 Months",
-        "ar": ""
+        "ar": "7 أشهر"
       },
       "completion": "2026-03",
       "status": "completed",
@@ -310,16 +310,16 @@
       "id": "al-awir-villas",
       "title": {
         "en": "Proposed G+1 Residential Villas",
-        "ar": ""
+        "ar": "فلل سكنية مقترحة G+1"
       },
       "type": "construction",
       "location": {
         "en": "Al Awir 1, Dubai",
-        "ar": ""
+        "ar": "العوير 1، دبي"
       },
       "period": {
         "en": "13 Months",
-        "ar": ""
+        "ar": "13 شهراً"
       },
       "completion": "2025-08",
       "status": "completed",
@@ -352,16 +352,16 @@
       "id": "wadi-alshabak-villas",
       "title": {
         "en": "Proposed G+1 Residential Villas",
-        "ar": ""
+        "ar": "فلل سكنية مقترحة G+1"
       },
       "type": "construction",
       "location": {
         "en": "Wadi Alshabak, Dubai",
-        "ar": ""
+        "ar": "وادي الشباك، دبي"
       },
       "period": {
         "en": "13 Months",
-        "ar": ""
+        "ar": "13 شهراً"
       },
       "completion": null,
       "status": "ongoing",
@@ -389,16 +389,16 @@
       "id": "abu-dhabi-marina-private-gym",
       "title": {
         "en": "Construction & Fit-out of Private Gym",
-        "ar": ""
+        "ar": "إنشاء وتشطيبات داخلية لصالة رياضية خاصة"
       },
       "type": "construction",
       "location": {
         "en": "Marina, Abu Dhabi",
-        "ar": ""
+        "ar": "المارينا، أبوظبي"
       },
       "period": {
         "en": "135 Days",
-        "ar": ""
+        "ar": "135 يوماً"
       },
       "completion": "2024-09",
       "status": "completed",
@@ -425,16 +425,16 @@
       "id": "al-warqa-4th-villa",
       "title": {
         "en": "Renovation & Decoration of Private Villa",
-        "ar": ""
+        "ar": "تجديد وديكور فيلا خاصة"
       },
       "type": "renovation-decoration",
       "location": {
         "en": "Al Warqa 4th, Dubai",
-        "ar": ""
+        "ar": "الورقاء 4، دبي"
       },
       "period": {
         "en": "90 Days",
-        "ar": ""
+        "ar": "90 يوماً"
       },
       "completion": "2024-04",
       "status": "completed",
@@ -461,16 +461,16 @@
       "id": "perfume-shop-al-barsha",
       "title": {
         "en": "Perfume Shop Fit-out & Decoration",
-        "ar": ""
+        "ar": "تشطيبات داخلية وديكور لمتجر عطور"
       },
       "type": "fit-out",
       "location": {
         "en": "Al Barsha 1st, Dubai",
-        "ar": ""
+        "ar": "البرشاء 1، دبي"
       },
       "period": {
         "en": "60 Days",
-        "ar": ""
+        "ar": "60 يوماً"
       },
       "completion": "2023-12",
       "status": "completed",
@@ -498,16 +498,16 @@
       "id": "mbr-city-villa",
       "title": {
         "en": "Renovation & Decoration of G+1 Private Villa",
-        "ar": ""
+        "ar": "تجديد وديكور فيلا خاصة G+1"
       },
       "type": "renovation-decoration",
       "location": {
         "en": "MBR City by EMAAR, Dubai",
-        "ar": ""
+        "ar": "مدينة محمد بن راشد من EMAAR، دبي"
       },
       "period": {
         "en": "100 Days",
-        "ar": ""
+        "ar": "100 يوم"
       },
       "completion": "2023-12",
       "status": "completed",
@@ -539,16 +539,16 @@
       "id": "faiz-couture-dress-shop",
       "title": {
         "en": "Renovation & Decoration of Dress Shop (Faiz Couture)",
-        "ar": ""
+        "ar": "تجديد وديكور متجر فساتين (Faiz Couture)"
       },
       "type": "renovation-decoration",
       "location": {
         "en": "Al Bustan Shopping Centre, Dubai",
-        "ar": ""
+        "ar": "مركز البستان للتسوق، دبي"
       },
       "period": {
         "en": "60 Days",
-        "ar": ""
+        "ar": "60 يوماً"
       },
       "completion": "2023-11",
       "status": "completed",
@@ -578,16 +578,16 @@
       "id": "al-twar-villa",
       "title": {
         "en": "Renovation & Decoration of Private Villa",
-        "ar": ""
+        "ar": "تجديد وديكور فيلا خاصة"
       },
       "type": "renovation-decoration",
       "location": {
         "en": "Villa #5, Al Twar 2, Dubai",
-        "ar": ""
+        "ar": "فيلا رقم 5، الطوار 2، دبي"
       },
       "period": {
         "en": "60 Days",
-        "ar": ""
+        "ar": "60 يوماً"
       },
       "completion": "2023-07",
       "status": "completed",
@@ -615,16 +615,16 @@
       "id": "souk-al-bahar-apartment",
       "title": {
         "en": "Renovation & Decoration of Residential Flat",
-        "ar": ""
+        "ar": "تجديد وديكور شقة سكنية"
       },
       "type": "renovation-decoration",
       "location": {
         "en": "Souk Al Bahar by EMAAR, Dubai Mall, Dubai",
-        "ar": ""
+        "ar": "سوق البحار من EMAAR، دبي مول، دبي"
       },
       "period": {
         "en": "90 Days",
-        "ar": ""
+        "ar": "90 يوماً"
       },
       "completion": "2023-06",
       "status": "completed",
@@ -656,16 +656,16 @@
       "id": "um-nahad-villa",
       "title": {
         "en": "Fit-out & Decoration of Private Villa",
-        "ar": ""
+        "ar": "تشطيبات داخلية وديكور فيلا خاصة"
       },
       "type": "fit-out",
       "location": {
         "en": "Um Nahad, Dubai",
-        "ar": ""
+        "ar": "أم نهد، دبي"
       },
       "period": {
         "en": "110 Days",
-        "ar": ""
+        "ar": "110 أيام"
       },
       "completion": "2022-12",
       "status": "completed",
@@ -693,16 +693,16 @@
       "id": "beauty-lounge-spa-mirdif",
       "title": {
         "en": "Fit-out of Ladies Beauty Lounge & Spa",
-        "ar": ""
+        "ar": "تشطيبات داخلية لصالون تجميل وسبا نسائي"
       },
       "type": "fit-out",
       "location": {
         "en": "The 77 Hub Mall, Mirdif, Dubai",
-        "ar": ""
+        "ar": "ذا 77 هب مول، مردف، دبي"
       },
       "period": {
         "en": "35 Days",
-        "ar": ""
+        "ar": "35 يوماً"
       },
       "completion": "2022-11",
       "status": "completed",
@@ -732,16 +732,16 @@
       "id": "thai-restaurant-deira",
       "title": {
         "en": "Fit-out of Thai Restaurant",
-        "ar": ""
+        "ar": "تشطيبات داخلية لمطعم تايلندي"
       },
       "type": "fit-out",
       "location": {
         "en": "Muteena, Deira, Dubai",
-        "ar": ""
+        "ar": "المطينة، ديرة، دبي"
       },
       "period": {
         "en": "40 Days",
-        "ar": ""
+        "ar": "40 يوماً"
       },
       "completion": "2022-10",
       "status": "completed",
@@ -769,16 +769,16 @@
       "id": "jumeirah-golf-estates-landscaping",
       "title": {
         "en": "Fit-out & Landscaping for Private Villa",
-        "ar": ""
+        "ar": "تشطيبات داخلية وتنسيق حدائق لفيلا خاصة"
       },
       "type": "landscaping",
       "location": {
         "en": "Jumeirah Golf Estates by WASL, Dubai",
-        "ar": ""
+        "ar": "عقارات جميرا للجولف من WASL، دبي"
       },
       "period": {
         "en": "60 Days",
-        "ar": ""
+        "ar": "60 يوماً"
       },
       "completion": "2021-10",
       "status": "completed",
@@ -807,16 +807,16 @@
       "id": "damac-hills-villa",
       "title": {
         "en": "Renovation of Private Villa",
-        "ar": ""
+        "ar": "تجديد فيلا خاصة"
       },
       "type": "renovation-decoration",
       "location": {
         "en": "DAMAC Hills by DAMAC, Dubai",
-        "ar": ""
+        "ar": "داماك هيلز من DAMAC، دبي"
       },
       "period": {
         "en": "110 Days",
-        "ar": ""
+        "ar": "110 أيام"
       },
       "completion": "2018-04",
       "status": "completed",
@@ -845,16 +845,16 @@
       "id": "service-blocks-extensions",
       "title": {
         "en": "Service Blocks & Extensions",
-        "ar": ""
+        "ar": "الملاحق الخدمية والتوسعات"
       },
       "type": "construction",
       "location": {
         "en": "Multiple locations",
-        "ar": ""
+        "ar": "مواقع متعددة"
       },
       "period": {
         "en": "Multiple",
-        "ar": ""
+        "ar": "متعددة"
       },
       "completion": null,
       "status": "completed",
@@ -872,7 +872,7 @@
       "consultant": null,
       "description": {
         "en": "As an approved G+4 contractor, Taameer Plus has completed many turnkey projects, including structure and full fit-out for villas and service blocks, with remarkable quality.",
-        "ar": ""
+        "ar": "بصفتها مقاولاً معتمداً من فئة G+4، أنجزت تعمير بلس العديد من مشاريع تسليم المفتاح، بما في ذلك الهيكل الإنشائي والتشطيبات الداخلية الكاملة للفلل والملاحق الخدمية، بجودة متميزة."
       },
       "source": "pdf",
       "pdfPage": 13,
@@ -882,12 +882,12 @@
       "id": "wall-cladding",
       "title": {
         "en": "Wall Cladding",
-        "ar": ""
+        "ar": "تكسية الجدران"
       },
       "type": "showcase",
       "location": {
         "en": "Multiple projects",
-        "ar": ""
+        "ar": "مشاريع متعددة"
       },
       "period": null,
       "completion": null,
@@ -907,7 +907,7 @@
       "consultant": null,
       "description": {
         "en": "Wall cladding for multiple projects, designed and executed by the Taameer Plus team.",
-        "ar": ""
+        "ar": "أعمال تكسية الجدران لعدة مشاريع، صمّمها ونفّذها فريق تعمير بلس."
       },
       "source": "pdf",
       "pdfPage": 31,
@@ -919,72 +919,72 @@
       "id": "al-barsha-hotel",
       "title": {
         "en": "2B+G+6+HC 4-Star Hotel",
-        "ar": ""
+        "ar": "فندق 4 نجوم 2B+G+6+HC"
       },
       "location": {
         "en": "Al Barsha 1st, Dubai",
-        "ar": ""
+        "ar": "البرشاء 1، دبي"
       },
       "consultant": "Alhashmi Planners, Arc. Engs.",
       "image": "assets/img/team-exp-al-barsha-hotel.webp",
       "pdfPage": 32,
       "note": {
         "en": "Executed by members of the Taameer Plus team (prior experience, not a company project).",
-        "ar": ""
+        "ar": "نفّذها أعضاء من فريق تعمير بلس (خبرة سابقة، وليست من مشاريع الشركة)."
       }
     },
     {
       "id": "nadd-al-hamar-residential",
       "title": {
         "en": "G+P+10 Typical + Gym + 2 Roof",
-        "ar": ""
+        "ar": "G+P+10 طوابق متكررة + صالة رياضية + سطحان"
       },
       "location": {
         "en": "Nadd Al Hamar, Dubai",
-        "ar": ""
+        "ar": "ند الحمر، دبي"
       },
       "consultant": "R-Qitect Design Studio",
       "image": "assets/img/team-exp-nadd-al-hamar-residential.webp",
       "pdfPage": 32,
       "note": {
         "en": "Executed by members of the Taameer Plus team (prior experience, not a company project).",
-        "ar": ""
+        "ar": "نفّذها أعضاء من فريق تعمير بلس (خبرة سابقة، وليست من مشاريع الشركة)."
       }
     },
     {
       "id": "dubai-investments-hq",
       "title": {
         "en": "Dubai Investments Headquarters",
-        "ar": ""
+        "ar": "المقر الرئيسي لشركة دبي للاستثمار"
       },
       "location": {
         "en": "Dubai Investment Park, Dubai",
-        "ar": ""
+        "ar": "مجمع دبي للاستثمار، دبي"
       },
       "consultant": "Dewan Al Amara Engineering Consultants",
       "image": "assets/img/team-exp-dubai-investments-hq.webp",
       "pdfPage": 33,
       "note": {
         "en": "Executed by members of the Taameer Plus team (prior experience, not a company project).",
-        "ar": ""
+        "ar": "نفّذها أعضاء من فريق تعمير بلس (خبرة سابقة، وليست من مشاريع الشركة)."
       }
     },
     {
       "id": "souq-al-kabeer-mixed-use",
       "title": {
         "en": "G+M+5 Floors + Roof Shopping Mall / Residential",
-        "ar": ""
+        "ar": "مركز تسوق / سكني G+M+5 طوابق + سطح"
       },
       "location": {
         "en": "Souq Al Kabeer, Dubai",
-        "ar": ""
+        "ar": "سوق الكبير، دبي"
       },
       "consultant": "Al-Shurooq Consultants",
       "image": "assets/img/team-exp-souq-al-kabeer-mixed-use.webp",
       "pdfPage": 33,
       "note": {
         "en": "Executed by members of the Taameer Plus team (prior experience, not a company project).",
-        "ar": ""
+        "ar": "نفّذها أعضاء من فريق تعمير بلس (خبرة سابقة، وليست من مشاريع الشركة)."
       }
     }
   ],
