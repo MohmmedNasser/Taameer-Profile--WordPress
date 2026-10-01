@@ -17,6 +17,15 @@
       required: function (label) { return 'Please enter your ' + label + '.'; },
       email: 'Please enter a valid email address, for example name@example.com.',
       summary: function (n) { return n === 1 ? 'Please correct 1 field below.' : 'Please correct ' + n + ' fields below.'; }
+    },
+    ar: {
+      required: function (label) { return 'يرجى تعبئة حقل «' + label + '».'; },
+      email: 'يرجى إدخال عنوان بريد إلكتروني صحيح، مثل name@example.com.',
+      summary: function (n) {
+        if (n === 1) return 'يرجى تصحيح حقل واحد أدناه.';
+        if (n === 2) return 'يرجى تصحيح حقلين أدناه.';
+        return n <= 10 ? 'يرجى تصحيح ' + n + ' حقول أدناه.' : 'يرجى تصحيح ' + n + ' حقلاً أدناه.';
+      }
     }
   };
   var lang = (document.documentElement.lang || 'en').slice(0, 2);

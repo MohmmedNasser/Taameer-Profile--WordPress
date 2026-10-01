@@ -54,6 +54,10 @@ video {
   block-size: auto;
 }
 
+/* Emphasis is italic in Latin only (Arabic never uses italics: --tp-style-quote is normal under :lang(ar)). */
+em,
+i { font-style: var(--tp-style-quote); }
+
 h1,
 h2,
 h3,

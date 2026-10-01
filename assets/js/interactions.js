@@ -9,7 +9,7 @@
    Everything enhances markup that atomic elements (a Container with a class holding images/links) can produce;
    the UI that scripts generate (dialog, slider handle and labels, live region) is styled by theme.css.
    Dialog/slider classes are prefixed tp-lbox / tp-ba so they never clash with the author-facing triggers.
-   Language: <html lang> picks the label set (en now; ar added in Phase 3).
+   Language: <html lang> picks the label set (en, ar; in WordPress these become Polylang string translations).
    WP: wp_enqueue_script('tp-interactions', …/interactions.js, [], ver, ['strategy' => 'defer']) with theme.css.
    ========================================================================== */
 (function () {
@@ -23,8 +23,19 @@
       close: 'Close', prev: 'Previous image', next: 'Next image', of: ' / ',
       before: 'Before', after: 'After', divider: 'Before and after comparison divider', shown: '% before image shown',
       showing: 'Showing {n} projects', showingOne: 'Showing 1 project'
+    },
+    ar: {
+      menu: 'القائمة', closeMenu: 'إغلاق',
+      close: 'إغلاق', prev: 'الصورة السابقة', next: 'الصورة التالية', of: ' / ',
+      before: 'قبل', after: 'بعد', divider: 'فاصل المقارنة بين قبل وبعد', shown: '% من صورة «قبل» ظاهرة',
+      showing: 'عرض {n} مشاريع', showingOne: 'عرض مشروع واحد', showingTwo: 'عرض مشروعين', showingMany: 'عرض {n} مشروعاً'
     }
   };
+  // Number-noun agreement for "Showing n projects" (Arabic: 1, 2, 3–10 plural, 11+ singular accusative).
+  function showingText(n) {
+    var key = n === 1 ? 'showingOne' : n === 2 && lang === 'ar' ? 'showingTwo' : n > 10 && lang === 'ar' ? 'showingMany' : 'showing';
+    return s(key).replace('{n}', n);
+  }
   function s(key) {
     return (STRINGS[lang] || STRINGS.en)[key] || STRINGS.en[key];
   }
@@ -507,7 +518,7 @@
       }
 
       function announce(n) {
-        if (status) status.textContent = n === 1 ? s('showingOne') : s('showing').replace('{n}', n);
+        if (status) status.textContent = showingText(n);
         if (empty) empty.hidden = n !== 0;
       }
 

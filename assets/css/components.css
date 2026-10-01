@@ -21,7 +21,7 @@
   font-weight: var(--tp-fw-semibold);
   letter-spacing: var(--tp-tracking-eyebrow);
   line-height: var(--tp-lh-heading);
-  text-transform: uppercase;
+  text-transform: var(--tp-transform-label);
   color: var(--tp-eyebrow-color);
 }
 
@@ -47,7 +47,7 @@
   gap: var(--tp-space-2);
   font-size: var(--tp-fs-xs);
   letter-spacing: var(--tp-tracking-button);
-  text-transform: uppercase;
+  text-transform: var(--tp-transform-label);
   color: var(--tp-meta-color);
 }
 
@@ -67,7 +67,7 @@
   font-size: var(--tp-fs-xs);
   font-weight: var(--tp-fw-semibold);
   letter-spacing: var(--tp-tracking-button);
-  text-transform: uppercase;
+  text-transform: var(--tp-transform-label);
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
@@ -104,7 +104,7 @@
   font-size: var(--tp-fs-sm);
   font-weight: var(--tp-fw-semibold);
   letter-spacing: var(--tp-tracking-button);
-  text-transform: uppercase;
+  text-transform: var(--tp-transform-label);
   text-decoration: none;
   color: var(--tp-color-accent-text);
   padding-block: var(--tp-space-2);
@@ -278,7 +278,7 @@
   font-size: var(--tp-fs-xs);
   font-weight: var(--tp-fw-semibold);
   letter-spacing: var(--tp-tracking-eyebrow);
-  text-transform: uppercase;
+  text-transform: var(--tp-transform-label);
   color: var(--tp-meta-color);
 }
 
@@ -292,7 +292,7 @@
 .tp-quote__text {
   font-family: var(--tp-font-display);
   font-size: var(--tp-fs-quote);
-  font-style: italic;
+  font-style: var(--tp-style-quote);
   font-weight: var(--tp-fw-light);
   line-height: var(--tp-lh-heading);
   max-inline-size: 30ch;
@@ -499,7 +499,7 @@
   font-size: var(--tp-fs-xs);
   font-weight: var(--tp-fw-semibold);
   letter-spacing: var(--tp-tracking-button);
-  text-transform: uppercase;
+  text-transform: var(--tp-transform-label);
   color: var(--tp-color-text);
   box-shadow: var(--tp-shadow-sm);
 }
@@ -512,7 +512,7 @@
   font-size: var(--tp-fs-xs);
   font-weight: var(--tp-fw-semibold);
   letter-spacing: var(--tp-tracking-eyebrow);
-  text-transform: uppercase;
+  text-transform: var(--tp-transform-label);
   color: var(--tp-meta-color);
 }
 
@@ -534,7 +534,7 @@
   font-size: var(--tp-fs-xs);
   font-weight: var(--tp-fw-semibold);
   letter-spacing: var(--tp-tracking-button);
-  text-transform: uppercase;
+  text-transform: var(--tp-transform-label);
   color: var(--tp-color-accent-text);
 }
 
@@ -575,7 +575,7 @@
   font-size: var(--tp-fs-xs);
   font-weight: var(--tp-fw-semibold);
   letter-spacing: var(--tp-tracking-eyebrow);
-  text-transform: uppercase;
+  text-transform: var(--tp-transform-label);
   color: var(--tp-meta-color);
 }
 

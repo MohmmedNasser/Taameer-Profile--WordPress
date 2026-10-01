@@ -78,6 +78,8 @@
   --tp-lh-none: 1;
   --tp-tracking-eyebrow: 0.22em;
   --tp-tracking-display: -0.01em;
+  --tp-transform-label: uppercase;   /* eyebrows, buttons, labels (Latin only; Arabic = none) */
+  --tp-style-quote: italic;          /* pull-quotes (Latin only; Arabic = normal) */
 
   /* ---- Spacing ---- */
   --tp-space-1: 0.25rem;
@@ -187,4 +189,32 @@
   --tp-team-photo-ratio: 700 / 736;  /* native aspect of the leadership portraits */
   --tp-license-preview-w: 8rem;
   --tp-spec-col-min: 9rem;           /* compact spec (licenses, team experience): min column width */
+}
+
+/* ==========================================================================
+   Arabic typography (Phase 3, D-034/D-035): token overrides scoped to :lang(ar).
+   Pages set <html lang="ar" dir="rtl">; every component reads these tokens, so no Arabic-specific component CSS exists.
+   Rules: letter-spacing 0 (tracking breaks Arabic joining), no text-transform, no italics.
+   Display = El Messiri 500 (H1-H4, pull-quote, stat numbers); everything else IBM Plex Sans Arabic.
+   Taller line-heights than English; body a touch larger (decided by screenshot, D-035).
+   WP: Elementor mapping is an open owner decision, REPORT R10 in docs/wp-mapping.md.
+   ========================================================================== */
+:lang(ar) {
+  --tp-font-display: var(--tp-font-display-ar);
+  --tp-font-body: var(--tp-font-body-ar);
+  --tp-fw-light: var(--tp-fw-display-ar);
+  --tp-tracking-eyebrow: 0;
+  --tp-tracking-button: 0;
+  --tp-tracking-display: 0;
+  --tp-transform-label: none;
+  --tp-style-quote: normal;
+  --tp-lh-tight: 1.35;
+  --tp-lh-heading: 1.4;
+  --tp-lh-snug: 1.4;
+  --tp-lh-body: 1.85;
+  /* Arabic reads small beside the English scale at the same size: small text steps up ~8% (checked by screenshot) */
+  --tp-fs-xs: clamp(0.8125rem, 0.79rem + 0.1vw, 0.9rem);
+  --tp-fs-sm: clamp(0.9375rem, 0.91rem + 0.1vw, 1.0125rem);
+  --tp-fs-base: clamp(1.0625rem, 1.03rem + 0.14vw, 1.1875rem);
+  --tp-fs-lg: clamp(1.1875rem, 1.12rem + 0.26vw, 1.4rem);
 }

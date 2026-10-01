@@ -1,0 +1,10 @@
+import { createRequire } from 'module';
+const { chromium } = createRequire(import.meta.url)(process.env.PW_MODULE);
+const [,, page, w, out] = process.argv;
+const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: +w, height: 900 } });
+const errs=[]; p.on('pageerror',e=>errs.push(e.message)); p.on('console',m=>['error','warning'].includes(m.type())&&errs.push(m.text())); p.on('requestfailed',r=>errs.push('FAIL '+r.url()));
+await p.goto('http://localhost:5173/' + page, { waitUntil: 'networkidle' });
+await p.evaluate(async()=>{ document.querySelectorAll('.tp-reveal,.tp-stagger,.tp-img-reveal,.tp-split,.tp-counter').forEach(e=>e.classList.add('is-visible')); window.scrollTo(0,document.body.scrollHeight); await new Promise(r=>setTimeout(r,500)); window.scrollTo(0,0); await document.fonts.ready;});
+await p.waitForTimeout(1500);
+console.log(page, w, 'overflow', await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth), errs.slice(0,6));
+await p.screenshot({ path: out, fullPage: true }); await b.close();

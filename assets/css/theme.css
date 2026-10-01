@@ -98,7 +98,7 @@
   font-size: var(--tp-fs-xs);
   font-weight: var(--tp-fw-semibold);
   letter-spacing: var(--tp-tracking-button);
-  text-transform: uppercase;
+  text-transform: var(--tp-transform-label);
 }
 
 /* "+" turns into "×": the logo motif as the menu icon. */
@@ -210,7 +210,7 @@
   font-size: var(--tp-fs-xs);
   font-weight: var(--tp-fw-semibold);
   letter-spacing: var(--tp-tracking-button);
-  text-transform: uppercase;
+  text-transform: var(--tp-transform-label);
 }
 
 .tp-ba__label--before { inset-inline-start: var(--tp-space-4); }
@@ -298,7 +298,7 @@
   font-size: var(--tp-fs-xs);
   font-weight: var(--tp-fw-semibold);
   letter-spacing: var(--tp-tracking-eyebrow);
-  text-transform: uppercase;
+  text-transform: var(--tp-transform-label);
   color: var(--tp-eyebrow-color);
 }
 
@@ -394,7 +394,7 @@
   font-size: var(--tp-fs-xs);
   font-weight: var(--tp-fw-semibold);
   letter-spacing: var(--tp-tracking-button);
-  text-transform: uppercase;
+  text-transform: var(--tp-transform-label);
   text-decoration: none;
   white-space: nowrap;
   color: var(--tp-color-text);
@@ -579,7 +579,7 @@
   font-size: var(--tp-fs-xs);
   font-weight: var(--tp-fw-semibold);
   letter-spacing: var(--tp-tracking-button);
-  text-transform: uppercase;
+  text-transform: var(--tp-transform-label);
   color: var(--tp-color-text);
   transition: background-color var(--tp-dur-fast) var(--tp-ease-out), color var(--tp-dur-fast) var(--tp-ease-out), border-color var(--tp-dur-fast) var(--tp-ease-out);
 }
@@ -721,7 +721,7 @@
   font-size: var(--tp-fs-xs);
   font-weight: var(--tp-fw-semibold);
   letter-spacing: var(--tp-tracking-eyebrow);
-  text-transform: uppercase;
+  text-transform: var(--tp-transform-label);
   color: var(--tp-meta-color);
 }
 

@@ -26,7 +26,37 @@
   var TP = (window.TP = window.TP || {});
   var lang = (document.documentElement.lang || 'en').slice(0, 2);
 
-  var ONGOING = { en: 'Ongoing' };
+  // Per-language strings (becomes Polylang string translation in WordPress). English is the fallback.
+  var STRINGS = {
+    en: {
+      ongoing: 'Ongoing', ongoingProject: 'Ongoing project', completed: 'Completed {d}',
+      months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+      brand: 'Taameer Plus Contracting LLC',
+      notFound: 'Project not found',
+      notFoundText: 'We could not find that project. It may have moved, or the link may be incorrect. Browse the full portfolio or return to the homepage.',
+      specType: 'Type', specLocation: 'Location', specDuration: 'Duration', specCompletion: 'Completion', specConsultant: 'Consultant',
+      imageOf: ' — image {i} of {n}', after: 'After: {t}, completed', before: 'Before: {t}, during construction',
+      description: '{title} — a {type} project in {location} delivered by {brand}{when}. View the project details and image gallery.'
+    },
+    ar: {
+      ongoing: 'قيد التنفيذ', ongoingProject: 'مشروع قيد التنفيذ', completed: 'اكتمل في {d}',
+      months: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'],
+      brand: 'تعمير بلس للمقاولات ش.ذ.م.م',
+      notFound: 'المشروع غير موجود',
+      notFoundText: 'لم نعثر على هذا المشروع. ربما نُقل أو أن الرابط غير صحيح. تصفّح سجل أعمالنا الكامل أو عد إلى الصفحة الرئيسية.',
+      specType: 'النوع', specLocation: 'الموقع', specDuration: 'المدة', specCompletion: 'تاريخ الإنجاز', specConsultant: 'الاستشاري',
+      imageOf: ' — الصورة {i} من {n}', after: 'بعد: {t}، بعد الإنجاز', before: 'قبل: {t}، أثناء الإنشاء',
+      description: '{title} — مشروع في مجال {type} في {location} نفّذته {brand}{when}. اطلع على تفاصيل المشروع ومعرض الصور.'
+    }
+  };
+  function s(key) {
+    return (STRINGS[lang] || STRINGS.en)[key] || STRINGS.en[key];
+  }
+  // Asset and data paths in the JSON are relative to the site root; the Arabic pages live one folder down.
+  var ROOT = lang === 'ar' ? '../' : '';
+  function asset(path) {
+    return path ? ROOT + path : path;
+  }
 
   function t(field) {
     if (!field) return '';
@@ -63,17 +93,17 @@
     setText(node, 'title', t(p.title));
     setText(node, 'location', t(p.location));
     setText(node, 'type', t((data.types || {})[p.type]));
-    setText(node, 'when', ongoing ? ONGOING[lang] || ONGOING.en : year);
+    setText(node, 'when', ongoing ? s('ongoing') : year);
 
     var img = node.querySelector('img.tp-card__img');
-    img.setAttribute('src', p.cover);
+    img.setAttribute('src', asset(p.cover));
     img.setAttribute('alt', t(p.title) + ', ' + t(p.location));
     if (meta[0]) {
       img.setAttribute('width', meta[0]);
       img.setAttribute('height', meta[1]);
     }
     if (meta[2]) {
-      img.setAttribute('srcset', p.cover.replace(/\.webp$/, '-md.webp') + ' 900w, ' + p.cover + ' ' + meta[0] + 'w');
+      img.setAttribute('srcset', asset(p.cover.replace(/\.webp$/, '-md.webp')) + ' 900w, ' + asset(p.cover) + ' ' + meta[0] + 'w');
     }
 
     var keep = { ongoing: ongoing, render: !!p.isRender };
@@ -119,6 +149,7 @@
   var cache = {};
   function load(src) {
     src = src || 'data/projects.json';
+    if (!/^(\.\.\/|https?:)/.test(src)) src = ROOT + src;
     if (!cache[src]) {
       cache[src] = fetch(src).then(function (r) {
         if (!r.ok) throw new Error('HTTP ' + r.status + ' for ' + src);
@@ -145,7 +176,7 @@
     });
   }
 
-  TP.projects = { load: load, sorted: sorted, render: render, card: card, t: t };
+  TP.projects = { load: load, sorted: sorted, render: render, card: card, t: t, s: s, asset: asset };
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();

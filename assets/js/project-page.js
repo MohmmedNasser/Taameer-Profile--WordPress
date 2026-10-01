@@ -16,8 +16,10 @@
   'use strict';
 
   var TP = window.TP;
-  var BRAND = 'Taameer Plus Contracting LLC';
-  var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  var S = TP.projects.s;
+  var asset = TP.projects.asset;
+  var BRAND = S('brand');
+  var MONTHS = S('months');
 
   function $(sel, root) { return (root || document).querySelector(sel); }
   function field(name) { return $('[data-tp-field="' + name + '"]'); }
@@ -34,16 +36,16 @@
   }
 
   function notFound() {
-    document.title = 'Project not found — ' + BRAND;
+    document.title = S('notFound') + ' — ' + BRAND;
     var robots = document.createElement('meta');
     robots.name = 'robots';
     robots.content = 'noindex';
     document.head.appendChild(robots);
-    setField('crumb', 'Project not found');
+    setField('crumb', S('notFound'));
     setField('type', '404');
-    setField('title', 'Project not found');
+    setField('title', S('notFound'));
     var lead = field('lead');
-    lead.textContent = 'We could not find that project. It may have moved, or the link may be incorrect. Browse the full portfolio or return to the homepage.';
+    lead.textContent = S('notFoundText');
     lead.hidden = false;
     $('.tp-notfound').hidden = false;
     $('[data-tp-project-body]').setAttribute('data-state', 'empty');
@@ -52,19 +54,19 @@
   function description(p, typeLabel) {
     var own = TP.projects.t(p.description);
     if (own) return own;
-    var when = p.status === 'ongoing' ? 'Ongoing project' : monthYear(p.completion) ? 'Completed ' + monthYear(p.completion) : '';
-    return TP.projects.t(p.title) + ' — a ' + typeLabel.toLowerCase() + ' project in ' + TP.projects.t(p.location) +
-      ' delivered by ' + BRAND + (when ? '. ' + when : '') + '. View the project details and image gallery.';
+    var when = p.status === 'ongoing' ? S('ongoingProject') : monthYear(p.completion) ? S('completed').replace('{d}', monthYear(p.completion)) : '';
+    return S('description').replace('{title}', TP.projects.t(p.title)).replace('{type}', typeLabel.toLowerCase())
+      .replace('{location}', TP.projects.t(p.location)).replace('{brand}', BRAND).replace('{when}', when ? '. ' + when : '');
   }
 
   function specRows(p, typeLabel) {
-    var rows = [['Type', typeLabel], ['Location', TP.projects.t(p.location)]];
+    var rows = [[S('specType'), typeLabel], [S('specLocation'), TP.projects.t(p.location)]];
     var period = TP.projects.t(p.period);
-    if (period) rows.push(['Duration', period]);
-    if (p.status === 'ongoing') rows.push(['Completion', 'Ongoing']);
-    else if (p.completion) rows.push(['Completion', monthYear(p.completion)]);
+    if (period) rows.push([S('specDuration'), period]);
+    if (p.status === 'ongoing') rows.push([S('specCompletion'), S('ongoing')]);
+    else if (p.completion) rows.push([S('specCompletion'), monthYear(p.completion)]);
     var consultant = TP.projects.t(p.consultant);
-    if (consultant) rows.push(['Consultant', consultant]);
+    if (consultant) rows.push([S('specConsultant'), consultant]);
     return rows;
   }
 
@@ -87,13 +89,13 @@
     var alt = TP.projects.t(p.title) + ', ' + TP.projects.t(p.location);
     var fig = $('[data-tp-cover]');
     var img = document.createElement('img');
-    img.src = p.cover;
+    img.src = asset(p.cover);
     img.alt = alt;
     img.width = w;
     img.height = h;
     img.decoding = 'async';
     img.setAttribute('fetchpriority', 'high');
-    if (meta[2]) img.srcset = p.cover.replace(/\.webp$/, '-md.webp') + ' 900w, ' + p.cover + ' ' + w + 'w';
+    if (meta[2]) img.srcset = asset(p.cover.replace(/\.webp$/, '-md.webp')) + ' 900w, ' + asset(p.cover) + ' ' + w + 'w';
     img.sizes = '(min-width: 64em) 62vw, 100vw';
     fig.style.setProperty('--tp-cover-ratio', (w / h).toFixed(4));
     if (w < 1200 || h > w) {
@@ -118,11 +120,11 @@
       var a = tpl.content.firstElementChild.cloneNode(true);
       var img = a.querySelector('img');
       var m = meta[src] || [];
-      a.href = src;
-      img.src = src;
-      img.alt = caption + ' — image ' + (i + 1) + ' of ' + all.length;
+      a.href = asset(src);
+      img.src = asset(src);
+      img.alt = caption + S('imageOf').replace('{i}', i + 1).replace('{n}', all.length);
       if (m[0]) { img.width = m[0]; img.height = m[1]; }
-      if (m[2]) img.srcset = src.replace(/\.webp$/, '-md.webp') + ' 900w, ' + src + ' ' + m[0] + 'w';
+      if (m[2]) img.srcset = asset(src.replace(/\.webp$/, '-md.webp')) + ' 900w, ' + asset(src) + ' ' + m[0] + 'w';
       img.sizes = '(min-width: 64em) 30vw, (min-width: 40em) 45vw, 100vw';
       box.appendChild(a);
     });
@@ -137,7 +139,7 @@
       var m = meta[src] || [];
       var img = document.createElement('img');
       img.className = cls;
-      img.src = src;
+      img.src = asset(src);
       img.alt = alt;
       if (m[0]) { img.width = m[0]; img.height = m[1]; }
       img.loading = 'lazy';
@@ -146,8 +148,8 @@
     }
     var box = document.createElement('div');
     box.className = 'tp-before-after';
-    box.appendChild(image(after, 'tp-before-after__after', 'After: ' + title + ', completed'));
-    box.appendChild(image(p.beforeImage, 'tp-before-after__before', 'Before: ' + title + ', during construction'));
+    box.appendChild(image(after, 'tp-before-after__after', S('after').replace('{t}', title)));
+    box.appendChild(image(p.beforeImage, 'tp-before-after__before', S('before').replace('{t}', title)));
     $('[data-tp-compare-media]').appendChild(box);
     $('[data-tp-compare]').hidden = false;
     if (TP.beforeAfter) TP.beforeAfter.enhance(box);
@@ -193,7 +195,7 @@
     setMeta('meta[name="description"]', 'content', desc);
     setMeta('meta[property="og:title"]', 'content', title + ' — ' + BRAND);
     setMeta('meta[property="og:description"]', 'content', desc);
-    setMeta('meta[property="og:image"]', 'content', p.cover);
+    setMeta('meta[property="og:image"]', 'content', asset(p.cover));
 
     setField('crumb', title);
     setField('type', typeLabel);
@@ -212,7 +214,15 @@
     return renderLetter(p);
   }
 
+  // The language switcher keeps ?id= (in WordPress Polylang links to the translated project instead).
+  function keepQueryInSwitcher() {
+    document.querySelectorAll('.tp-lang__link').forEach(function (a) {
+      a.setAttribute('href', a.getAttribute('href').split('?')[0] + window.location.search);
+    });
+  }
+
   function init() {
+    keepQueryInSwitcher();
     var id = new URLSearchParams(window.location.search).get('id');
     TP.projects.load('data/projects.json').then(function (data) {
       var p = (data.projects || []).filter(function (x) { return x.id === id && x.type !== 'showcase'; })[0];
