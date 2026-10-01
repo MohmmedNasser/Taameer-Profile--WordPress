@@ -2,6 +2,13 @@
 
 Non-obvious decisions. Format: **Context / Decision / Reason / Alternatives rejected.** Newest on top.
 
+### D-037 — Spike environment: DB port, shells and Polylang setup (Phase 4 spike, Part A)
+- **Context:** Local's site shell could not reach MySQL (`localhost:3306` refused); Local assigns each site its own MySQL port (10011 for "taameer"). `wp.bat` also breaks under Git Bash (path with spaces) and inline `wp eval '...'` is mangled by cmd quoting.
+- **Decision:** `DB_HOST` set to `localhost:10011` with `wp config set` (owner-approved; WP-CLI is the permitted way to touch the WordPress folder). All WP-CLI work runs from PowerShell; multi-line PHP goes in scratch files run with `wp eval-file`. Polylang has no WP-CLI commands in the free version, so English (default, no prefix, `hide_default=1`, `force_lang=1`) and Arabic (`ar`, RTL, `/ar/`) were added through `PLL()->model->add_language()`; permalinks set to `/%postname%/`.
+- **Reason:** keeps the setup scriptable and reproducible; no hand-written Elementor data.
+- **Alternatives rejected:** clicking through Polylang's UI (not reproducible); editing wp-config.php by hand.
+- **Spike deviations from Part A wording:** `interactions.js` is the prototype's lightbox section verbatim plus a trimmed helper block, so the lightbox dialog CSS is not in `theme.css` (the dialog will be unstyled in check 1b; behaviour is still testable). The throwaway CPT `tp_spike_project` (check 3) and its 2 posts were created now, marked `SPIKE START/END` in `functions.php`.
+
 ### D-036 — Finding: LCP on ar/services.html (diagnosis only, for Phase 4; nothing was changed)
 - **Measured** (Lighthouse mobile, simulated slow 4G, `python -m http.server`): the first Arabic run reported LCP 7.2 s (performance 57); a re-run reported 4.3 s (75); the English page 3.8 s (82). The simulation is noisy (about ±2 s between runs), so read the *causes* below, not the single number.
 - **LCP element:** not an image. It is the first service paragraph, `p.tp-lead.tp-reveal` ("أعمال إنشائية متكاملة…") in the Construction block, 368 × 105 px at 375 px wide. No image is the LCP, so image weight and lazy-loading are not the cause (the three largest images are 36–68 KB `-md.webp`, none lazy-loaded above the fold issue; total page 599 KB, of which images 216 KB).
