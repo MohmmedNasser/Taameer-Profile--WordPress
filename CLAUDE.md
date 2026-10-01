@@ -18,8 +18,8 @@ A static HTML/CSS/JS prototype of the bilingual (EN default / AR RTL) corporate 
 2. **Plain `defer` scripts, not ES modules.** Each JS file is a standalone IIFE, enqueueable with `wp_enqueue_script`. The only global is `window.TP`.
 3. **CSS logical properties only** (`margin-inline-start`, `inset-inline-end`, `text-align: start`…). Never `left`/`right` for layout. Unavoidable direction rules go in a marked `[dir="rtl"]` block.
 4. **BEM with `tp-` prefix**: `tp-hero`, `tp-hero__title`, `tp-card--featured`.
-5. **Elementor structure**: `<section class="tp-section …"> → <div class="tp-container"> → blocks`. Layouts must be buildable with Flexbox Containers. CSS Grid only inside blocks that become custom widgets.
-6. **Annotate every section**: `<!-- ELEMENTOR: native — Heading + Text Editor + Button -->` or `<!-- ELEMENTOR: custom widget "tp-projects-grid" — controls: … -->`.
+5. **Elementor structure**: `<section class="tp-section …"> → <div class="tp-container"> → blocks`. Layouts must be buildable with Flexbox Containers. CSS Grid is prototype-only: the WordPress build uses atomic elements, no custom widgets (see Elementor v4 build).
+6. **Annotate every section**: `<!-- ELEMENTOR: native — Heading + Text Editor + Button -->` or, for what atomic elements cannot express, `<!-- ELEMENTOR: GAP — report to owner -->` (no custom widgets).
 7. **All design values are tokens**, all in `assets/css/tokens.css` (primitive/semantic brand values, then shared scales, then the component layer). No hard-coded colors/fonts/spacing/radii/shadows/durations in component CSS. One brand only: the taameer.ae identity on a light layout (`docs/brand.md`). The earlier warm-bronze design is recoverable via git tag `v1-bronze`; there is no brand switcher and no `data-brand` attribute.
 8. **Animation is class-driven** (below). No JS that targets elements by ID for animation.
 9. **Accessibility**: landmarks, one `<h1>` per page, visible focus, alt on every image, keyboard-operable widgets, WCAG AA contrast, full `prefers-reduced-motion`.
@@ -36,6 +36,16 @@ A static HTML/CSS/JS prototype of the bilingual (EN default / AR RTL) corporate 
 - Fonts: EN display **Playfair Display** (400–600, weight token 500), EN body **Inter** (400–600); AR display **Noto Kufi Arabic**, AR body **IBM Plex Sans Arabic** (tokens only until Phase 3).
 - Fluid type via `clamp()`; radii 2–10px; neutral soft shadows; "+" logo motif for markers, bullets, separators and hover cues.
 - Signature: ink "+" setting-out marks on framed images (`.tp-frame`), drawing title-block facts (`.tp-spec`). Tokens have 3 layers (primitive → semantic → component); `validate-tokens.cjs` from the design-system skill must report 0 violations.
+
+## Elementor v4 build (WordPress; supersedes PRD 8.2, decision D-030)
+- Elementor v4 Atomic Editor (free). Atomic elements only: no v3 widgets, custom PHP widgets, HTML widget or shortcodes. Anything not expressible with atomic elements is reported to the owner, not improvised.
+- Every `--tp-` CSS custom property becomes an Elementor global variable (same name); every repeated class becomes a global class. Set colour explicitly on heading classes.
+- No theme stylesheet except ONE animations-only file (`animations.css`: tp-reveal, tp-stagger, tp-parallax, tp-img-reveal, tp-counter, reduced motion) plus `animations.js`. No Additional CSS.
+- Responsive: Elementor per-device controls (tablet, mobile), not the prototype media queries. Test RTL manually on every Arabic page.
+- Images: photographs WebP, longest edge <= 1600 px, < 400 KB, converted on the server before upload; logos and transparency stay PNG (SVG if a vector logo is supplied).
+- Theme stays Hello Elementor child (not Astra); header, footer, language switcher and WhatsApp button live in the theme. Pages are content only: header not transparent, no overlay, no hero top-padding compensation.
+- Page settings: Elementor Full Width template, hide title, no sidebar.
+- Build order: English Home first, then stop for owner review; Arabic pages after.
 
 ## Animation classes (`animations.css` + `animations.js`)
 | Class | Behavior |
@@ -82,7 +92,7 @@ data/     projects.json · team.json · testimonials.json · site.json
 1. Design system + English homepage
 2. Remaining English pages: about, services, projects (filtering), project (single template from JSON), testimonials, contact, 404
 3. Arabic RTL versions in `ar/`, Arabic content in the JSON files
-4. WordPress child theme of Hello Elementor on LocalWP: CPTs (project, team, testimonial), project-type taxonomy, native meta boxes (no ACF), PHP templates for header/footer/single/archive/404, Customizer contact settings, custom Elementor widgets, Polylang
+4. WordPress child theme of Hello Elementor on LocalWP: CPTs (project, team, testimonial), project-type taxonomy, native meta boxes (no ACF), PHP templates for header/footer/single/archive/404, Customizer contact settings, Polylang (no custom Elementor widgets; pages use Elementor v4 atomic elements, see below)
 5. Content import + Elementor page builds exported as JSON templates
 
 ## Current state

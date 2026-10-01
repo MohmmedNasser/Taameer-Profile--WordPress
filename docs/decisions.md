@@ -2,6 +2,12 @@
 
 Non-obvious decisions. Format: **Context / Decision / Reason / Alternatives rejected.** Newest on top.
 
+### D-030 — Elementor v4 (Atomic Editor) replaces custom widgets
+- Context: Elementor v4 atomic elements, global variables and global classes are available in the free version.
+- Decision: pages use atomic elements only (no v3 widgets, custom PHP widgets, HTML widget or shortcodes; supersedes PRD 8.2). Every `--tp-` custom property becomes a global variable (same name); every repeated class a global class, with colour set explicitly on heading classes. The theme has one stylesheet, `animations.css` (tp-reveal, tp-stagger, tp-parallax, tp-img-reveal, tp-counter, reduced motion), plus `animations.js`; no Additional CSS. Responsive uses Elementor tablet/mobile controls; RTL tested manually per Arabic page. Photographs: WebP, longest edge <= 1600 px, < 400 KB, converted on the server; logos/transparency stay PNG (SVG if vector supplied). Theme stays Hello Elementor child (not Astra) and holds header, footer, language switcher, WhatsApp button. Pages are content only: header not transparent, no overlay, no hero top-padding compensation. Page settings: Full Width template, hide title, no sidebar. Build order: English Home, stop for owner review, then Arabic.
+- Reason: editors work natively in Elementor with no PHP widget maintenance. Anything atomic elements cannot express is reported to the owner, not improvised.
+- Alternatives rejected: custom PHP widgets (PRD 8.2), a large theme stylesheet, Astra.
+
 ### D-029 — License data read from the license images; PDFs copied locally
 - Context: taameer.ae renders the license fields blank in its text; the values live only in the two license scans (PDFs without a text layer).
 - Decision: fields read from the renewed licenses by eye and stored in `data/site.json → licenses` (Contracting 741846, expires 06/09/2027; Carpentry 1314264, expires 18/02/2027); PDFs copied to `assets/docs/`. The lightbox shows the 1920px image rendition with a "View PDF" link; without JS the button opens the PDF. A thumbnail and a button pointing to the same license count once in the gallery.

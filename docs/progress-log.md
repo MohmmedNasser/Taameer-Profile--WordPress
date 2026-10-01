@@ -2,6 +2,10 @@
 
 One entry per completed task, newest on top. Format: Did / Files / Issues / Next.
 
+### 2026-09-30 — Decision: Elementor v4 (Atomic) page building
+- Did: recorded the move to Elementor v4 atomic elements in CLAUDE.md, docs/decisions.md (D-030) and docs/PRD.md (v1.3: scope 4.1, 8.1, 8.2 rewritten, 8.3, 9, 11, Phase 4, risks, change log). No other content changed.
+- Note: the PRD was already at 1.3 (Homepage approved), so the change extends the 1.3 row instead of adding a second 1.3.
+
 ### 2026-09-30 — Phase 2A · Part D: services.html
 - Did: page hero; sticky scrollable chip navigation (service-nav.js, IntersectionObserver, aria-current="true"); 6 alternating service blocks with anchor ids matching the homepage/footer links (no homepage change needed); website text + PDF paragraphs (Construction, Design & Build, Turnkey); related projects (projects.js `data-tp-service`, mapping in site.json, D-027); wall cladding showcase (6 images, lightbox); shared CTA.
 - Verified: interaction tests (chip keyboard activation, sticky offsets, highlight on scroll, related 3/3/3 and none for Design & Build / Maintenance / Turnkey); screenshots 375/768/1280/1920 LTR + RTL → source/screenshots/phase-2/; 0 console issues, no overflow.

@@ -3,7 +3,7 @@
 
 | | |
 |---|---|
-| **Version** | 1.3 — Homepage design approved |
+| **Version** | 1.5 — Elementor v4 with approved theme exceptions |
 | **Date** | 30 September 2026 |
 | **Prepared by** | Mohammed (Frontend Developer) |
 | **Client** | Taameer Plus Contracting LLC, Dubai, UAE |
@@ -62,9 +62,9 @@ The build happens in two stages: a static HTML/CSS/JavaScript prototype for desi
 - Static prototype: 8 English pages + 8 Arabic pages (project detail is one template)
 - Custom WordPress child theme of Hello Elementor
 - Custom Post Types: Projects, Team Members, Testimonials; taxonomy: Project Type
-- Custom Elementor widgets for the design's unique sections (see 8.2)
+- Pages built with Elementor v4 Atomic Elements, global variables and global classes (see 8.2)
 - Bilingual setup with Polylang (free), English default, Arabic RTL
-- Contact form (Contact Form 7)
+- Contact form built with Elementor v4 Atomic Forms (availability in the free version confirmed in the Phase 4 spike)
 - Basic on-page SEO: titles, meta descriptions, Open Graph, `hreflang`, XML sitemap, LocalBusiness / GeneralContractor schema
 - Image extraction from the PDF and collection from the current website, optimization and WebP conversion
 - Free-license stock images (Unsplash, Pexels, Pixabay) only where the PDF has no suitable image, with every source logged
@@ -102,7 +102,7 @@ The build happens in two stages: a static HTML/CSS/JavaScript prototype for desi
 
 ### 5.1 Global: header and footer
 
-- **Header:** logo, main navigation, language switcher, "Get a Quote" button. Sticky; transparent over the homepage hero, solid on scroll. Accessible mobile menu.
+- **Header:** logo, main navigation, language switcher, "Get a Quote" button. Sticky and solid on all pages: **not transparent**, no overlay over the hero, and no top-padding compensation in the hero. Header, footer, language switcher and WhatsApp button live in the theme. Accessible mobile menu.
 - **Footer:** logo, tagline, quick links, services list, contact details (office, mobile, email, WhatsApp, Instagram), company profile PDF download, language switcher, copyright.
 - **Floating WhatsApp button** on all pages.
 - Contact details (address, phone, email, social links) are managed in one place (WordPress Customizer) and reused across the site.
@@ -135,7 +135,7 @@ Appreciation letters from Atlas Copco Services Middle East, Bella Cure Beauty Lo
 
 ### 5.8 Contact
 
-Address, office phone, mobile, WhatsApp, email, Instagram, Google Map embed of the Festival City office, contact form (name, email, phone, project type, message), office hours if provided by client.
+Address, office phone, mobile, WhatsApp, email, Instagram, a location block with an "Open in Google Maps" link to the Festival City office (no embedded map, since iframes require the forbidden HTML widget), contact form (name, email, phone, project type, message), office hours if provided by client.
 
 ### 5.9 404
 
@@ -204,25 +204,37 @@ The 4 buildings on PDF pages 32–33 (hotel in Al Barsha, residential tower in N
 | Menus | Appearance → Menus | Client |
 | Header and footer layout | Theme code | Developer |
 | Project detail and archive layout | Theme code | Developer |
-| Colors and fonts | Elementor Site Settings (Global Colors / Fonts) | Client, with care |
+| Colors, fonts and repeated styles | Elementor v4 global variables and global classes | Client, with care |
 
-### 8.2 Custom Elementor widgets
+### 8.2 Elementor v4 build rules (supersedes the former 8 custom widgets)
 
-Built with the Elementor widget API (works with the free version), each with editable controls:
+- Pages are built with **Elementor v4 Atomic Elements only** (Atomic Editor, free version). No v3 widgets, no custom PHP widgets, no HTML widget, no shortcodes.
+- Anything that cannot be expressed with Atomic Elements is **reported to the owner, not improvised**.
+- Every CSS custom property becomes an Elementor **global variable**, keeping the `--tp-` names. Every repeated class becomes a **global class**. Heading classes set their colour explicitly.
+- Responsive behaviour uses Elementor's per-device controls (tablet, mobile), not the prototype's media queries.
+- Page settings: Elementor Full Width template, title hidden, no sidebar. Pages contain content only.
+- Theme: Hello Elementor child theme (not Astra). Header, footer, language switcher and WhatsApp button live in the theme.
+- Build order: English Home first, then stop for owner review. Arabic pages come after. RTL is tested manually on every Arabic page.
 
-| Widget | Controls |
-|---|---|
-| Hero | Title, subtitle, buttons, image, parallax on/off |
-| Projects Grid | Number of items, type filter, featured only, order, show filter bar |
-| Before / After | Before image, after image, labels, caption, start position |
-| Stats Counter | Repeater: number, suffix, label |
-| Team Cards | Number, order |
-| Testimonials | Number, layout |
-| Marquee | Repeater of items, speed, direction |
+### 8.2.1 Approved exceptions (closed list)
+
+The atomic-only rule applies to everything the client edits in Elementor. Three exceptions are approved, only for parts the client does not edit, and no others may be added without the owner's approval:
+
+| # | Exception | Covers |
+|---|---|---|
+| E1 | `theme.css` in the child theme | Header, footer, language switcher, WhatsApp button, 404 page, the project archive and single templates (E3), and the UI generated by `interactions.js` (lightbox overlay, before/after handle, filter bar) |
+| E2 | `interactions.js` in the child theme | Class-driven interactive behaviour on atomic markup: lightbox (`tp-lightbox`), before/after slider (`tp-before-after`), services scroll navigation (`tp-scrollspy`), project filtering on the archive |
+| E3 | PHP templates `archive-project.php` and `single-project.php` | Project listing with filtering and project detail pages, rendered from the Project CPT and styled by E1 |
+
+With E1–E3, the theme ships exactly four front-end files: `animations.css`, `animations.js`, `theme.css`, `interactions.js`.
+
+### 8.2.2 RTL and global classes
+
+Global classes are shared by both languages. Classes must use direction-neutral values (symmetric padding and margins, `start`/`end` alignment where Elementor offers it). Where a direction-specific value is unavoidable, a separate class with the suffix `-rtl` is created and applied on Arabic pages only. RTL is still tested manually on every Arabic page.
 
 ### 8.3 Animation classes
 
-Entrance and scroll animations are applied by adding CSS classes in Elementor's **Advanced → CSS Classes** field (free feature): `tp-reveal`, `tp-reveal--up/down/start/end/scale`, `tp-stagger`, `tp-parallax`, `tp-split`, `tp-img-reveal`, `tp-counter`. Documented in the editing guide.
+Animations live in `animations.css` and `animations.js` (the other two theme files are the exceptions in 8.2.1); no Additional CSS. Animations are applied through classes: `tp-reveal`, `tp-stagger`, `tp-parallax`, `tp-img-reveal`, `tp-counter`, with full reduced-motion support. Documented in the editing guide.
 
 ---
 
@@ -234,7 +246,7 @@ Entrance and scroll animations are applied by adding CSS classes in Elementor's 
 - The alternative "bronze" design is archived in git (tag `v1-bronze`) and is not part of the build.
 - The "+" from the logo is used as a recurring design motif.
 - Motion is subtle and purposeful; all motion is disabled when the user's system requests reduced motion.
-- Full design tokens (colors, type scale, spacing) are defined in the static prototype and mapped to Elementor Global Colors and Fonts.
+- Full design tokens (colors, type scale, spacing) are defined in the static prototype and become Elementor v4 global variables (same `--tp-` names) and global classes.
 
 ---
 
@@ -245,7 +257,8 @@ Entrance and scroll animations are applied by adding CSS classes in Elementor's 
 | Browsers | Latest 2 versions of Chrome, Safari (macOS/iOS), Firefox, Edge; Samsung Internet |
 | Responsive | 360px to 2560px, tested at 375, 768, 1280, 1920 |
 | Performance | WebP images with responsive sizes, lazy loading, no layout shift, no render-blocking third-party scripts |
-| Dependencies | No front-end frameworks or JS libraries. Plugins limited to: Elementor, Polylang, Contact Form 7, one SEO plugin |
+| Images | Photographs: WebP, longest edge at most 1600 px, under 400 KB, converted on the server before upload. Logos and images with transparency: PNG (SVG if a vector logo is supplied) |
+| Dependencies | No front-end frameworks or JS libraries. Plugins limited to: Elementor, Polylang, one SEO plugin |
 | Accessibility | WCAG 2.1 AA: semantic HTML, keyboard navigation, focus states, alt text, contrast, ARIA on custom components |
 | Content source | All images and data from the client's company profile are approved for publication. Stock images fill gaps only and are logged with source and license |
 | Maintainability | Theme code documented; no hard-coded content in templates |
@@ -259,9 +272,9 @@ Entrance and scroll animations are applied by adding CSS classes in Elementor's 
 | Prototype | HTML5, CSS3 (custom properties, logical properties), vanilla JavaScript |
 | CMS | WordPress (latest) |
 | Theme | Custom child theme of Hello Elementor |
-| Page builder | Elementor (free) |
+| Page builder | Elementor (free), v4 Atomic Editor, Atomic Elements only |
 | Multilingual | Polylang (free) |
-| Forms | Contact Form 7 |
+| Forms | Elementor v4 Atomic Forms (to be confirmed in the Phase 4 spike) |
 | SEO | Yoast SEO (free) or Rank Math (free), to be confirmed |
 | Local development | LocalWP (Mailpit for form email testing) |
 | AI tooling | Claude Code, guided by `CLAUDE.md` and this PRD. Single-agent only (no sub-agents). Every task logged in `docs/` |
@@ -290,13 +303,15 @@ Entrance and scroll animations are applied by adding CSS classes in Elementor's 
 - **Gate: client approves Arabic copy**
 
 ### Phase 4 — WordPress theme
+- **Spike first** on a clean LocalWP site with Elementor v4 and Hello Elementor child theme, building one homepage section with Atomic Elements. It must confirm: (1) global class names appear unchanged in the front-end HTML, so `animations.js` and `interactions.js` can target them; (2) Atomic Forms are available in the free version and send email; (3) whether Atomic Loop is available in the free version (if yes, homepage featured projects read from the CPT; if no, they are static atomic cards). Results are reported to the owner before the theme build continues.
 - Child theme installs and activates on a clean LocalWP site
-- CPTs, taxonomy, meta boxes, templates, Customizer settings, custom widgets working
+- CPTs, taxonomy, meta boxes, project templates, Customizer settings working; theme ships exactly `animations.css`, `animations.js`, `theme.css`, `interactions.js`
 - Polylang integration: translated CPTs, string translations, language switcher, `hreflang`
 - Header, footer, project templates visually match the approved prototype
 
 ### Phase 5 — Content and handover
 - All content imported in both languages
+- English Home built first with Atomic Elements, then stop for owner review; remaining pages follow, Arabic after English
 - All pages built in Elementor and exported as JSON templates
 - Contact form delivers email (verified in Mailpit locally)
 - Editing guide delivered; handover session completed
@@ -335,7 +350,7 @@ The source PDF contains spelling and grammar errors that are corrected on the we
 | Arabic copy delayed in review | Phase 3 slips | Deliver Arabic early; review page by page |
 | Client expects Elementor Pro features | Scope dispute | Section 4.2 and 8.1 define what is editable; confirmed at sign-off |
 | Scope creep during review rounds | Timeline and budget | Two revision rounds per phase; further changes quoted |
-| Future plugin updates break custom widgets | Maintenance cost | Use only the public Elementor widget API; document version tested |
+| Elementor v4 is still evolving; atomic features may change or move to Pro | Rework or blocked features | Phase 4 spike verifies features on the installed version; record the tested Elementor version; theme exceptions kept to the closed list in 8.2.1 |
 
 ---
 
@@ -344,6 +359,8 @@ The source PDF contains spelling and grammar errors that are corrected on the we
 | Version | Date | Change |
 |---|---|---|
 | 1.0 | 30 Sep 2026 | Initial draft |
+| 1.5 | — | Option B approved: closed list of three theme exceptions (theme.css, interactions.js, PHP project templates); RTL rule for global classes; Contact Form 7 replaced by Atomic Forms pending spike; embedded map replaced by a Google Maps link; Phase 4 starts with a verification spike |
+| 1.4 | — | Page building moves to Elementor v4 Atomic Editor: Atomic Elements only, global variables and classes, no custom widgets/HTML widget/shortcodes (supersedes former 8.2); theme CSS limited to animations; per-device responsive controls; image rules; solid (non-transparent) header; Full Width page settings; English Home first then owner review |
 | 1.3 | Phase 1 review | Homepage approved with the Official identity (monochrome, Playfair Display + Inter); bronze archived; renewed contracting license (expires 06/09/2027) confirmed from website; open questions updated from Phase 1 findings |
 | 1.2 | 30 Sep 2026 | Current website taameer.ae added as a second, higher-priority source: updated stats, 6 services, Why Choose Us, partners, contact channels, 1 new project, project fact corrections; open questions reduced |
 | 1.1 | 30 Sep 2026 | All PDF images and data approved for use, including licenses and all letters; stock images allowed for gaps; documentation and single-agent rules added |
