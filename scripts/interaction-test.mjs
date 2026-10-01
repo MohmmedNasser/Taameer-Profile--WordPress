@@ -140,19 +140,14 @@ for (const dir of ['ltr', 'rtl']) {
     await ctx.close();
   }
 
-  // Lightbox: licenses on about.html (PDF trigger → image rendition + View PDF; thumbnail and button de-duplicated)
+  // Licenses on about.html (R6): previews and buttons link straight to the PDF in a new tab; no lightbox, no custom attributes
   {
     await page.goto(ORIGIN + 'about.html', { waitUntil: 'networkidle' });
-    const btn = page.locator('.tp-license__actions a').first();
-    await btn.scrollIntoViewIfNeeded();
-    await btn.click();
-    await page.waitForSelector('.tp-lbox.is-open');
-    const lic = await page.evaluate(() => ({ src: document.querySelector('.tp-lbox__img').getAttribute('src'),
-      pdf: !document.querySelector('.tp-lbox__pdf').hidden && document.querySelector('.tp-lbox__pdf').getAttribute('href'),
-      count: document.querySelector('.tp-lbox__count').textContent }));
-    check('license lightbox shows the image rendition and a View PDF link', /license-.*\.webp$/.test(lic.src) && /\.pdf$/.test(lic.pdf), `${lic.src} ${lic.pdf}`);
-    check('license lightbox lists 2 licenses (thumbnail + button de-duplicated)', lic.count === '1 / 2', lic.count);
-    await page.keyboard.press('Escape');
+    const lic = await page.evaluate(() => ({
+      links: [...document.querySelectorAll('.tp-licenses a')].map((a) => ({ href: a.getAttribute('href'), blank: a.target === '_blank', rel: a.rel })),
+      lightbox: !!document.querySelector('.tp-licenses.tp-lightbox, .tp-licenses [data-image], .tp-licenses [data-caption]') }));
+    check('license links open the PDF directly in a new tab (noopener)', lic.links.length >= 4 && lic.links.every((l) => /\.pdf$/.test(l.href) && l.blank && /noopener/.test(l.rel)), JSON.stringify(lic.links));
+    check('licenses carry no lightbox class or data attributes', !lic.lightbox);
   }
 
   // Service navigation

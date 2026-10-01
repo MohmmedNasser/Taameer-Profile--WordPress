@@ -144,24 +144,24 @@
   <section class="tp-section tp-hero" aria-labelledby="tp-hero-title">
     <div class="tp-container tp-hero__inner">
       <div class="tp-hero__panel">
-        <p class="tp-eyebrow tp-reveal" data-tp-delay="100">Taameer Plus Contracting LLC — Dubai, UAE</p>
+        <p class="tp-eyebrow tp-reveal tp-delay-1">Taameer Plus Contracting LLC — Dubai, UAE</p>
         <h1 class="tp-h1 tp-hero__title tp-split" id="tp-hero-title">Construct A Better Tomorrow<span class="tp-hero__plus" aria-hidden="true">+</span></h1>
-        <p class="tp-hero__lead tp-reveal" data-tp-delay="250">An approved G+4 general contractor delivering turnkey construction, design &amp; build, luxury fit-out and full-scale renovation across the UAE — with uncompromising quality since 2015.</p>
-        <div class="tp-hero__actions tp-reveal" data-tp-delay="350">
+        <p class="tp-hero__lead tp-reveal tp-delay-3">An approved G+4 general contractor delivering turnkey construction, design &amp; build, luxury fit-out and full-scale renovation across the UAE — with uncompromising quality since 2015.</p>
+        <div class="tp-hero__actions tp-reveal tp-delay-4">
           <a class="tp-btn tp-btn--primary" href="projects.html">View Projects</a>
           <a class="tp-btn tp-btn--ghost" href="contact.html">Get a Quote</a>
         </div>
       </div>
       <figure class="tp-hero__media">
         <div class="tp-frame">
-          <div class="tp-frame__clip tp-img-reveal" data-tp-delay="200">
-            <img class="tp-frame__img tp-parallax" data-tp-speed="0.08"
+          <div class="tp-frame__clip tp-img-reveal tp-delay-2">
+            <img class="tp-frame__img tp-parallax"
                  src="assets/img/project-palm-jumeirah-villa-02.webp" width="576" height="541"
                  alt="Pool terrace and white facade of a renovated private villa on Palm Jumeirah"
                  fetchpriority="high" decoding="async">
           </div>
         </div>
-        <figcaption class="tp-caption tp-reveal" data-tp-delay="800">
+        <figcaption class="tp-caption tp-reveal tp-delay-5">
           <svg aria-hidden="true" width="12" height="12"><use href="#tp-i-plus"/></svg>
           Private villa renovation · Palm Jumeirah · 2025
         </figcaption>
@@ -170,7 +170,7 @@
   </section>
 
   <!-- ATOMIC: Flexbox(.tp-section .tp-partners) > Heading(.tp-eyebrow) + Flexbox(.tp-marquee) > Flexbox(.tp-marquee__track) > Flexbox(.tp-marquee__item) > Image(.tp-marquee__logo) x14 -->
-  <!-- REPORT: the continuous logo marquee is an animation but is not in the PRD 8.3 class list. Ask the owner to approve `tp-marquee` in animations.css/animations.js (the track duplication already lives there). Fallback: a static wrapped logo row (the About partners grid). -->
+  <!-- ANIMATION: tp-marquee (animations.css/js, approved in PRD v1.6). Fallback if ever dropped: a static wrapped logo row (the About partners grid). -->
   <section class="tp-section tp-section--tight tp-section--ruled tp-partners" aria-labelledby="tp-partners-title">
     <div class="tp-container">
       <h2 class="tp-h2 tp-partners__title tp-eyebrow" id="tp-partners-title">Our trusted partners</h2>
@@ -197,7 +197,7 @@
   </section>
 
   <!-- ATOMIC: Flexbox(.tp-section .tp-about) > Flexbox(row) > [Flexbox(.tp-about__text) > Paragraph(.tp-eyebrow) + Heading H2(.tp-h2) + Paragraph(.tp-lead) + Paragraph + Button(.tp-link)] + [Flexbox(.tp-stats .tp-stagger) > 3 x Flexbox(.tp-stats__item) > Paragraph(.tp-stats__label) + Heading(.tp-stats__value .tp-counter)] -->
-  <!-- REPORT: atomic elements have no definition list (dl/dt/dd) or ul/li. Statistics and every list on the site become Div Blocks + Paragraphs (small semantic loss: screen readers read them as plain text). -->
+  <!-- NOTE (R5, resolved): atomic elements have no dl/ul/li/blockquote/figure; Div Blocks + Paragraphs are used per docs/wp-mapping.md "R5 per-section replacements". Accepted in PRD v1.6. -->
   <section class="tp-section tp-about" aria-labelledby="tp-about-title">
     <div class="tp-container tp-row tp-row--end">
       <div class="tp-col tp-col--7 tp-about__text">
@@ -210,7 +210,7 @@
       <dl class="tp-col tp-col--5 tp-stats tp-stagger">
         <div class="tp-stats__item">
           <dt class="tp-stats__label">Established in Dubai</dt>
-          <dd class="tp-stats__value"><span class="tp-counter" data-tp-target="2015" data-tp-from="1990">2015</span></dd>
+          <dd class="tp-stats__value"><span class="tp-counter tp-counter--year">2015</span></dd>
         </div>
         <div class="tp-stats__item">
           <dt class="tp-stats__label">Approved contractor</dt>
@@ -218,7 +218,7 @@
         </div>
         <div class="tp-stats__item">
           <dt class="tp-stats__label">Delivered projects</dt>
-          <dd class="tp-stats__value"><span class="tp-counter" data-tp-target="100" data-tp-suffix="+">100+</span></dd>
+          <dd class="tp-stats__value"><span class="tp-counter">100+</span></dd>
         </div>
       </dl>
     </div>
@@ -265,7 +265,7 @@
 
       <ul class="tp-service-list" role="list">
         <li class="tp-service" role="listitem">
-          <a class="tp-service__link tp-reveal" data-tp-delay="0" href="services.html#construction">
+          <a class="tp-service__link tp-reveal" href="services.html#construction">
             <h3 class="tp-h3 tp-service__title">Construction</h3>
             <p class="tp-service__text">Full-scale construction ranging from G+1 luxury villas to G+4 residential and commercial buildings, with complete structural integrity.</p>
             <svg class="tp-service__plus" aria-hidden="true" width="16" height="16"><use href="#tp-i-plus"/></svg>
@@ -273,7 +273,7 @@
           <img class="tp-service__img" src="assets/img/project-dubai-g-residential-villa-02.webp" srcset="assets/img/project-dubai-g-residential-villa-02-md.webp 900w, assets/img/project-dubai-g-residential-villa-02.webp 1200w" sizes="(min-width: 64em) 40vw, 100vw" width="1200" height="800" alt="Newly built villa with pool at dusk, Dubai" loading="lazy" decoding="async">
         </li>
         <li class="tp-service" role="listitem">
-          <a class="tp-service__link tp-reveal" data-tp-delay="80" href="services.html#design-build">
+          <a class="tp-service__link tp-reveal tp-delay-1" href="services.html#design-build">
             <h3 class="tp-h3 tp-service__title">Design &amp; Build</h3>
             <p class="tp-service__text">Direct single-contract solutions covering structural, architectural and electromechanical works, evaluated for cost and buildability by one team.</p>
             <svg class="tp-service__plus" aria-hidden="true" width="16" height="16"><use href="#tp-i-plus"/></svg>
@@ -281,7 +281,7 @@
           <img class="tp-service__img" src="assets/img/project-al-awir-villas-02.webp" srcset="assets/img/project-al-awir-villas-02-md.webp 900w, assets/img/project-al-awir-villas-02.webp 1200w" sizes="(min-width: 64em) 40vw, 100vw" width="1200" height="800" alt="Completed G+1 residential villa in Al Awir" loading="lazy" decoding="async">
         </li>
         <li class="tp-service" role="listitem">
-          <a class="tp-service__link tp-reveal" data-tp-delay="160" href="services.html#decoration-fitout">
+          <a class="tp-service__link tp-reveal tp-delay-2" href="services.html#decoration-fitout">
             <h3 class="tp-h3 tp-service__title">Decoration &amp; Fit-out</h3>
             <p class="tp-service__text">Premium corporate, retail, hospitality and residential fit-out and decoration, including custom wall cladding and joinery through our carpentry division.</p>
             <svg class="tp-service__plus" aria-hidden="true" width="16" height="16"><use href="#tp-i-plus"/></svg>
@@ -289,7 +289,7 @@
           <img class="tp-service__img" src="assets/img/project-kf-inc-headquarters-05.webp" srcset="assets/img/project-kf-inc-headquarters-05-md.webp 900w, assets/img/project-kf-inc-headquarters-05.webp 1200w" sizes="(min-width: 64em) 40vw, 100vw" width="1200" height="802" alt="Reception with timber slat wall at the KF INC headquarters fit-out" loading="lazy" decoding="async">
         </li>
         <li class="tp-service" role="listitem">
-          <a class="tp-service__link tp-reveal" data-tp-delay="240" href="services.html#renovation">
+          <a class="tp-service__link tp-reveal tp-delay-3" href="services.html#renovation">
             <h3 class="tp-h3 tp-service__title">Renovation</h3>
             <p class="tp-service__text">Complete building and villa refurbishments, interior modernisations and structural updates executed on schedule.</p>
             <svg class="tp-service__plus" aria-hidden="true" width="16" height="16"><use href="#tp-i-plus"/></svg>
@@ -297,7 +297,7 @@
           <img class="tp-service__img" src="assets/img/project-dubai-marina-triplex-villa-04.webp" srcset="assets/img/project-dubai-marina-triplex-villa-04-md.webp 900w, assets/img/project-dubai-marina-triplex-villa-04.webp 1200w" sizes="(min-width: 64em) 40vw, 100vw" width="1200" height="800" alt="Renovated double-height living area in a Dubai Marina triplex villa" loading="lazy" decoding="async">
         </li>
         <li class="tp-service" role="listitem">
-          <a class="tp-service__link tp-reveal" data-tp-delay="320" href="services.html#maintenance">
+          <a class="tp-service__link tp-reveal tp-delay-4" href="services.html#maintenance">
             <h3 class="tp-h3 tp-service__title">Maintenance</h3>
             <p class="tp-service__text">Ongoing technical services, active maintenance and facility support that keep structures in prime condition long after handover.</p>
             <svg class="tp-service__plus" aria-hidden="true" width="16" height="16"><use href="#tp-i-plus"/></svg>
@@ -305,7 +305,7 @@
           <img class="tp-service__img" src="assets/img/project-atlas-copco-headquarters-03.webp" srcset="assets/img/project-atlas-copco-headquarters-03-md.webp 900w, assets/img/project-atlas-copco-headquarters-03.webp 1200w" sizes="(min-width: 64em) 40vw, 100vw" width="1200" height="800" alt="Open-plan office at the Atlas Copco headquarters" loading="lazy" decoding="async">
         </li>
         <li class="tp-service" role="listitem">
-          <a class="tp-service__link tp-reveal" data-tp-delay="400" href="services.html#turnkey">
+          <a class="tp-service__link tp-reveal tp-delay-5" href="services.html#turnkey">
             <h3 class="tp-h3 tp-service__title">Turnkey Projects</h3>
             <p class="tp-service__text">Experienced professionals handling every phase of construction, from new build to renovation, coordinated with qualified subcontractors to meet deadlines.</p>
             <svg class="tp-service__plus" aria-hidden="true" width="16" height="16"><use href="#tp-i-plus"/></svg>
@@ -322,7 +322,7 @@
       <div class="tp-col tp-col--6 tp-why__media">
         <div class="tp-frame">
           <div class="tp-frame__clip tp-img-reveal">
-            <img class="tp-frame__img tp-parallax" data-tp-speed="0.1"
+            <img class="tp-frame__img tp-parallax"
                  src="assets/img/project-dubai-g-residential-villa-05.webp"
                  srcset="assets/img/project-dubai-g-residential-villa-05-md.webp 900w, assets/img/project-dubai-g-residential-villa-05.webp 1200w"
                  sizes="(min-width: 64em) 45vw, 100vw" width="1200" height="801"
@@ -365,7 +365,7 @@
           <p class="tp-reveal"><a class="tp-link" href="projects.html">All projects <svg aria-hidden="true" width="20" height="20"><use href="#tp-i-arrow"/></svg></a></p>
         </div>
       </div>
-      <div class="tp-projects-grid" data-tp-projects data-tp-src="data/projects.json" data-tp-featured="true" data-tp-count="6" aria-live="polite">
+      <div class="tp-projects-grid tp-stagger" data-tp-projects data-tp-src="data/projects.json" data-tp-featured="true" data-tp-count="6" aria-live="polite">
         <p class="tp-projects-grid__fallback">Browse the full portfolio on the <a href="projects.html">projects page</a>.</p>
       </div>
     </div>

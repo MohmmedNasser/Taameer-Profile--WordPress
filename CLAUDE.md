@@ -54,12 +54,12 @@ A static HTML/CSS/JS prototype of the bilingual (EN default / AR RTL) corporate 
 | `tp-reveal` | Fade + translate on enter (default up) |
 | `tp-reveal--up/--down/--start/--end/--scale` | Direction variants (start/end flip in RTL) |
 | `tp-stagger` | Parent: children reveal in sequence |
-| `tp-parallax` | Scroll parallax; `data-tp-speed` (default 0.15) |
+| `tp-parallax` | Scroll parallax (default speed 0.1); `tp-parallax--slow` / `tp-parallax--fast` change the speed |
 | `tp-split` | Headline reveals line by line; `aria-label` keeps it accessible |
 | `tp-img-reveal` | Clip-path wipe on enter |
-| `tp-counter` | Counts to `data-tp-target`, optional `data-tp-from` (default 0), `data-tp-suffix`, `data-tp-prefix` |
+| `tp-counter` | Counts up to the number in its own text and keeps the prefix/suffix ("100+" counts to 100, keeps "+"; "G+4" is not a counter). `tp-counter--year` starts 25 below the target instead of 0 |
 
-`data-tp-delay="200"` (ms) works on any of them. Initial hidden states only apply under `html.tp-js`, so content is visible if JS fails. Reduced motion shows everything instantly.
+`tp-delay-1` … `tp-delay-5` (fixed 100 ms steps, `--tp-delay-step`) work on any of them. **Animation options are classes, never data attributes** (they sit on atomic elements); data attributes remain only for the theme's header menu (E1/E2), the archive filter (`data-tp-filter`/`data-tp-type`, E3) and prototype-only JSON render hooks (D-033). Initial hidden states only apply under `html.tp-js`, so content is visible if JS fails. Reduced motion shows everything instantly.
 
 ## File structure and naming
 ```
@@ -98,5 +98,5 @@ data/     projects.json · team.json · testimonials.json · site.json
 
 ## Current state
 - **Phase:** Phase 2 complete; next: Phase 3 (Arabic RTL).
-- **Last completed task:** Phase 2B: Elementor v4 alignment (theme.css / interactions.js / animations, ELEMENTOR SOURCE styles), projects (filter), project template, testimonials, contact, 404, and Phase 2 acceptance (see docs/progress-log.md).
+- **Last completed task:** Part 0 (PRD v1.6 decisions, animation options as classes, D-033); before that Phase 2B: Elementor v4 alignment (theme.css / interactions.js / animations, ELEMENTOR SOURCE styles), projects (filter), project template, testimonials, contact, 404, and Phase 2 acceptance (see docs/progress-log.md).
 - **Next task:** Phase 3 — Arabic pages in `ar/`, Arabic strings in `data/*.json`, Arabic fonts and the `-rtl` classes listed in docs/wp-mapping.md; the page builders for new pages copy the PARTIAL blocks from index.html (`python scripts/check-partials.py`). Open client questions: PRD §14, progress-log, and docs/wp-mapping.md REPORT list.

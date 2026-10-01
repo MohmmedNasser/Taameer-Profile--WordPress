@@ -3,12 +3,13 @@
    Classes (apply in Elementor: Advanced → CSS Classes):
      tp-reveal [--up|--down|--start|--end|--scale]  fade + move on enter
      tp-stagger     parent; children reveal in sequence (JS sets --tp-i on each child)
-     tp-parallax    scroll parallax (JS sets --tp-py); data-tp-speed
+     tp-parallax [--slow|--fast]  scroll parallax (JS sets --tp-py; speed comes from --tp-parallax-speed)
      tp-split       headline revealed line by line (JS wraps lines)
      tp-img-reveal  clip-path wipe from the inline-start edge
-     tp-counter     count-up, JS only (data-tp-target / -from / -prefix / -suffix)
+     tp-counter [--year]  count-up, JS only; reads number, prefix and suffix from its own text ("100+" → 100, keeps "+");
+                    --year starts 25 below the target
      tp-marquee     continuous logo strip; reduced motion = static wrapped grid; reversed in RTL
-   data-tp-delay="ms" on any of them (JS copies it to --tp-delay).
+   tp-delay-1 … tp-delay-5  fixed entrance delay steps (1 step = --tp-delay-step) on any of the effects above.
    Hidden initial states apply ONLY under html.tp-js, so content is visible if JS fails.
    prefers-reduced-motion: reduce → no hidden states, no motion, marquee becomes a static wrapped row.
    WP: enqueue after components.css (handle "tp-animations").
@@ -17,6 +18,17 @@
 :root {
   --tp-dir-x: 1; /* -1 in RTL (see bottom) so start/end variants flip */
 }
+
+/* ---- Entrance delay steps and parallax speeds (classes, so atomic elements can carry them) ---- */
+.tp-delay-1 { --tp-delay: calc(1 * var(--tp-delay-step)); }
+.tp-delay-2 { --tp-delay: calc(2 * var(--tp-delay-step)); }
+.tp-delay-3 { --tp-delay: calc(3 * var(--tp-delay-step)); }
+.tp-delay-4 { --tp-delay: calc(4 * var(--tp-delay-step)); }
+.tp-delay-5 { --tp-delay: calc(5 * var(--tp-delay-step)); }
+
+.tp-parallax { --tp-parallax-speed: var(--tp-parallax-speed-base); }
+.tp-parallax--slow { --tp-parallax-speed: var(--tp-parallax-speed-slow); }
+.tp-parallax--fast { --tp-parallax-speed: var(--tp-parallax-speed-fast); }
 
 /* ---- tp-marquee: continuous logo strip (PRD v1.6 R2) ----
    Markup: .tp-marquee > .tp-marquee__track > logos. animations.js clones the track once (aria-hidden) so the loop is

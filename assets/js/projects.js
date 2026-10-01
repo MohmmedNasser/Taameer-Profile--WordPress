@@ -15,6 +15,7 @@
        no types or no matching project hides the enclosing [data-tp-related] block instead of rendering it empty.
    Card link: project.html?id=<slug>. Order (also used by project.html prev/next): ongoing first, then completion
    date newest first; projects without a date last. The wall-cladding showcase never appears in listings.
+   Stagger is a class on the container in the page markup (tp-stagger), not an option here.
    After rendering, a bubbling "tp:rendered" event fires on the container (the project filter listens for it).
    Public: TP.projects = { load, sorted, render, labels }.
    Language: <html lang> picks the "en"/"ar" string, falling back to "en".
@@ -110,7 +111,6 @@
     var frag = document.createDocumentFragment();
     list.forEach(function (p) { frag.appendChild(card(tpl, p, data)); });
     container.replaceChildren(frag);
-    if (container.dataset.tpStagger !== 'false' && !opts.type) container.classList.add('tp-stagger');
     if (TP.refreshAnimations) TP.refreshAnimations(container.parentNode);
     container.dispatchEvent(new CustomEvent('tp:rendered', { bubbles: true }));
   }

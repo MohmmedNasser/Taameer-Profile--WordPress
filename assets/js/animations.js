@@ -10,13 +10,15 @@
        on an early handle) so hidden states never flash.
    ========================================================================== */
 (function () {
-  /* ---- tp-counter: count-up numbers. Attributes (all optional; the number is read from the text): data-tp-target, data-tp-from (default 0), data-tp-prefix,
-     data-tp-suffix. The element's server-rendered text is the final value, so no-JS / reduced-motion users see it as is.
+  /* ---- tp-counter: count-up numbers. The element's own text is the final value and carries the prefix/suffix:
+     "100+" counts to 100 and keeps "+"; "G+4" is not a counter (leave tp-counter off it). Counts up from 0, or from 25 below the
+     target with the modifier tp-counter--year (for years). No data attributes, so no-JS / reduced-motion users see the text as is.
      Exposes TP.counter(el); the entrance observer below calls it when the element enters the viewport. ---- */
   'use strict';
 
   var TP = (window.TP = window.TP || {});
   var DURATION = 1800;
+  var YEAR_SPAN = 25; // tp-counter--year starts this far below the target
 
   function easeOutCubic(t) {
     return 1 - Math.pow(1 - t, 3);
@@ -26,13 +28,13 @@
     if (el.dataset.tpCounted) return;
     el.dataset.tpCounted = 'true';
 
-    // Plain markup works without attributes: "100+" counts to 100 with the suffix "+" (attributes override).
+    // "100+" counts to 100 with the suffix "+"; a prefix works the same way ("$5").
     var m = /^(\D*?)(\d+(?:\.\d+)?)(\D*)$/.exec(el.textContent.trim()) || [];
-    var target = parseFloat(el.dataset.tpTarget !== undefined ? el.dataset.tpTarget : m[2]);
+    var target = parseFloat(m[2]);
     if (isNaN(target)) return;
-    var from = parseFloat(el.dataset.tpFrom) || 0;
-    var prefix = el.dataset.tpPrefix !== undefined ? el.dataset.tpPrefix : m[1] || '';
-    var suffix = el.dataset.tpSuffix !== undefined ? el.dataset.tpSuffix : m[3] || '';
+    var from = el.classList.contains('tp-counter--year') ? target - YEAR_SPAN : 0;
+    var prefix = m[1] || '';
+    var suffix = m[3] || '';
     var finalText = prefix + target + suffix;
 
     if (TP.reducedMotion) {
@@ -63,13 +65,6 @@
   TP.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   var ENTER = '.tp-reveal, .tp-stagger, .tp-img-reveal, .tp-split, .tp-counter';
-
-  /* ---- data-tp-delay → CSS custom property ---- */
-  function applyDelays(scope) {
-    scope.querySelectorAll('[data-tp-delay]').forEach(function (el) {
-      el.style.setProperty('--tp-delay', (parseInt(el.dataset.tpDelay, 10) || 0) + 'ms');
-    });
-  }
 
   /* ---- tp-stagger: index each child ---- */
   function indexStagger(scope) {
@@ -224,7 +219,7 @@
       var vh = window.innerHeight;
       visible.forEach(function (el) {
         var rect = el.getBoundingClientRect();
-        var speed = parseFloat(el.dataset.tpSpeed) || 0.15;
+        var speed = parseFloat(getComputedStyle(el).getPropertyValue('--tp-parallax-speed')) || 0.1; // set by tp-parallax[--slow|--fast]
         // 0 when the element is centred in the viewport; grows as it moves away.
         var offset = (rect.top + rect.height / 2 - vh / 2) * -speed;
         el.style.setProperty('--tp-py', offset.toFixed(1) + 'px');
@@ -252,7 +247,6 @@
 
   /* Public hook for content injected after load (projects.js). */
   TP.refreshAnimations = function (scope) {
-    applyDelays(scope);
     indexStagger(scope);
     scope.querySelectorAll(ENTER).forEach(function (el) {
       if (io) observe(el);
@@ -261,7 +255,6 @@
   };
 
   function init() {
-    applyDelays(document);
     indexStagger(document);
     initMarquees();
     initSplits();

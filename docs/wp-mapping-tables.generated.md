@@ -1,6 +1,6 @@
 ## Global variables (every `--tp-` token)
 
-138 variables, generated from `assets/css/tokens.css`. Create each as an Elementor v4 global variable with the same name and value.
+142 variables, generated from `assets/css/tokens.css`. Create each as an Elementor v4 global variable with the same name and value.
 
 | Variable | Value | Note | Layer |
 |---|---|---|---|
@@ -95,6 +95,10 @@
 | `--tp-ease-in-out` | `cubic-bezier(0.65, 0, 0.35, 1)` |  | Motion |
 | `--tp-reveal-distance` | `2.5rem` |  | Motion |
 | `--tp-stagger-step` | `110ms` |  | Motion |
+| `--tp-delay-step` | `100ms` | tp-delay-1…5 | Motion |
+| `--tp-parallax-speed-base` | `0.1` | unitless factors, read by animations.js | Motion |
+| `--tp-parallax-speed-slow` | `0.05` |  | Motion |
+| `--tp-parallax-speed-fast` | `0.2` |  | Motion |
 | `--tp-hover-zoom` | `1.05` |  | Motion |
 | `--tp-z-base` | `1` |  | Layers |
 | `--tp-z-fab` | `80` |  | Layers |
@@ -206,7 +210,7 @@ Generated from the ELEMENTOR SOURCE stylesheets. Create one Elementor v4 global 
 |  | `.tp-stack > * + *` | margin-block-start: var(--tp-space-5) |
 |  | `.tp-stack--lg > * + *` | margin-block-start: var(--tp-space-7) |
 
-### components.css (125 rules)
+### components.css (112 rules)
 
 | Media | Selector | Properties |
 |---|---|---|
@@ -243,12 +247,6 @@ Generated from the ELEMENTOR SOURCE stylesheets. Create one Elementor v4 global 
 | (min-width: 64em) | `.tp-hero__media` | margin-inline-start: calc(-1 * var(--tp-space-9)); padding-block-start: var(--tp-space-9) |
 |  | `.tp-compare__media` | align-items: center |
 |  | `.tp-partners__title` | margin-block-end: var(--tp-space-6) |
-|  | `.tp-marquee` | display: flex; overflow: hidden; mask-image: linear-gradient(to right, transparent, var(--tp-mask-solid) 8%, var(--tp-mask-solid) 92%, transparent) |
-|  | `.tp-marquee__track` | display: flex; flex: none; align-items: center; gap: var(--tp-marquee-gap); padding-inline-end: var(--tp-marquee-gap); animation: tp-marquee var(--tp-dur-marquee) linear infinite |
-|  | `.tp-marquee:hover .tp-marquee__track, .tp-marquee:focus-within .tp-marquee__track` | animation-play-state: paused |
-|  | `.tp-marquee__logo` | block-size: var(--tp-partner-h); inline-size: auto; max-inline-size: var(--tp-partner-max-w); object-fit: contain; filter: grayscale(1); opacity: 0.6; transition: filter var(--tp-dur-base) var(--tp-ease-out), opacity var(--tp-dur-base) var(--tp-ease-out) |
-|  | `.tp-marquee__logo:hover` | filter: none; opacity: 1 |
-|  | `.tp-marquee__logo--blend` | mix-blend-mode: multiply |
 |  | `.tp-about__text h2` | max-inline-size: 20ch |
 |  | `.tp-stats` | gap: 0 |
 |  | `.tp-stats__item` | display: flex; flex-direction: column-reverse; gap: var(--tp-space-1); padding-block: var(--tp-space-5); border-block-start: var(--tp-hairline) |
@@ -268,19 +266,15 @@ Generated from the ELEMENTOR SOURCE stylesheets. Create one Elementor v4 global 
 |  | `.tp-service-list` | border-block-start: var(--tp-hairline) |
 |  | `.tp-service` | border-block-end: var(--tp-hairline) |
 |  | `.tp-service__link` | position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--tp-space-2) var(--tp-space-5); padding-block: var(--tp-space-6); color: inherit; text-decoration: none |
-|  | `.tp-service__title` | grid-column: 1; font-size: var(--tp-fs-h3); font-weight: var(--tp-fw-light); transition: color var(--tp-dur-fast) var(--tp-ease-out), transform var(--tp-dur-base) var(--tp-ease-out) |
+|  | `.tp-service__title` | grid-column: 1; font-size: var(--tp-fs-h3); font-weight: var(--tp-fw-light); transition: color var(--tp-dur-fast) var(--tp-ease-out) |
 |  | `.tp-service__text` | grid-column: 1; max-inline-size: var(--tp-measure); color: var(--tp-color-text-muted) |
 |  | `.tp-service__plus` | grid-column: 2; grid-row: 1; align-self: center; color: var(--tp-color-accent); transition: transform var(--tp-dur-base) var(--tp-ease-out) |
 |  | `.tp-service__link:hover .tp-service__title, .tp-service__link:focus-visible .tp-service__title` | color: var(--tp-color-accent-text) |
 |  | `.tp-service__link:hover .tp-service__plus, .tp-service__link:focus-visible .tp-service__plus` | transform: rotate(90deg) |
 |  | `.tp-service__img` | inline-size: 100%; aspect-ratio: 3 / 2; object-fit: cover; margin-block-end: var(--tp-space-6); border-radius: var(--tp-radius-sm) |
-| (min-width: 64em) | `.tp-service-list` | display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: var(--tp-space-9); border-block-start: 0 |
-| (min-width: 64em) | `.tp-service` | display: contents |
-| (min-width: 64em) | `.tp-service__link` | grid-column: 1; border-block-end: var(--tp-hairline) |
-| (min-width: 64em) | `.tp-service:first-child .tp-service__link` | border-block-start: var(--tp-hairline) |
-| (min-width: 64em) | `.tp-service__link:hover .tp-service__title, .tp-service__link:focus-visible .tp-service__title` | transform: translateX(var(--tp-space-3)) |
-| (min-width: 64em) | `.tp-service__img` | grid-column: 2; grid-row: 1 / span 6; position: sticky; inset-block-start: calc(var(--tp-header-h) + var(--tp-space-6)); align-self: start; aspect-ratio: 4 / 5; margin: 0; box-shadow: var(--tp-shadow-md); opacity: 0; transition: opacity var(--tp-dur-slow) var(--tp-ease-out) |
-| (min-width: 64em) | `.tp-service:is(:hover, :focus-within) .tp-service__img, .tp-service-list:not(:has(.tp-service:is(:hover, :focus-within))) .tp-service:first-child .tp-service__img` | opacity: 1 |
+| (min-width: 64em) | `.tp-service` | display: flex; align-items: center; gap: var(--tp-space-9); padding-block: var(--tp-space-6) |
+| (min-width: 64em) | `.tp-service__link` | flex: 7 1 0; min-inline-size: 0; padding-block: 0 |
+| (min-width: 64em) | `.tp-service__img` | flex: 5 1 0; min-inline-size: 0; margin: 0; box-shadow: var(--tp-shadow-md) |
 |  | `.tp-why__list` | display: flex; flex-direction: column; margin-block-start: var(--tp-space-4) |
 |  | `.tp-why__item` | position: relative; padding-block: var(--tp-space-5); padding-inline-start: var(--tp-space-6); border-block-start: var(--tp-hairline) |
 |  | `.tp-why__item::before` | content: ""; position: absolute; inset-inline-start: 0; inset-block-start: calc(var(--tp-space-5) + 0.5em); inline-size: var(--tp-plus); block-size: var(--tp-plus); background: linear-gradient(var(--tp-color-accent), var(--tp-color-accent)) center / 100% var(--tp-border-w) no-repeat, linear-gradient(var(--tp-color-accent), var(--tp-color-accent)) center / var(--tp-border-w) 100% no-repeat |
@@ -329,12 +323,9 @@ Generated from the ELEMENTOR SOURCE stylesheets. Create one Elementor v4 global 
 |  | `.tp-cta__actions` | display: flex; flex-wrap: wrap; align-items: center; gap: var(--tp-space-3) var(--tp-space-6) |
 |  | `.tp-cta__contact` | color: var(--tp-color-text); text-decoration: none; font-weight: var(--tp-fw-medium); padding-block: var(--tp-space-2); border-block-end: var(--tp-hairline) |
 |  | `.tp-cta__contact:hover` | border-block-end-color: var(--tp-color-accent) |
-|  | `[dir="rtl"]` | --tp-origin-start: right; --tp-marquee-shift: 100% |
-|  | `[dir="rtl"] .tp-marquee, .tp-marquee-rtl` | mask-image: linear-gradient(to left, transparent, var(--tp-mask-solid) 8%, var(--tp-mask-solid) 92%, transparent) |
-|  | `.tp-marquee-rtl` | --tp-marquee-shift: 100% |
+|  | `[dir="rtl"]` | --tp-origin-start: right |
 |  | `[dir="rtl"] .tp-link:hover svg, .tp-link-rtl:hover svg` | transform: translateX(calc(-1 * var(--tp-space-1))) scaleX(-1) |
 |  | `[dir="rtl"] .tp-link svg, [dir="rtl"] .tp-card__more svg, .tp-link-rtl svg, .tp-card__more-rtl svg` | transform: scaleX(-1) |
-| (min-width: 64em) | `[dir="rtl"] .tp-service__link:hover .tp-service__title, [dir="rtl"] .tp-service__link:focus-visible .tp-service__title, .tp-service__link-rtl:hover .tp-service__title, .tp-service__link-rtl:focus-visible .tp-service__title` | transform: translateX(calc(-1 * var(--tp-space-3))) |
 
 ### inner-pages.css (139 rules)
 

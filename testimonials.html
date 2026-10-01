@@ -126,9 +126,9 @@
       </nav>
       <div class="tp-page-hero__body tp-row">
         <div class="tp-col tp-col--7 tp-page-hero__text">
-          <p class="tp-eyebrow tp-reveal" data-tp-delay="100">Client endorsements</p>
-          <h1 class="tp-h1 tp-page-hero__title tp-reveal" id="tp-page-title" data-tp-delay="200">Letters of appreciation</h1>
-          <p class="tp-page-hero__lead tp-reveal" data-tp-delay="350">Words from the clients and consultants we have worked with, together with the original signed letters.</p>
+          <p class="tp-eyebrow tp-reveal tp-delay-1">Client endorsements</p>
+          <h1 class="tp-h1 tp-page-hero__title tp-reveal tp-delay-2" id="tp-page-title">Letters of appreciation</h1>
+          <p class="tp-page-hero__lead tp-reveal tp-delay-3">Words from the clients and consultants we have worked with, together with the original signed letters.</p>
         </div>
       </div>
     </div>
@@ -136,7 +136,7 @@
 
   <!-- ATOMIC: Flexbox(.tp-section .tp-letters-page) > Flexbox(.tp-container .tp-lightbox) > 4 x Flexbox(.tp-letter-page{--flip}) > [Flexbox(.tp-letter-page__sheet) > Link(.tp-letter-page__thumb) > Image + Paragraph(zoom label)] + [Flexbox(.tp-letter-page__text) > Paragraph(.tp-eyebrow) + Heading H2(.tp-h2) + Paragraph(date) + Paragraph(.tp-letter-page__excerpt) + Paragraph(author) + Paragraph(role) + Link(.tp-link project)] -->
   <!-- INTERACTION: tp-lightbox (interactions.js) — the container groups the 4 original letters -->
-  <!-- REPORT: atomic elements have no blockquote, time or article: the excerpt and date are Paragraphs. -->
+  <!-- NOTE (R5, resolved): no blockquote/time/article in atomic: the excerpt and date are Paragraphs (docs/wp-mapping.md "R5 per-section replacements"). -->
   <section class="tp-section tp-letters-page" aria-label="Letters of appreciation">
     <div class="tp-container tp-lightbox tp-letters-page__list">
       <article class="tp-letter-page tp-reveal" id="atlas-copco" aria-labelledby="tp-letter-atlas-copco">

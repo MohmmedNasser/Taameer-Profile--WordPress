@@ -127,6 +127,10 @@
   --tp-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --tp-reveal-distance: 2.5rem;
   --tp-stagger-step: 110ms;
+  --tp-delay-step: 100ms; /* tp-delay-1…5 */
+  --tp-parallax-speed-base: 0.1; /* unitless factors, read by animations.js */
+  --tp-parallax-speed-slow: 0.05;
+  --tp-parallax-speed-fast: 0.2;
   --tp-hover-zoom: 1.05;
 
   /* ---- Layers ---- */

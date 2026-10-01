@@ -291,7 +291,7 @@
      3. Before / after — .tp-before-after
      Plain markup: <div class="tp-before-after"><img class="tp-before-after__after"><img class="tp-before-after__before"></div>
      (without JS the two images simply stack). The script adds the clip layer, the "Before"/"After" labels and the
-     keyboard-operable role="slider" handle. Optional data-tp-start="50" sets the opening position (%).
+     keyboard-operable role="slider" handle. Opens at 50%.
      The position lives in one CSS custom property (--tp-ba-pos, % from the inline-start edge); RTL needs a JS
      branch only to convert pointer X and arrow keys into inline-start distance.
      Input: pointer (vertical page scroll still works via touch-action: pan-y); handle keys ←/→ (visual direction),
@@ -323,8 +323,7 @@
           '<svg aria-hidden="true" width="16" height="16"><use href="#tp-i-plus"/></svg></div>');
 
       var handle = root.querySelector('.tp-ba__handle');
-      var start = parseFloat(root.dataset.tpStart);
-      var pos = isNaN(start) ? 50 : start;
+      var pos = 50;
       var dragging = false;
 
       function set(value) {

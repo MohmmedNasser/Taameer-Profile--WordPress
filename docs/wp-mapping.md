@@ -18,7 +18,7 @@ Replaces `docs/elementor-mapping.md` (v3-era custom widgets). Source of truth: P
 | `tokens.css`, `base.css`, `layout.css`, `components.css`, `inner-pages.css` | No — `/* ELEMENTOR SOURCE */` | Recreated as global variables / global classes (tables at the end) |
 | `animations.css` + `animations.js` | Yes | `tp-reveal`, `tp-stagger`, `tp-parallax`, `tp-img-reveal`, `tp-split`, `tp-counter`, reduced motion. (`tp-counter` code was merged in from counters.js.) |
 | `theme.css` | Yes (E1) | header, mobile menu, footer, WhatsApp, lightbox dialog, before/after slider, services scroll-nav chips, filter bar, project archive + single templates, 404 |
-| `interactions.js` | Yes (E2) | menu · lightbox (`tp-lightbox`) · before/after (`tp-before-after`) · scrollspy (`tp-scrollspy`) · project filter (`tp-filter`) |
+| `interactions.js` | Yes (E2) | header mobile menu (focus trap, Esc, scroll lock; hooks `data-tp-header` / `data-tp-menu-toggle` / `data-tp-menu` live in the theme's `header.php`) · lightbox (`tp-lightbox`) · before/after (`tp-before-after`) · scrollspy (`tp-scrollspy`) · project filter (`tp-filter`) |
 | `projects.js`, `project-page.js`, `contact-form.js` | No — `/* PROTOTYPE ONLY */` | JSON rendering and form validation stand-ins for PHP / Atomic Form |
 
 Page settings for every Elementor page: Full Width template, title hidden, no sidebar. The page starts below the solid sticky header (no overlay, no padding compensation).
@@ -162,17 +162,32 @@ Asset URLs are relative in the prototype; `404.php` uses `get_stylesheet_directo
 
 ## REPORT items for the owner (not atomic, not covered by E1–E3)
 
-| # | Where | Problem | Suggested solution |
+Resolved in PRD v1.6 (Phase 2 review) and D-033: R1, R2, R3, R5, R6. They stay listed for traceability; only open items need action.
+
+| # | Where | Problem | Status / suggested solution |
 |---|---|---|---|
-| R1 | Header (all pages) | The mobile menu toggle (focus trap, Esc, scroll lock) needs JS, but E2 lists only lightbox, before/after, scroll nav and filtering | Add "header menu" to E2 (code is already a section of `interactions.js`), or accept a CSS-only disclosure without focus trap |
-| R2 | Home partners marquee | Continuous logo scroll is an animation outside the PRD 8.3 class list | Approve `tp-marquee` in `animations.css/js` (code exists), or use the static partners grid |
-| R3 | Home services list | Desktop hover/focus image swap needs sibling-state CSS and a sticky Grid image | Static rows with one image each; or approve the swap as a theme exception |
-| R4 | Home featured projects, Services related projects, About team | Atomic elements cannot read the Project / Team CPTs; cards are static and need manual updates | Phase 4 spike: Atomic Loop in the free version; else static cards |
-| R5 | All lists, stats, quotes, dates | Atomic elements have no `ul/li`, `dl`, `blockquote`, `time`, `figure`: Div Blocks + Paragraphs are used (small semantic/accessibility loss) | Accept, or approve a tag control if the installed version offers one |
-| R6 | About licenses, wall cladding, project gallery | The lightbox reads `data-image` / `data-caption` on links; custom attributes may not exist in the free atomic editor. Animations also use `data-tp-delay/-speed` (defaults apply without them) | Phase 4 spike. Fallbacks: caption from image alt (already), PDFs open directly |
-| R7 | Contact form | Atomic Forms availability in the free version is unverified; honeypot, inline errors (`aria-describedby`) and success state may differ | Phase 4 spike; otherwise a form plugin (owner decision: shortcodes are excluded) |
-| R8 | CSS filters on images | Grayscale-to-colour hover on partner logos needs a filter control | Drop the hover effect if not offered |
+| R1 | Header (all pages) | Mobile menu toggle needs JS (focus trap, Esc, scroll lock) | **Resolved:** "header mobile menu" is part of **E2** (`interactions.js`; hooks live in the theme's `header.php`, theme-template data attributes are allowed, D-033) |
+| R2 | Home partners marquee | Continuous logo scroll outside the PRD 8.3 class list | **Resolved:** `tp-marquee` is in the animation list (`animations.css/js`) |
+| R3 | Home services list | Desktop hover/focus image swap needs sibling-state CSS and a sticky Grid image | **Resolved:** static rows, one image each; the swap is dropped |
+| R4 | Home featured projects, Services related projects, About team | Atomic elements cannot read the Project / Team CPTs; cards are static and need manual updates | Open — Phase 4 spike: Atomic Loop in the free version; else static cards |
+| R5 | All lists, stats, quotes, dates | Atomic elements have no `ul/li`, `dl`, `blockquote`, `time`, `figure` | **Resolved:** Div Blocks + Paragraphs accepted (small semantic loss). Replacements per section below |
+| R6 | About licenses, wall cladding, project gallery | Lightbox needed `data-image` / `data-caption` on links; the free atomic editor may not offer custom attributes | **Resolved:** interactions use only `href` / `alt` (caption = image alt → aria-label); animation options are classes (`tp-delay-N`, `tp-counter--year`, `tp-parallax--slow/--fast`), D-033 |
+| R7 | Contact form | Atomic Forms availability in the free version is unverified; honeypot, inline errors (`aria-describedby`) and success state may differ | Open — Phase 4 spike; otherwise a form plugin (owner decision: shortcodes are excluded) |
+| R8 | CSS filters on images | Grayscale-to-colour hover on partner logos needs a filter control | Open — drop the hover effect if not offered |
 | R9 | Prototype grids | Projects, related, 404 and gallery grids use CSS Grid/columns in `theme.css` (allowed: E1/E3); atomic pages use Flexbox wrap | None needed |
+
+### R5 per-section replacements (atomic build)
+
+| Prototype element | Where | Atomic replacement |
+|---|---|---|
+| `ul/li` lists (`tp-why__list`, `tp-aims`, `tp-exp`, `tp-team`, `tp-partner-grid`, `tp-licenses`, `tp-letters`, `tp-chips`, `tp-service-list`) | Home, About, Services | Flexbox container (the list class) > Div Block per item (the item class); no list semantics |
+| `dl/dt/dd` stats and spec tables (`tp-stats`, `tp-spec`) | Home stats, About license and experience facts, Contact details, project spec | Flexbox (`tp-stats` / `tp-spec`) > Div Block row (`tp-spec__row`) > Paragraph (term) + Paragraph (value) |
+| `figure` / `figcaption` | Home hero and quote, letters, framed images | Div Block (`tp-frame` / `tp-letter__fig`) > Image + Paragraph (`tp-caption`) |
+| `blockquote` | Home quote and letter excerpts, About chairman, Testimonials | Paragraph with the quote class (`tp-quote__text`, `tp-letter__quote`, `tp-letter-page__excerpt`, `tp-chair-page__lead`) |
+| `time datetime` | Testimonials dates, About license dates | Paragraph with the date text (no machine-readable value) |
+| `article` (letters) | Testimonials | Div Block with the card class; project cards in the archive and 404 stay real `article` (PHP, E3) |
+| `ol` breadcrumb | Inner pages | Flexbox (`tp-breadcrumb__list`) > Link + Paragraph (current page) |
+| Header / footer lists | All pages | Theme PHP (`header.php`, `footer.php`): real `ul/li` stay |
 
 
 <!-- GENERATED:START -->

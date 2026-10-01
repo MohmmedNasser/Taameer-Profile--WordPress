@@ -2,6 +2,23 @@
 
 Non-obvious decisions. Format: **Context / Decision / Reason / Alternatives rejected.** Newest on top.
 
+### D-033 — Part 0 (PRD v1.6): data attributes, marquee, header menu
+- Context: PRD v1.6 (Phase 2 review) resolved report items R1, R2, R3, R5, R6 and states that interactions use only `href`/`alt` (no data attributes), because the free atomic editor may not expose custom attributes on elements built atomically.
+- Decision (data-attribute rule):
+  - **Allowed:** the header menu hooks (`data-tp-header`, `data-tp-menu-toggle`, `data-tp-menu`): theme markup in `header.php` (E1/E2). `data-tp-filter` / `data-tp-type`: archive template (E3). Prototype-only JSON render hooks (`data-tp-projects`, `-src`, `-featured`, `-count`, `-type`, `-exclude`, `-service`, `-site`, `-related`, `-field`, `-badge`, project-page hooks, `data-tp-form`), which are never shipped. Attributes written by JS at runtime (`data-tp-source`, `data-tp-counted`, `data-tp-lb-close`, `data-tp-active`) are not authored markup.
+  - **Forbidden on anything built atomically:** every animation option is a class.
+    - `data-tp-delay` → `tp-delay-1` … `tp-delay-5` (fixed steps; `--tp-delay-step` = 100 ms in tokens.css).
+    - `data-tp-target` / `-suffix` / `-prefix` removed: `tp-counter` reads number, prefix and suffix from its own text ("100+" counts to 100 and keeps "+"; "G+4" is not a counter).
+    - `data-tp-from` → `tp-counter--year` (starts 25 below the target).
+    - `data-tp-speed` → `tp-parallax--slow` / `--fast` (default 0.1; factors are tokens `--tp-parallax-speed-*`, read by JS from the computed style).
+    - `data-tp-stagger="false"` (an opt-out read by projects.js) inverted: `tp-stagger` is a class on the grid in the page markup, and projects.js no longer adds it.
+    - `data-tp-start` on `tp-before-after` removed (always opens at 50%).
+  - All converted attributes were removed from every page; the CLAUDE.md animation table is updated.
+- Decision (rest of Part 0): the header mobile menu is part of E2; `tp-marquee` is an approved animation; the services image swap is replaced by static rows; Div Blocks are accepted for missing semantic elements (per-section list in docs/wp-mapping.md).
+- Reason: classes survive in Elementor's Advanced → CSS Classes and global classes; attributes may not. Theme templates are PHP, so attributes there cost nothing.
+- Side effects: delays are coarser (hero 100/250/350/800 ms → steps 1/3/4/5; page heroes 100/200/350 → 1/2/3; services 0–400 ms in 80 ms steps → none, 1–5); default parallax is 0.1 (was 0.15; no page used the default; the 0.08 hero image now uses 0.1).
+- Alternatives rejected: ms values in class names (unbounded set, cannot be global classes); inline `style="--tp-delay"` (not available atomically).
+
 ### D-032 — Phase 2B page decisions
 - Projects archive uses an even 3-column grid (`tp-projects-grid--even`): the 7/5 rhythm of the Home grid depends on `nth-child` and would leave gaps when items are hidden by the filter.
 - Filter state is `?type=<slug>` (valid slugs only; anything else = All) written with `replaceState`; counts are static in the markup and recomputed from the rendered cards.
