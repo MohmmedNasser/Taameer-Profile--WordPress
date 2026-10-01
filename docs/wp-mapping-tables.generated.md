@@ -1,6 +1,6 @@
 ## Global variables (every `--tp-` token)
 
-142 variables, generated from `assets/css/tokens.css`. Create each as an Elementor v4 global variable with the same name and value.
+165 variables, generated from `assets/css/tokens.css`. Create each as an Elementor v4 global variable with the same name and value.
 
 | Variable | Value | Note | Layer |
 |---|---|---|---|
@@ -37,11 +37,12 @@
 | `--tp-shadow-lg` | `0 6px 16px rgb(var(--tp-color-shadow) / 0.07), 0 28px 64px rgb(var(--tp-color-shadow) / 0.13)` |  | Shadows (neutral, soft) |
 | `--tp-btn-bg-hover` | `#262626` | official --charcoal | Component: button hover (ink -> charcoal; the official outline-invert hover loses the fill on light pages) |
 | `--tp-btn-fg-hover` | `#FFFFFF` |  | Component: button hover (ink -> charcoal; the official outline-invert hover loses the fill on light pages) |
-| `--tp-font-display-ar` | `"Noto Kufi Arabic", "Segoe UI", Tahoma, sans-serif` | Phase 3 | Typography: families |
+| `--tp-font-display-ar` | `"El Messiri", "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif` | Phase 3, D-034: H1-H4, pull-quote, stat numbers | Typography: families |
 | `--tp-font-body-ar` | `"IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif` | Phase 3 | Typography: families |
 | `--tp-fw-regular` | `400` |  | Typography: weights |
 | `--tp-fw-medium` | `500` |  | Typography: weights |
 | `--tp-fw-semibold` | `600` |  | Typography: weights |
+| `--tp-fw-display-ar` | `500` | El Messiri; the only weight loaded | Typography: weights |
 | `--tp-fs-xs` | `clamp(0.75rem, 0.73rem + 0.08vw, 0.8125rem)` |  | Typography: fluid scale (360px → 1920px viewport) |
 | `--tp-fs-sm` | `clamp(0.875rem, 0.86rem + 0.06vw, 0.9375rem)` |  | Typography: fluid scale (360px → 1920px viewport) |
 | `--tp-fs-base` | `clamp(1rem, 0.97rem + 0.12vw, 1.0625rem)` |  | Typography: fluid scale (360px → 1920px viewport) |
@@ -53,6 +54,10 @@
 | `--tp-lh-none` | `1` |  | Typography: fluid scale (360px → 1920px viewport) |
 | `--tp-tracking-eyebrow` | `0.22em` |  | Typography: fluid scale (360px → 1920px viewport) |
 | `--tp-tracking-display` | `-0.01em` |  | Typography: fluid scale (360px → 1920px viewport) |
+| `--tp-transform-label` | `uppercase` | eyebrows, buttons, labels (Latin only; Arabic = none) | Typography: fluid scale (360px → 1920px viewport) |
+| `--tp-quote-open` | `"“"` | quotation marks around letter excerpts (Arabic: guillemets) | Typography: fluid scale (360px → 1920px viewport) |
+| `--tp-quote-close` | `"”"` |  | Typography: fluid scale (360px → 1920px viewport) |
+| `--tp-style-quote` | `italic` | pull-quotes (Latin only; Arabic = normal) | Typography: fluid scale (360px → 1920px viewport) |
 | `--tp-space-1` | `0.25rem` |  | Spacing |
 | `--tp-space-2` | `0.5rem` |  | Spacing |
 | `--tp-space-3` | `0.75rem` |  | Spacing |
@@ -146,12 +151,30 @@
 | `--tp-team-photo-ratio` | `700 / 736` | native aspect of the leadership portraits | Inner pages |
 | `--tp-license-preview-w` | `8rem` |  | Inner pages |
 | `--tp-spec-col-min` | `9rem` | compact spec (licenses, team experience): min column width | Inner pages |
+| `--tp-font-display` | `var(--tp-font-display-ar)` |  | Inner pages |
+| `--tp-font-body` | `var(--tp-font-body-ar)` |  | Inner pages |
+| `--tp-fw-light` | `var(--tp-fw-display-ar)` |  | Inner pages |
+| `--tp-tracking-eyebrow` | `0` |  | Inner pages |
+| `--tp-tracking-button` | `0` |  | Inner pages |
+| `--tp-tracking-display` | `0` |  | Inner pages |
+| `--tp-transform-label` | `none` |  | Inner pages |
+| `--tp-style-quote` | `normal` |  | Inner pages |
+| `--tp-quote-open` | `"«"` |  | Inner pages |
+| `--tp-quote-close` | `"»"` |  | Inner pages |
+| `--tp-lh-tight` | `1.35` |  | Inner pages |
+| `--tp-lh-heading` | `1.4` |  | Inner pages |
+| `--tp-lh-snug` | `1.4` |  | Inner pages |
+| `--tp-lh-body` | `1.85` |  | Inner pages |
+| `--tp-fs-xs` | `clamp(0.8125rem, 0.79rem + 0.1vw, 0.9rem)` |  | Inner pages |
+| `--tp-fs-sm` | `clamp(0.9375rem, 0.91rem + 0.1vw, 1.0125rem)` |  | Inner pages |
+| `--tp-fs-base` | `clamp(1.0625rem, 1.03rem + 0.14vw, 1.1875rem)` |  | Inner pages |
+| `--tp-fs-lg` | `clamp(1.1875rem, 1.12rem + 0.26vw, 1.4rem)` |  | Inner pages |
 
 ## Global classes (every reusable class and the properties it sets)
 
 Generated from the ELEMENTOR SOURCE stylesheets. Create one Elementor v4 global class per class name; rules with a media query map to the tablet/mobile controls (the breakpoint is 64em = desktop, below it the base rule). Heading classes `tp-h1`–`tp-h4` set colour explicitly.
 
-### base.css (29 rules)
+### base.css (30 rules)
 
 | Media | Selector | Properties |
 |---|---|---|
@@ -162,6 +185,7 @@ Generated from the ELEMENTOR SOURCE stylesheets. Create one Elementor v4 global 
 |  | `body.tp-is-locked` | overflow: hidden |
 |  | `[hidden]` | display: none !important |
 |  | `img, svg, video` | display: block; max-inline-size: 100%; block-size: auto |
+|  | `em, i` | font-style: var(--tp-style-quote) |
 |  | `h1, h2, h3, h4` | margin: 0; font-family: var(--tp-font-display); font-weight: var(--tp-fw-light); line-height: var(--tp-lh-heading); letter-spacing: var(--tp-tracking-display); text-wrap: balance |
 |  | `h1` | font-size: var(--tp-fs-h1); line-height: var(--tp-lh-tight) |
 |  | `h2` | font-size: var(--tp-fs-h2) |
@@ -214,17 +238,17 @@ Generated from the ELEMENTOR SOURCE stylesheets. Create one Elementor v4 global 
 
 | Media | Selector | Properties |
 |---|---|---|
-|  | `.tp-eyebrow` | display: flex; align-items: center; gap: var(--tp-space-3); font-family: var(--tp-font-body); font-size: var(--tp-fs-xs); font-weight: var(--tp-fw-semibold); letter-spacing: var(--tp-tracking-eyebrow); line-height: var(--tp-lh-heading); text-transform: uppercase; color: var(--tp-eyebrow-color) |
+|  | `.tp-eyebrow` | display: flex; align-items: center; gap: var(--tp-space-3); font-family: var(--tp-font-body); font-size: var(--tp-fs-xs); font-weight: var(--tp-fw-semibold); letter-spacing: var(--tp-tracking-eyebrow); line-height: var(--tp-lh-heading); text-transform: var(--tp-transform-label); color: var(--tp-eyebrow-color) |
 |  | `.tp-eyebrow::before` | content: ""; flex: none; inline-size: var(--tp-plus); block-size: var(--tp-plus); background: linear-gradient(var(--tp-color-accent), var(--tp-color-accent)) center / 100% var(--tp-border-w) no-repeat, linear-gradient(var(--tp-color-accent), var(--tp-color-accent)) center / var(--tp-border-w) 100% no-repeat |
 |  | `.tp-lead` | font-size: var(--tp-fs-lg); max-inline-size: var(--tp-measure) |
-|  | `.tp-caption` | display: flex; align-items: center; gap: var(--tp-space-2); font-size: var(--tp-fs-xs); letter-spacing: var(--tp-tracking-button); text-transform: uppercase; color: var(--tp-meta-color) |
+|  | `.tp-caption` | display: flex; align-items: center; gap: var(--tp-space-2); font-size: var(--tp-fs-xs); letter-spacing: var(--tp-tracking-button); text-transform: var(--tp-transform-label); color: var(--tp-meta-color) |
 |  | `.tp-caption svg` | color: var(--tp-color-accent) |
-|  | `.tp-btn` | display: inline-flex; align-items: center; justify-content: center; gap: var(--tp-space-2); min-block-size: var(--tp-touch); padding: var(--tp-btn-pad-block) var(--tp-btn-pad-inline); border: var(--tp-border-w) solid transparent; border-radius: var(--tp-radius-sm); font-size: var(--tp-fs-xs); font-weight: var(--tp-fw-semibold); letter-spacing: var(--tp-tracking-button); text-transform: uppercase; text-decoration: none; white-space: nowrap; cursor: pointer; transition: background-color var(--tp-dur-fast) var(--tp-ease-out), color var(--tp-dur-fast) var(--tp-ease-out), border-color var(--tp-dur-fast) var(--tp-ease-out) |
+|  | `.tp-btn` | display: inline-flex; align-items: center; justify-content: center; gap: var(--tp-space-2); min-block-size: var(--tp-touch); padding: var(--tp-btn-pad-block) var(--tp-btn-pad-inline); border: var(--tp-border-w) solid transparent; border-radius: var(--tp-radius-sm); font-size: var(--tp-fs-xs); font-weight: var(--tp-fw-semibold); letter-spacing: var(--tp-tracking-button); text-transform: var(--tp-transform-label); text-decoration: none; white-space: nowrap; cursor: pointer; transition: background-color var(--tp-dur-fast) var(--tp-ease-out), color var(--tp-dur-fast) var(--tp-ease-out), border-color var(--tp-dur-fast) var(--tp-ease-out) |
 |  | `.tp-btn--primary` | background: var(--tp-btn-bg); color: var(--tp-btn-fg) |
 |  | `.tp-btn--primary:hover` | background: var(--tp-btn-bg-hover); color: var(--tp-btn-fg-hover) |
 |  | `.tp-btn--ghost` | border-color: var(--tp-color-text); color: var(--tp-color-text) |
 |  | `.tp-btn--ghost:hover` | background: var(--tp-color-text); color: var(--tp-color-bg) |
-|  | `.tp-link` | display: inline-flex; align-items: center; gap: var(--tp-space-2); font-size: var(--tp-fs-sm); font-weight: var(--tp-fw-semibold); letter-spacing: var(--tp-tracking-button); text-transform: uppercase; text-decoration: none; color: var(--tp-color-accent-text); padding-block: var(--tp-space-2); border-block-end: var(--tp-hairline-accent) |
+|  | `.tp-link` | display: inline-flex; align-items: center; gap: var(--tp-space-2); font-size: var(--tp-fs-sm); font-weight: var(--tp-fw-semibold); letter-spacing: var(--tp-tracking-button); text-transform: var(--tp-transform-label); text-decoration: none; color: var(--tp-color-accent-text); padding-block: var(--tp-space-2); border-block-end: var(--tp-hairline-accent) |
 |  | `.tp-link svg` | transition: transform var(--tp-dur-fast) var(--tp-ease-out) |
 |  | `.tp-link:hover svg` | transform: translateX(var(--tp-space-1)) |
 |  | `.tp-frame` | position: relative; color: var(--tp-mark-color) |
@@ -252,11 +276,11 @@ Generated from the ELEMENTOR SOURCE stylesheets. Create one Elementor v4 global 
 |  | `.tp-stats__item` | display: flex; flex-direction: column-reverse; gap: var(--tp-space-1); padding-block: var(--tp-space-5); border-block-start: var(--tp-hairline) |
 |  | `.tp-stats__item:last-child` | border-block-end: var(--tp-hairline) |
 |  | `.tp-stats__value` | font-family: var(--tp-font-display); font-size: var(--tp-fs-display); font-weight: var(--tp-fw-light); line-height: var(--tp-lh-none); color: var(--tp-color-text); font-variant-numeric: lining-nums tabular-nums |
-|  | `.tp-stats__label` | font-size: var(--tp-fs-xs); font-weight: var(--tp-fw-semibold); letter-spacing: var(--tp-tracking-eyebrow); text-transform: uppercase; color: var(--tp-meta-color) |
+|  | `.tp-stats__label` | font-size: var(--tp-fs-xs); font-weight: var(--tp-fw-semibold); letter-spacing: var(--tp-tracking-eyebrow); text-transform: var(--tp-transform-label); color: var(--tp-meta-color) |
 |  | `.tp-chairman__media` | max-inline-size: var(--tp-portrait-w) |
 |  | `.tp-chairman__media .tp-frame__clip` | aspect-ratio: 706 / 831 |
 |  | `.tp-quote` | gap: var(--tp-space-6) |
-|  | `.tp-quote__text` | font-family: var(--tp-font-display); font-size: var(--tp-fs-quote); font-style: italic; font-weight: var(--tp-fw-light); line-height: var(--tp-lh-heading); max-inline-size: 30ch; text-wrap: pretty |
+|  | `.tp-quote__text` | font-family: var(--tp-font-display); font-size: var(--tp-fs-quote); font-style: var(--tp-style-quote); font-weight: var(--tp-fw-light); line-height: var(--tp-lh-heading); max-inline-size: 30ch; text-wrap: pretty |
 |  | `.tp-quote__text em` | font-style: normal; color: var(--tp-color-accent-text) |
 |  | `.tp-quote__by` | display: flex; flex-direction: column; gap: var(--tp-space-1); padding-inline-start: var(--tp-space-5); border-inline-start: var(--tp-hairline-accent) |
 |  | `.tp-quote__name` | font-weight: var(--tp-fw-semibold) |
@@ -293,25 +317,25 @@ Generated from the ELEMENTOR SOURCE stylesheets. Create one Elementor v4 global 
 |  | `.tp-card__img` | inline-size: 100%; block-size: 100%; object-fit: cover; transition: transform var(--tp-dur-slow) var(--tp-ease-out) |
 |  | `.tp-card:hover .tp-card__img, .tp-card:focus-visible .tp-card__img` | transform: scale(var(--tp-hover-zoom)) |
 |  | `.tp-card__badges` | position: absolute; inset-block-start: var(--tp-space-4); inset-inline-start: var(--tp-space-4); display: flex; flex-wrap: wrap; gap: var(--tp-space-2) |
-|  | `.tp-badge` | padding: var(--tp-space-1) var(--tp-space-3); background: var(--tp-color-surface); border-radius: var(--tp-radius-sm); font-size: var(--tp-fs-xs); font-weight: var(--tp-fw-semibold); letter-spacing: var(--tp-tracking-button); text-transform: uppercase; color: var(--tp-color-text); box-shadow: var(--tp-shadow-sm) |
-|  | `.tp-card__meta` | display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--tp-space-2); font-size: var(--tp-fs-xs); font-weight: var(--tp-fw-semibold); letter-spacing: var(--tp-tracking-eyebrow); text-transform: uppercase; color: var(--tp-meta-color) |
+|  | `.tp-badge` | padding: var(--tp-space-1) var(--tp-space-3); background: var(--tp-color-surface); border-radius: var(--tp-radius-sm); font-size: var(--tp-fs-xs); font-weight: var(--tp-fw-semibold); letter-spacing: var(--tp-tracking-button); text-transform: var(--tp-transform-label); color: var(--tp-color-text); box-shadow: var(--tp-shadow-sm) |
+|  | `.tp-card__meta` | display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--tp-space-2); font-size: var(--tp-fs-xs); font-weight: var(--tp-fw-semibold); letter-spacing: var(--tp-tracking-eyebrow); text-transform: var(--tp-transform-label); color: var(--tp-meta-color) |
 |  | `.tp-card__title` | font-size: var(--tp-fs-h4); font-weight: var(--tp-fw-regular); transition: color var(--tp-dur-fast) var(--tp-ease-out) |
 |  | `.tp-card:hover .tp-card__title` | color: var(--tp-color-accent-text) |
 |  | `.tp-card__location` | font-size: var(--tp-fs-sm); color: var(--tp-color-text-muted) |
-|  | `.tp-card__more` | display: inline-flex; align-items: center; gap: var(--tp-space-2); font-size: var(--tp-fs-xs); font-weight: var(--tp-fw-semibold); letter-spacing: var(--tp-tracking-button); text-transform: uppercase; color: var(--tp-color-accent-text) |
+|  | `.tp-card__more` | display: inline-flex; align-items: center; gap: var(--tp-space-2); font-size: var(--tp-fs-xs); font-weight: var(--tp-fw-semibold); letter-spacing: var(--tp-tracking-button); text-transform: var(--tp-transform-label); color: var(--tp-color-accent-text) |
 |  | `.tp-card__more svg` | color: var(--tp-color-accent) |
 | (hover: hover) | `.tp-card__more` | opacity: 0; transform: translateY(var(--tp-space-2)); transition: opacity var(--tp-dur-base) var(--tp-ease-out), transform var(--tp-dur-base) var(--tp-ease-out) |
 | (hover: hover) | `.tp-card:hover .tp-card__more, .tp-card:focus-visible .tp-card__more` | opacity: 1; transform: none |
 |  | `.tp-spec` | display: flex; flex-wrap: wrap; border-block-start: var(--tp-hairline) |
 |  | `.tp-spec__row` | flex: 1 1 50%; display: flex; flex-direction: column; gap: var(--tp-space-1); padding: var(--tp-space-4) 0; border-block-end: var(--tp-hairline) |
-|  | `.tp-spec__row dt` | font-size: var(--tp-fs-xs); font-weight: var(--tp-fw-semibold); letter-spacing: var(--tp-tracking-eyebrow); text-transform: uppercase; color: var(--tp-meta-color) |
+|  | `.tp-spec__row dt` | font-size: var(--tp-fs-xs); font-weight: var(--tp-fw-semibold); letter-spacing: var(--tp-tracking-eyebrow); text-transform: var(--tp-transform-label); color: var(--tp-meta-color) |
 |  | `.tp-spec__row dd` | font-family: var(--tp-font-display); font-size: var(--tp-fs-h4); line-height: var(--tp-lh-heading) |
 |  | `.tp-letters` | align-items: stretch |
 |  | `.tp-letter__fig` | display: flex; flex-direction: column; justify-content: space-between; gap: var(--tp-space-6); block-size: 100%; padding: var(--tp-space-6); background: var(--tp-card-bg); border-radius: var(--tp-card-radius); box-shadow: var(--tp-card-shadow); transition: box-shadow var(--tp-dur-base) var(--tp-ease-out), transform var(--tp-dur-base) var(--tp-ease-out) |
 |  | `.tp-letter__fig:hover` | box-shadow: var(--tp-card-shadow-hover); transform: translateY(calc(-1 * var(--tp-space-1))) |
 |  | `.tp-letter__quote` | font-family: var(--tp-font-display); font-size: var(--tp-fs-h4); font-weight: var(--tp-fw-regular); line-height: var(--tp-lh-snug) |
-|  | `.tp-letter__quote p::before` | content: "“"; color: var(--tp-color-accent) |
-|  | `.tp-letter__quote p::after` | content: "”"; color: var(--tp-color-accent) |
+|  | `.tp-letter__quote p::before` | content: var(--tp-quote-open); color: var(--tp-color-accent) |
+|  | `.tp-letter__quote p::after` | content: var(--tp-quote-close); color: var(--tp-color-accent) |
 |  | `.tp-letter__by` | display: flex; align-items: center; gap: var(--tp-space-4); padding-block-start: var(--tp-space-5); border-block-start: var(--tp-hairline) |
 |  | `.tp-letter__thumb` | flex: none; inline-size: var(--tp-letter-thumb); aspect-ratio: 3 / 4; object-fit: cover; object-position: top; border: var(--tp-hairline); border-radius: var(--tp-radius-sm) |
 |  | `.tp-letter__company` | display: block; font-weight: var(--tp-fw-semibold); font-size: var(--tp-fs-sm) |
@@ -339,7 +363,7 @@ Generated from the ELEMENTOR SOURCE stylesheets. Create one Elementor v4 global 
 |  | `.tp-page-hero__lead` | max-inline-size: var(--tp-measure); font-size: var(--tp-fs-lg); color: var(--tp-color-text-muted) |
 |  | `.tp-page-hero__media` | flex: 0 1 var(--tp-hero-media-w) |
 |  | `.tp-page-hero__media .tp-frame__clip` | aspect-ratio: 4 / 3 |
-|  | `.tp-breadcrumb__list` | display: flex; flex-wrap: wrap; align-items: center; gap: 0 var(--tp-space-3); font-size: var(--tp-fs-xs); font-weight: var(--tp-fw-semibold); letter-spacing: var(--tp-tracking-button); text-transform: uppercase |
+|  | `.tp-breadcrumb__list` | display: flex; flex-wrap: wrap; align-items: center; gap: 0 var(--tp-space-3); font-size: var(--tp-fs-xs); font-weight: var(--tp-fw-semibold); letter-spacing: var(--tp-tracking-button); text-transform: var(--tp-transform-label) |
 |  | `.tp-breadcrumb__list a` | display: inline-block; padding-block: var(--tp-space-2); color: var(--tp-color-text-muted); text-decoration: none |
 |  | `.tp-breadcrumb__list a:hover` | color: var(--tp-color-text) |
 |  | `.tp-breadcrumb__list [aria-current="page"]` | color: var(--tp-color-text) |
@@ -351,7 +375,7 @@ Generated from the ELEMENTOR SOURCE stylesheets. Create one Elementor v4 global 
 | (min-width: 64em) | `.tp-chair-page__media` | position: sticky; inset-block-start: calc(var(--tp-header-h) + var(--tp-space-6)) |
 |  | `.tp-chair-page__msg` | flex: 1 1 24rem; gap: var(--tp-space-7) |
 |  | `.tp-chair-page__lead` | position: relative; font-family: var(--tp-font-display); font-size: var(--tp-fs-h3); font-weight: var(--tp-fw-light); line-height: var(--tp-lh-snug); max-inline-size: 30em; padding-block-start: var(--tp-space-7) |
-|  | `.tp-chair-page__lead::before` | content: "“"; position: absolute; inset-block-start: 0; inset-inline-start: 0; font-size: var(--tp-fs-display); line-height: var(--tp-lh-none); color: var(--tp-color-accent) |
+|  | `.tp-chair-page__lead::before` | content: var(--tp-quote-open); position: absolute; inset-block-start: 0; inset-inline-start: 0; font-size: var(--tp-fs-display); line-height: var(--tp-lh-none); color: var(--tp-color-accent) |
 |  | `.tp-chair-page__body` | font-size: var(--tp-fs-lg); max-inline-size: var(--tp-measure) |
 |  | `.tp-chair-page__body em` | font-family: var(--tp-font-display); font-weight: var(--tp-fw-light) |
 |  | `.tp-chair-page__by` | display: flex; flex-direction: column; gap: var(--tp-space-1); padding-block-start: var(--tp-space-5); border-block-start: var(--tp-hairline-accent); max-inline-size: var(--tp-hero-lead-w) |
@@ -361,7 +385,7 @@ Generated from the ELEMENTOR SOURCE stylesheets. Create one Elementor v4 global 
 |  | `.tp-about-page__side` | flex: 5 1 18rem; align-self: center |
 |  | `.tp-fact` | gap: var(--tp-space-3); padding: var(--tp-space-7) var(--tp-space-6); background: var(--tp-color-surface); border: var(--tp-hairline); border-radius: var(--tp-radius-sm) |
 |  | `.tp-fact__value` | font-family: var(--tp-font-display); font-size: var(--tp-fs-display); font-weight: var(--tp-fw-light); line-height: var(--tp-lh-none); font-variant-numeric: lining-nums tabular-nums |
-|  | `.tp-fact__label` | font-size: var(--tp-fs-xs); font-weight: var(--tp-fw-semibold); letter-spacing: var(--tp-tracking-eyebrow); text-transform: uppercase; color: var(--tp-meta-color) |
+|  | `.tp-fact__label` | font-size: var(--tp-fs-xs); font-weight: var(--tp-fw-semibold); letter-spacing: var(--tp-tracking-eyebrow); text-transform: var(--tp-transform-label); color: var(--tp-meta-color) |
 |  | `.tp-fact__note` | color: var(--tp-color-text-muted) |
 |  | `.tp-aims` | display: flex; flex-wrap: wrap; gap: var(--tp-space-6) var(--tp-gap) |
 |  | `.tp-aim` | position: relative; flex: 1 1 15rem; display: flex; flex-direction: column; gap: var(--tp-space-3); padding-block-start: var(--tp-space-6); border-block-start: var(--tp-hairline) |
@@ -373,7 +397,7 @@ Generated from the ELEMENTOR SOURCE stylesheets. Create one Elementor v4 global 
 |  | `.tp-team__photo` | aspect-ratio: var(--tp-team-photo-ratio); overflow: hidden; border-radius: var(--tp-card-radius); background: var(--tp-color-sand); box-shadow: var(--tp-card-shadow) |
 |  | `.tp-team__photo img` | inline-size: 100%; block-size: 100%; object-fit: cover |
 |  | `.tp-team__name` | font-size: var(--tp-fs-h4); font-weight: var(--tp-fw-medium) |
-|  | `.tp-team__role` | font-size: var(--tp-fs-xs); font-weight: var(--tp-fw-semibold); letter-spacing: var(--tp-tracking-eyebrow); text-transform: uppercase; color: var(--tp-eyebrow-color) |
+|  | `.tp-team__role` | font-size: var(--tp-fs-xs); font-weight: var(--tp-fw-semibold); letter-spacing: var(--tp-tracking-eyebrow); text-transform: var(--tp-transform-label); color: var(--tp-eyebrow-color) |
 |  | `.tp-team__bio` | color: var(--tp-color-text-muted); max-inline-size: var(--tp-measure) |
 |  | `.tp-philosophy` | position: relative; display: flex; flex-direction: column; gap: var(--tp-space-4); margin-block-start: var(--tp-space-8); padding-block-start: var(--tp-space-6); border-block-start: var(--tp-hairline) |
 |  | `.tp-philosophy__text` | max-inline-size: 40em; font-family: var(--tp-font-display); font-size: var(--tp-fs-h4); font-weight: var(--tp-fw-light); line-height: var(--tp-lh-snug) |
@@ -439,13 +463,13 @@ Generated from the ELEMENTOR SOURCE stylesheets. Create one Elementor v4 global 
 |  | `.tp-letter-page__sheet` | flex: 0 1 var(--tp-letter-sheet-w); inline-size: 100% |
 |  | `.tp-letter-page__thumb` | position: relative; display: block; overflow: hidden; background: var(--tp-color-surface); border: var(--tp-hairline); border-radius: var(--tp-radius-sm); box-shadow: var(--tp-shadow-lg); text-decoration: none; color: var(--tp-color-text) |
 |  | `.tp-letter-page__thumb img` | inline-size: 100%; block-size: auto |
-|  | `.tp-letter-page__zoom` | position: absolute; inset-inline: var(--tp-space-4); inset-block-end: var(--tp-space-4); display: inline-flex; align-items: center; justify-content: center; gap: var(--tp-space-2); padding: var(--tp-space-3) var(--tp-space-4); background: var(--tp-color-surface); border-radius: var(--tp-radius-sm); box-shadow: var(--tp-shadow-sm); font-size: var(--tp-fs-xs); font-weight: var(--tp-fw-semibold); letter-spacing: var(--tp-tracking-button); text-transform: uppercase |
+|  | `.tp-letter-page__zoom` | position: absolute; inset-inline: var(--tp-space-4); inset-block-end: var(--tp-space-4); display: inline-flex; align-items: center; justify-content: center; gap: var(--tp-space-2); padding: var(--tp-space-3) var(--tp-space-4); background: var(--tp-color-surface); border-radius: var(--tp-radius-sm); box-shadow: var(--tp-shadow-sm); font-size: var(--tp-fs-xs); font-weight: var(--tp-fw-semibold); letter-spacing: var(--tp-tracking-button); text-transform: var(--tp-transform-label) |
 |  | `.tp-letter-page__thumb:hover .tp-letter-page__zoom, .tp-letter-page__thumb:focus-visible .tp-letter-page__zoom` | background: var(--tp-btn-bg); color: var(--tp-btn-fg) |
 |  | `.tp-letter-page__text` | flex: 1 1 22rem; display: flex; flex-direction: column; align-items: flex-start; gap: var(--tp-space-5) |
-|  | `.tp-letter-page__date` | font-size: var(--tp-fs-xs); font-weight: var(--tp-fw-semibold); letter-spacing: var(--tp-tracking-eyebrow); text-transform: uppercase; color: var(--tp-meta-color) |
+|  | `.tp-letter-page__date` | font-size: var(--tp-fs-xs); font-weight: var(--tp-fw-semibold); letter-spacing: var(--tp-tracking-eyebrow); text-transform: var(--tp-transform-label); color: var(--tp-meta-color) |
 |  | `.tp-letter-page__excerpt` | font-family: var(--tp-font-display); font-size: var(--tp-fs-h3); font-weight: var(--tp-fw-regular); line-height: var(--tp-lh-snug); max-inline-size: var(--tp-measure) |
-|  | `.tp-letter-page__excerpt p::before` | content: "“"; color: var(--tp-color-accent) |
-|  | `.tp-letter-page__excerpt p::after` | content: "”"; color: var(--tp-color-accent) |
+|  | `.tp-letter-page__excerpt p::before` | content: var(--tp-quote-open); color: var(--tp-color-accent) |
+|  | `.tp-letter-page__excerpt p::after` | content: var(--tp-quote-close); color: var(--tp-color-accent) |
 |  | `.tp-letter-page__by` | display: flex; flex-direction: column; gap: var(--tp-space-1); padding-block-start: var(--tp-space-4); border-block-start: var(--tp-hairline) |
 |  | `.tp-letter-page__author` | font-weight: var(--tp-fw-semibold) |
 |  | `.tp-letter-page__role, .tp-letter-page__note` | font-size: var(--tp-fs-sm); color: var(--tp-color-text-muted) |
@@ -455,7 +479,7 @@ Generated from the ELEMENTOR SOURCE stylesheets. Create one Elementor v4 global 
 |  | `.tp-contact__info address` | font-style: normal |
 |  | `.tp-form` | display: flex; flex-direction: column; gap: var(--tp-space-5) |
 |  | `.tp-form__field` | display: flex; flex-direction: column; gap: var(--tp-space-2) |
-|  | `.tp-form__field label` | font-size: var(--tp-fs-xs); font-weight: var(--tp-fw-semibold); letter-spacing: var(--tp-tracking-eyebrow); text-transform: uppercase; color: var(--tp-color-text) |
+|  | `.tp-form__field label` | font-size: var(--tp-fs-xs); font-weight: var(--tp-fw-semibold); letter-spacing: var(--tp-tracking-eyebrow); text-transform: var(--tp-transform-label); color: var(--tp-color-text) |
 |  | `.tp-form__req` | color: var(--tp-color-text) |
 |  | `.tp-form input, .tp-form select, .tp-form textarea` | inline-size: 100%; min-block-size: var(--tp-touch); padding: var(--tp-space-3) var(--tp-space-4); background: var(--tp-color-surface); border: var(--tp-hairline); border-radius: var(--tp-radius-sm); font: inherit; color: var(--tp-color-text) |
 |  | `.tp-form textarea` | resize: vertical |
