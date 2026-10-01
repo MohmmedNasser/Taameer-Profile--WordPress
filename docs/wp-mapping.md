@@ -135,6 +135,19 @@ Meta: `<title>` = "name â€” Taameer Plus Contracting LLC"; description = pr
 | 4 letters | Atomic + Interaction + **Report** | `Flexbox.tp-lightbox > 4 أ— Flexbox.tp-letter-page(--flip) > [Flexbox.tp-letter-page__sheet > Link.tp-letter-page__thumb > Image + Paragraph(zoom label)] + [Flexbox.tp-letter-page__text > Paragraph.tp-eyebrow + Heading H2 + Paragraph(date) + Paragraph.tp-letter-page__excerpt + Paragraph(author) + Paragraph(role) + Link.tp-link(project)]`. Jan's Noodles: company name + letter only | rows stack, sheet above text; `--flip` only reverses the desktop row |
 | CTA band | Atomic | as Home | |
 
+
+### Contact (`contact.html`) â€” Atomic (+ prototype-only validation)
+
+| Section | Dest | Tree / classes | Tablet / mobile |
+|---|---|---|---|
+| Page hero + breadcrumbs | Atomic | as About | |
+| Contact details | Atomic | `Flexbox.tp-contact__info > Heading H2 + Flexbox.tp-spec.tp-spec--stack > 6 أ— Flexbox.tp-spec__row > Paragraph(label) + Link(value)`: address, office (`tel:`), mobile (`tel:`), email (`mailto:`), WhatsApp (`https://wa.me/971503029281`), Instagram. Values from the Customizer. Office hours deliberately omitted (unknown) | stacks above the form |
+| Form | Atomic + **Report** | `Form.tp-form > Field name* + Field email* + Field phone + Select project type (6 services + Other) + Textarea message* + hidden honeypot Field + Button.tp-btn--primary`. Classes: `tp-form`, `tp-form__field`, `tp-form__error`, `tp-form__status`, `tp-form__success`, `tp-form__hp`. `contact-form.js` is PROTOTYPE ONLY | full width |
+| Location block (no iframe) | Atomic | `Flexbox.tp-location > SVG.tp-location__mark + Flexbox.tp-location__text > Paragraph.tp-eyebrow + Heading H2 + Paragraph + Button.tp-btn--primary "Open in Google Maps"` (new tab) | button wraps below |
+| CTA band | Atomic | as Home | |
+
+JSON-LD `GeneralContractor` (also on Home) is printed by the theme or the SEO plugin, not Elementor: name, url, logo, image, description, telephone, email, foundingDate, PostalAddress, sameAs Instagram.
+
 <!-- PAGES-2B:END -->
 
 <!-- GENERATED:START -->

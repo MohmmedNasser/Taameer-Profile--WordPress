@@ -2,6 +2,12 @@
 
 One entry per completed task, newest on top. Format: Did / Files / Issues / Next.
 
+### 2026-10-01 — Phase 2B · Part D: contact.html
+- Did: page hero with the website's contact intro; contact details from `data/site.json` (address, office and mobile `tel:`, `mailto:`, WhatsApp, Instagram; no office hours); location block with the "+" motif and an "Open in Google Maps" button (no iframe); form (name, email, phone, project type = 6 services + Other, message, honeypot) with native constraints, inline errors linked by `aria-describedby`, `role="alert"` summary, focus to the first invalid field, success state, nothing sent (`contact-form.js`, PROTOTYPE ONLY). `GeneralContractor` JSON-LD on contact.html and index.html (parsed with `json.loads`).
+- Verified: projects-test contact block 7/7; check-partials OK.
+- Questions: success-message wording and whether the form should also reach a CRM; office hours.
+- Next: Part E 404.html.
+
 ### 2026-10-01 — Phase 2B · Part C: testimonials.html
 - Did: page hero; 4 editorial letter rows written in plain HTML (company, author, title, date, excerpt, link to the related project where set, original letter as a prominent framed sheet with "View original letter" opening the lightbox as one group of 4); rows alternate sides on desktop; Jan's Noodles shows only the company name and its letter (no excerpt, nothing invented); shared CTA. Each letter has an id (`#atlas-copco`…) used by the project page's testimonial link.
 - Verified: projects-test testimonials block 4/4; check-partials OK.
