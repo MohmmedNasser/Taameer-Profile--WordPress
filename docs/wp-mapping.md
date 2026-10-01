@@ -160,5 +160,20 @@ Asset URLs are relative in the prototype; `404.php` uses `get_stylesheet_directo
 
 <!-- PAGES-2B:END -->
 
+## REPORT items for the owner (not atomic, not covered by E1–E3)
+
+| # | Where | Problem | Suggested solution |
+|---|---|---|---|
+| R1 | Header (all pages) | The mobile menu toggle (focus trap, Esc, scroll lock) needs JS, but E2 lists only lightbox, before/after, scroll nav and filtering | Add "header menu" to E2 (code is already a section of `interactions.js`), or accept a CSS-only disclosure without focus trap |
+| R2 | Home partners marquee | Continuous logo scroll is an animation outside the PRD 8.3 class list | Approve `tp-marquee` in `animations.css/js` (code exists), or use the static partners grid |
+| R3 | Home services list | Desktop hover/focus image swap needs sibling-state CSS and a sticky Grid image | Static rows with one image each; or approve the swap as a theme exception |
+| R4 | Home featured projects, Services related projects, About team | Atomic elements cannot read the Project / Team CPTs; cards are static and need manual updates | Phase 4 spike: Atomic Loop in the free version; else static cards |
+| R5 | All lists, stats, quotes, dates | Atomic elements have no `ul/li`, `dl`, `blockquote`, `time`, `figure`: Div Blocks + Paragraphs are used (small semantic/accessibility loss) | Accept, or approve a tag control if the installed version offers one |
+| R6 | About licenses, wall cladding, project gallery | The lightbox reads `data-image` / `data-caption` on links; custom attributes may not exist in the free atomic editor. Animations also use `data-tp-delay/-speed` (defaults apply without them) | Phase 4 spike. Fallbacks: caption from image alt (already), PDFs open directly |
+| R7 | Contact form | Atomic Forms availability in the free version is unverified; honeypot, inline errors (`aria-describedby`) and success state may differ | Phase 4 spike; otherwise a form plugin (owner decision: shortcodes are excluded) |
+| R8 | CSS filters on images | Grayscale-to-colour hover on partner logos needs a filter control | Drop the hover effect if not offered |
+| R9 | Prototype grids | Projects, related, 404 and gallery grids use CSS Grid/columns in `theme.css` (allowed: E1/E3); atomic pages use Flexbox wrap | None needed |
+
+
 <!-- GENERATED:START -->
 <!-- GENERATED:END -->

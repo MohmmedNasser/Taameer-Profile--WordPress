@@ -46,6 +46,7 @@
     lead.textContent = 'We could not find that project. It may have moved, or the link may be incorrect. Browse the full portfolio or return to the homepage.';
     lead.hidden = false;
     $('.tp-notfound').hidden = false;
+    $('[data-tp-project-body]').setAttribute('data-state', 'empty');
   }
 
   function description(p, typeLabel) {
@@ -208,7 +209,7 @@
     renderCompare(p, data);
     renderNav(p, data);
     renderRelated(p, data);
-    $('[data-tp-project-body]').hidden = false;
+    $('[data-tp-project-body]').setAttribute('data-state', 'ready');
     return renderLetter(p);
   }
 

@@ -1,6 +1,6 @@
 ## Global variables (every `--tp-` token)
 
-135 variables, generated from `assets/css/tokens.css`. Create each as an Elementor v4 global variable with the same name and value.
+138 variables, generated from `assets/css/tokens.css`. Create each as an Elementor v4 global variable with the same name and value.
 
 | Variable | Value | Note | Layer |
 |---|---|---|---|
@@ -132,6 +132,9 @@
 | `--tp-ba-handle` | `2.75rem` |  | Component sizes |
 | `--tp-chipbar-h` | `3.5rem` | sticky service navigation bar | Inner pages |
 | `--tp-sticky-offset` | `calc(var(--tp-header-h-mobile) + var(--tp-chipbar-h))` | header + chip bar (desktop: see inner-pages.css) | Inner pages |
+| `--tp-letter-sheet-w` | `26rem` | original letter on the testimonials page (sources are 675–1800px wide) | Inner pages |
+| `--tp-project-cover-h` | `80vh` | tallest a project cover may grow (portrait covers stay on screen) | Inner pages |
+| `--tp-masonry-col` | `17rem` | gallery masonry column width | Inner pages |
 | `--tp-lbox-btn` | `3rem` |  | Inner pages |
 | `--tp-lbox-chrome` | `7rem` | caption bar + gaps reserved below the lightbox image | Inner pages |
 | `--tp-lbox-chrome-mobile` | `11rem` |  | Inner pages |
@@ -178,7 +181,7 @@ Generated from the ELEMENTOR SOURCE stylesheets. Create one Elementor v4 global 
 |  | `.tp-skip-link` | position: fixed; inset-block-start: var(--tp-space-3); inset-inline-start: var(--tp-space-3); z-index: var(--tp-z-skip); padding: var(--tp-space-3) var(--tp-space-5); background: var(--tp-color-surface); color: var(--tp-color-text); border-radius: var(--tp-radius-sm); box-shadow: var(--tp-shadow-md); transform: translateY(-200%) |
 |  | `.tp-skip-link:focus-visible` | transform: none |
 
-### layout.css (19 rules)
+### layout.css (20 rules)
 
 | Media | Selector | Properties |
 |---|---|---|
@@ -191,6 +194,7 @@ Generated from the ELEMENTOR SOURCE stylesheets. Create one Elementor v4 global 
 |  | `.tp-container--narrow` | max-inline-size: calc(var(--tp-container-narrow) + 2 * var(--tp-gutter)) |
 |  | `.tp-row` | display: flex; flex-wrap: wrap; gap: var(--tp-gap) |
 |  | `.tp-row--center` | align-items: center |
+|  | `.tp-row--start` | align-items: flex-start |
 |  | `.tp-row--end` | align-items: flex-end |
 |  | `.tp-row--between` | justify-content: space-between |
 |  | `.tp-col` | display: flex; flex-direction: column; gap: var(--tp-space-5); min-inline-size: 0 |
@@ -332,7 +336,7 @@ Generated from the ELEMENTOR SOURCE stylesheets. Create one Elementor v4 global 
 |  | `[dir="rtl"] .tp-link svg, [dir="rtl"] .tp-card__more svg, .tp-link-rtl svg, .tp-card__more-rtl svg` | transform: scaleX(-1) |
 | (min-width: 64em) | `[dir="rtl"] .tp-service__link:hover .tp-service__title, [dir="rtl"] .tp-service__link:focus-visible .tp-service__title, .tp-service__link-rtl:hover .tp-service__title, .tp-service__link-rtl:focus-visible .tp-service__title` | transform: translateX(calc(-1 * var(--tp-space-3))) |
 
-### inner-pages.css (96 rules)
+### inner-pages.css (139 rules)
 
 | Media | Selector | Properties |
 |---|---|---|
@@ -400,6 +404,7 @@ Generated from the ELEMENTOR SOURCE stylesheets. Create one Elementor v4 global 
 |  | `.tp-partner__logo--blend` | mix-blend-mode: multiply |
 |  | `.tp-spec--compact .tp-spec__row` | flex-basis: var(--tp-spec-col-min); padding: var(--tp-space-3) 0 |
 |  | `.tp-spec--compact .tp-spec__row--wide` | flex-basis: 100% |
+|  | `.tp-spec--stack .tp-spec__row` | flex-basis: 100% |
 |  | `.tp-spec--compact .tp-spec__row dd` | font-family: var(--tp-font-body); font-size: var(--tp-fs-base); font-weight: var(--tp-fw-medium); line-height: var(--tp-lh-snug); font-variant-numeric: tabular-nums |
 |  | `.tp-licenses` | display: flex; flex-wrap: wrap; gap: var(--tp-gap) |
 |  | `.tp-license` | flex: 1 1 26rem; display: flex; flex-wrap: wrap; align-items: flex-start; gap: var(--tp-space-6); padding: var(--tp-space-6); background: var(--tp-card-bg); border-radius: var(--tp-card-radius); box-shadow: var(--tp-card-shadow) |
@@ -425,6 +430,11 @@ Generated from the ELEMENTOR SOURCE stylesheets. Create one Elementor v4 global 
 | (min-width: 48em) | `.tp-projects-grid--related` | grid-template-columns: repeat(3, minmax(0, 1fr)) |
 | (min-width: 48em) | `.tp-projects-grid--related > :nth-child(n)` | grid-column: auto |
 |  | `.tp-projects-grid--related .tp-card__media` | block-size: auto; aspect-ratio: 4 / 3 |
+|  | `.tp-projects-grid--even` | grid-template-columns: minmax(0, 1fr) |
+| (min-width: 40em) | `.tp-projects-grid--even` | grid-template-columns: repeat(2, minmax(0, 1fr)) |
+| (min-width: 64em) | `.tp-projects-grid--even` | grid-template-columns: repeat(3, minmax(0, 1fr)) |
+| (min-width: 64em) | `.tp-projects-grid--even > :nth-child(n)` | grid-column: auto |
+|  | `.tp-projects-grid--even .tp-card__media` | block-size: auto; aspect-ratio: 4 / 3 |
 |  | `.tp-gallery` | display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--tp-space-3) |
 | (min-width: 48em) | `.tp-gallery` | grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--tp-space-4) |
 |  | `.tp-gallery__item` | position: relative; display: block; overflow: hidden; aspect-ratio: 4 / 3; border-radius: var(--tp-card-radius); background: var(--tp-color-surface); box-shadow: var(--tp-card-shadow) |
@@ -432,9 +442,46 @@ Generated from the ELEMENTOR SOURCE stylesheets. Create one Elementor v4 global 
 |  | `.tp-gallery__item:hover img, .tp-gallery__item:focus-visible img` | transform: scale(var(--tp-hover-zoom)) |
 |  | `.tp-gallery__item::after` | content: ""; position: absolute; inset-block-end: var(--tp-space-3); inset-inline-end: var(--tp-space-3); inline-size: var(--tp-space-6); block-size: var(--tp-space-6); background: linear-gradient(var(--tp-color-text), var(--tp-color-text)) center / 40% var(--tp-border-w) no-repeat, linear-gradient(var(--tp-color-text), var(--tp-color-text)) center / var(--tp-border-w) 40% no-repeat, var(--tp-color-surface); border-radius: var(--tp-radius-round); box-shadow: var(--tp-shadow-sm) |
 | (prefers-reduced-motion: reduce) | `.tp-gallery__item img, .tp-license__preview, .tp-partner, .tp-partner__logo, .tp-chip` | transition: none |
+|  | `.tp-letters-page__list` | display: flex; flex-direction: column; gap: var(--tp-space-10) |
+|  | `.tp-letter-page` | display: flex; flex-wrap: wrap; align-items: center; gap: var(--tp-space-8); scroll-margin-block-start: var(--tp-space-8) |
+|  | `.tp-letter-page--flip` | flex-direction: row-reverse |
+|  | `.tp-letter-page__sheet` | flex: 0 1 var(--tp-letter-sheet-w); inline-size: 100% |
+|  | `.tp-letter-page__thumb` | position: relative; display: block; overflow: hidden; background: var(--tp-color-surface); border: var(--tp-hairline); border-radius: var(--tp-radius-sm); box-shadow: var(--tp-shadow-lg); text-decoration: none; color: var(--tp-color-text) |
+|  | `.tp-letter-page__thumb img` | inline-size: 100%; block-size: auto |
+|  | `.tp-letter-page__zoom` | position: absolute; inset-inline: var(--tp-space-4); inset-block-end: var(--tp-space-4); display: inline-flex; align-items: center; justify-content: center; gap: var(--tp-space-2); padding: var(--tp-space-3) var(--tp-space-4); background: var(--tp-color-surface); border-radius: var(--tp-radius-sm); box-shadow: var(--tp-shadow-sm); font-size: var(--tp-fs-xs); font-weight: var(--tp-fw-semibold); letter-spacing: var(--tp-tracking-button); text-transform: uppercase |
+|  | `.tp-letter-page__thumb:hover .tp-letter-page__zoom, .tp-letter-page__thumb:focus-visible .tp-letter-page__zoom` | background: var(--tp-btn-bg); color: var(--tp-btn-fg) |
+|  | `.tp-letter-page__text` | flex: 1 1 22rem; display: flex; flex-direction: column; align-items: flex-start; gap: var(--tp-space-5) |
+|  | `.tp-letter-page__date` | font-size: var(--tp-fs-xs); font-weight: var(--tp-fw-semibold); letter-spacing: var(--tp-tracking-eyebrow); text-transform: uppercase; color: var(--tp-meta-color) |
+|  | `.tp-letter-page__excerpt` | font-family: var(--tp-font-display); font-size: var(--tp-fs-h3); font-weight: var(--tp-fw-regular); line-height: var(--tp-lh-snug); max-inline-size: var(--tp-measure) |
+|  | `.tp-letter-page__excerpt p::before` | content: "“"; color: var(--tp-color-accent) |
+|  | `.tp-letter-page__excerpt p::after` | content: "”"; color: var(--tp-color-accent) |
+|  | `.tp-letter-page__by` | display: flex; flex-direction: column; gap: var(--tp-space-1); padding-block-start: var(--tp-space-4); border-block-start: var(--tp-hairline) |
+|  | `.tp-letter-page__author` | font-weight: var(--tp-fw-semibold) |
+|  | `.tp-letter-page__role, .tp-letter-page__note` | font-size: var(--tp-fs-sm); color: var(--tp-color-text-muted) |
+|  | `.tp-contact__info, .tp-contact__form` | gap: var(--tp-space-5) |
+|  | `.tp-contact__info a` | color: var(--tp-color-text); text-decoration-color: var(--tp-color-stone) |
+|  | `.tp-contact__info a:hover` | text-decoration-color: var(--tp-color-accent) |
+|  | `.tp-contact__info address` | font-style: normal |
+|  | `.tp-form` | display: flex; flex-direction: column; gap: var(--tp-space-5) |
+|  | `.tp-form__field` | display: flex; flex-direction: column; gap: var(--tp-space-2) |
+|  | `.tp-form__field label` | font-size: var(--tp-fs-xs); font-weight: var(--tp-fw-semibold); letter-spacing: var(--tp-tracking-eyebrow); text-transform: uppercase; color: var(--tp-color-text) |
+|  | `.tp-form__req` | color: var(--tp-color-text) |
+|  | `.tp-form input, .tp-form select, .tp-form textarea` | inline-size: 100%; min-block-size: var(--tp-touch); padding: var(--tp-space-3) var(--tp-space-4); background: var(--tp-color-surface); border: var(--tp-hairline); border-radius: var(--tp-radius-sm); font: inherit; color: var(--tp-color-text) |
+|  | `.tp-form textarea` | resize: vertical |
+|  | `.tp-form input:hover, .tp-form select:hover, .tp-form textarea:hover` | border-color: var(--tp-color-accent) |
+|  | `.tp-form [aria-invalid="true"]` | border-color: var(--tp-color-text); box-shadow: inset 0 calc(-1 * var(--tp-space-1)) 0 var(--tp-color-text) |
+|  | `.tp-form__error` | font-size: var(--tp-fs-sm); font-weight: var(--tp-fw-medium); color: var(--tp-color-text) |
+|  | `.tp-form__error::before` | content: "+ "; color: var(--tp-color-accent) |
+|  | `.tp-form__status` | padding: var(--tp-space-4); border: var(--tp-border-w) solid var(--tp-color-text); border-radius: var(--tp-radius-sm); font-weight: var(--tp-fw-semibold) |
+|  | `.tp-form__note` | font-size: var(--tp-fs-sm); color: var(--tp-color-text-muted) |
+|  | `.tp-form__hp` | position: absolute; inset-inline-start: -10000px; inline-size: 1px; block-size: 1px; overflow: hidden |
+|  | `.tp-form__success` | display: flex; flex-direction: column; gap: var(--tp-space-3); padding: var(--tp-space-7); border: var(--tp-hairline); border-radius: var(--tp-radius-sm); background: var(--tp-color-sand) |
+|  | `.tp-location` | display: flex; flex-wrap: wrap; align-items: center; gap: var(--tp-space-6); padding: var(--tp-space-8); background: var(--tp-color-surface); border: var(--tp-hairline); border-radius: var(--tp-radius-sm) |
+|  | `.tp-location__mark` | flex: none; color: var(--tp-color-accent) |
+|  | `.tp-location__text` | flex: 1 1 18rem; display: flex; flex-direction: column; gap: var(--tp-space-3) |
 
-### theme.css (102 rules) — ships as a file (E1), not recreated in Elementor
+### theme.css (147 rules) — ships as a file (E1), not recreated in Elementor
 
 Selectors only; see the file for properties.
 
-`.tp-ba`, `.tp-ba__before`, `.tp-ba__handle`, `.tp-ba__handle svg`, `.tp-ba__handle::before`, `.tp-ba__handle:focus-visible`, `.tp-ba__handle:focus-visible svg`, `.tp-ba__img`, `.tp-ba__img, .tp-ba__before`, `.tp-ba__label`, `.tp-ba__label--after`, `.tp-ba__label--before`, `.tp-before-after`, `.tp-before-after img`, `.tp-chip`, `.tp-chip:focus-visible`, `.tp-chip:hover`, `.tp-chip[aria-current="true"]`, `.tp-chips`, `.tp-chips::-webkit-scrollbar`, `.tp-fab`, `.tp-fab:hover`, `.tp-footer`, `.tp-footer a`, `.tp-footer a:hover`, `.tp-footer__blurb`, `.tp-footer__bottom`, `.tp-footer__brand`, `.tp-footer__download`, `.tp-footer__grid`, `.tp-footer__heading`, `.tp-footer__label`, `.tp-footer__list`, `.tp-footer__list a`, `.tp-footer__list a[aria-current="page"]`, `.tp-footer__logo`, `.tp-footer__meta`, `.tp-footer__social`, `.tp-footer__social a`, `.tp-header`, `.tp-header__actions`, `.tp-header__actions > .tp-lang`, `.tp-header__cta`, `.tp-header__inner`, `.tp-header__logo`, `.tp-header__logo img`, `.tp-lang`, `.tp-lang abbr`, `.tp-lang__link`, `.tp-lang__link:hover`, `.tp-lang__sep`, `.tp-lbox`, `.tp-lbox, .tp-lbox__img, .tp-lbox__btn`, `.tp-lbox.is-loading .tp-lbox__img`, `.tp-lbox.is-open`, `.tp-lbox__backdrop`, `.tp-lbox__bar`, `.tp-lbox__btn`, `.tp-lbox__btn:hover`, `.tp-lbox__caption`, `.tp-lbox__close`, `.tp-lbox__close svg`, `.tp-lbox__count`, `.tp-lbox__fig`, `.tp-lbox__img`, `.tp-lbox__meta`, `.tp-lbox__next`, `.tp-lbox__prev`, `.tp-lbox__prev svg`, `.tp-menu`, `.tp-menu-toggle`, `.tp-menu-toggle, .tp-menu`, `.tp-menu-toggle[aria-expanded="true"] .tp-menu-toggle__icon`, `.tp-menu-toggle__icon`, `.tp-menu.is-open`, `.tp-menu__contact`, `.tp-menu__foot`, `.tp-menu__inner`, `.tp-menu__link`, `.tp-menu__link[aria-current="page"]`, `.tp-nav`, `.tp-nav, .tp-header__cta, .tp-header__actions > .tp-lang`, `.tp-nav__link`, `.tp-nav__link::after`, `.tp-nav__link:hover::after, .tp-nav__link[aria-current="page"]::after`, `.tp-nav__list`, `.tp-service-nav`, `:root`, `[dir="rtl"] .tp-ba__before`, `[dir="rtl"] .tp-ba__handle`, `[dir="rtl"] .tp-lbox__next svg`, `[dir="rtl"] .tp-lbox__prev svg`
+`.tp-404__code`, `.tp-404__hero`, `.tp-404__plus`, `.tp-404__projects`, `.tp-404__text`, `.tp-archive`, `.tp-ba`, `.tp-ba__before`, `.tp-ba__handle`, `.tp-ba__handle svg`, `.tp-ba__handle::before`, `.tp-ba__handle:focus-visible`, `.tp-ba__handle:focus-visible svg`, `.tp-ba__img`, `.tp-ba__img, .tp-ba__before`, `.tp-ba__label`, `.tp-ba__label--after`, `.tp-ba__label--before`, `.tp-before-after`, `.tp-before-after img`, `.tp-chip`, `.tp-chip:focus-visible`, `.tp-chip:hover`, `.tp-chip[aria-current="true"]`, `.tp-chips`, `.tp-chips::-webkit-scrollbar`, `.tp-fab`, `.tp-fab:hover`, `.tp-filter__bar`, `.tp-filter__btn`, `.tp-filter__btn:hover`, `.tp-filter__btn[aria-pressed="true"]`, `.tp-filter__count`, `.tp-filter__empty`, `.tp-footer`, `.tp-footer a`, `.tp-footer a:hover`, `.tp-footer__blurb`, `.tp-footer__bottom`, `.tp-footer__brand`, `.tp-footer__download`, `.tp-footer__grid`, `.tp-footer__heading`, `.tp-footer__label`, `.tp-footer__list`, `.tp-footer__list a`, `.tp-footer__list a[aria-current="page"]`, `.tp-footer__logo`, `.tp-footer__meta`, `.tp-footer__social`, `.tp-footer__social a`, `.tp-header`, `.tp-header__actions`, `.tp-header__actions > .tp-lang`, `.tp-header__cta`, `.tp-header__inner`, `.tp-header__logo`, `.tp-header__logo img`, `.tp-lang`, `.tp-lang abbr`, `.tp-lang__link`, `.tp-lang__link:hover`, `.tp-lang__sep`, `.tp-lbox`, `.tp-lbox, .tp-lbox__img, .tp-lbox__btn`, `.tp-lbox.is-loading .tp-lbox__img`, `.tp-lbox.is-open`, `.tp-lbox__backdrop`, `.tp-lbox__bar`, `.tp-lbox__btn`, `.tp-lbox__btn:hover`, `.tp-lbox__caption`, `.tp-lbox__close`, `.tp-lbox__close svg`, `.tp-lbox__count`, `.tp-lbox__fig`, `.tp-lbox__img`, `.tp-lbox__meta`, `.tp-lbox__next`, `.tp-lbox__prev`, `.tp-lbox__prev svg`, `.tp-masonry`, `.tp-masonry__img`, `.tp-masonry__item`, `.tp-masonry__item:hover .tp-masonry__img, .tp-masonry__item:focus-visible .tp-masonry__img`, `.tp-menu`, `.tp-menu-toggle`, `.tp-menu-toggle, .tp-menu`, `.tp-menu-toggle[aria-expanded="true"] .tp-menu-toggle__icon`, `.tp-menu-toggle__icon`, `.tp-menu.is-open`, `.tp-menu__contact`, `.tp-menu__foot`, `.tp-menu__inner`, `.tp-menu__link`, `.tp-menu__link[aria-current="page"]`, `.tp-nav`, `.tp-nav, .tp-header__cta, .tp-header__actions > .tp-lang`, `.tp-nav__link`, `.tp-nav__link::after`, `.tp-nav__link:hover::after, .tp-nav__link[aria-current="page"]::after`, `.tp-nav__list`, `.tp-notfound`, `.tp-project-body[data-state="empty"]`, `.tp-project-body[data-state="loading"]`, `.tp-project-compare__media`, `.tp-project-cover`, `.tp-project-cover .tp-frame`, `.tp-project-cover .tp-frame__clip`, `.tp-project-cover-wrap`, `.tp-project-cover__plain`, `.tp-project-letter__by`, `.tp-project-letter__fig`, `.tp-project-letter__quote`, `.tp-project-letter__quote p::after`, `.tp-project-letter__quote p::before`, `.tp-project-nav`, `.tp-project-nav__inner`, `.tp-project-nav__label`, `.tp-project-nav__link`, `.tp-project-nav__link:hover .tp-project-nav__label`, `.tp-project-nav__link:hover .tp-project-nav__title`, `.tp-project-nav__next`, `.tp-project-nav__prev .tp-project-nav__label svg`, `.tp-project-nav__title`, `.tp-project-title`, `.tp-render-note`, `.tp-render-note strong`, `.tp-render-note svg`, `.tp-service-nav`, `:root`, `[dir="rtl"] .tp-ba__before`, `[dir="rtl"] .tp-ba__handle`, `[dir="rtl"] .tp-lbox__next svg`, `[dir="rtl"] .tp-lbox__prev svg`, `[dir="rtl"] .tp-project-nav__next .tp-project-nav__label svg`, `[dir="rtl"] .tp-project-nav__prev .tp-project-nav__label svg`

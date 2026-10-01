@@ -6,7 +6,7 @@ Bilingual (EN / AR) corporate site prototype for Taameer Plus Contracting LLC. V
 Some sections are rendered from `data/*.json` with `fetch()`, which browsers block on `file://`. Serve the folder:
 
 ```
-npx serve .
+npx serve .   # serve.json turns off clean URLs: they redirect and drop ?id= / ?type=
 ```
 Then open http://localhost:3000. (VS Code Live Server also works.)
 
@@ -22,6 +22,10 @@ Then open http://localhost:3000. (VS Code Live Server also works.)
 | `python scripts/check-partials.py` | Header/footer/sprite/WhatsApp/CTA blocks identical on every page; active nav state; SEO head; one h1 |
 | `node scripts/screenshot.mjs` | Playwright: 4 widths × LTR/RTL + reduced motion; console/network/overflow |
 | `node scripts/interaction-test.mjs` | Playwright: skip link, mobile menu, before/after, breadcrumbs, lightbox (keys, swipe, focus trap; LTR/RTL), service chip nav, related projects |
+| `python scripts/check-links.py` | Every internal link, anchor, `project.html?id=` and image reference resolves |
+| `node scripts/projects-test.mjs` | Playwright: projects filter, all 22 project ids, project template parts, not-found, testimonials lightbox, contact form validation, 404 (`ONLY=filter,ids,…` to run a block) |
+| `python scripts/gen-wp-tables.py` | Regenerates the global variable / global class tables in `docs/wp-mapping.md` |
+| `node scripts/lighthouse-run.mjs` | Lighthouse (mobile) on all 8 pages → `source/lighthouse/phase-2/` |
 
 Image pipeline order: `extract_pdf.py --export` → `build_site_images.py` → `image_meta.py`.
 

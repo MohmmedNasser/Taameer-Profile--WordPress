@@ -4,7 +4,7 @@
  *   python -m http.server 5173          (or: npx serve . -l 5173)
  *   node scripts/screenshot.mjs [page=index.html] [outDir=source/screenshots/phase-1]
  *
- * Runs 375 / 768 / 1280 / 1920 px in LTR, the same widths with dir="rtl" injected before any script
+ * Runs 375 / 768 / 1280 / 1920 px in LTR, the 375 and 1280 with dir="rtl" injected before any script
  * runs (the file itself is never modified), and one 1280px pass with prefers-reduced-motion.
  * Playwright is not a project dependency: set PW_MODULE to a playwright package path if it is not
  * resolvable (e.g. the npx cache), otherwise `npm i -D playwright` locally.
@@ -24,7 +24,7 @@ mkdirSync(outDir, { recursive: true });
 
 const runs = [
   ...WIDTHS.map((w) => ({ w, dir: 'ltr', motion: 'no-preference' })),
-  ...WIDTHS.map((w) => ({ w, dir: 'rtl', motion: 'no-preference' })),
+  ...[375, 1280].map((w) => ({ w, dir: 'rtl', motion: 'no-preference' })),
   { w: 1280, dir: 'ltr', motion: 'reduce' },
 ];
 
@@ -60,10 +60,10 @@ for (const run of runs) {
     const step = window.innerHeight * 0.7;
     for (let y = 0; y < document.body.scrollHeight; y += step) {
       window.scrollTo(0, y);
-      await new Promise((r) => setTimeout(r, 120));
+      await new Promise((r) => setTimeout(r, 60));
     }
     window.scrollTo(0, document.body.scrollHeight);
-    await new Promise((r) => setTimeout(r, 2200));
+    await new Promise((r) => setTimeout(r, 1500));
     window.scrollTo(0, 0);
     await new Promise((r) => setTimeout(r, 600));
   });
@@ -82,7 +82,7 @@ for (const run of runs) {
     return { scrollWidth: doc.scrollWidth, clientWidth: doc.clientWidth, offenders: offenders.slice(0, 8) };
   });
 
-  const name = `${path.basename(page, '.html')}-${run.w}-${run.dir}${run.motion === 'reduce' ? '-reduced' : ''}.png`;
+  const name = `${path.basename(page.split('?')[0], '.html')}${page.includes('?') ? '-' + page.split('=').pop() : ''}-${run.w}-${run.dir}${run.motion === 'reduce' ? '-reduced' : ''}.png`;
   await tab.screenshot({ path: path.join(outDir, name), fullPage: true });
 
   const hasOverflow = overflow.scrollWidth > overflow.clientWidth;

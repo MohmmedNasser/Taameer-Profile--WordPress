@@ -606,6 +606,11 @@
 
 /* ---- 9. Project single template (single-project.php) ---- */
 
+/* Prototype only: while projects.js/project-page.js fetch the data the body keeps a viewport of space so the
+   footer does not jump (CLS). WordPress renders the page server-side and needs neither state. */
+.tp-project-body[data-state="loading"] { min-block-size: 100vh; visibility: hidden; }
+.tp-project-body[data-state="empty"] { display: none; }
+
 .tp-project-title { max-inline-size: 22ch; }
 
 /* Cover: never wider than its source (framed below 1200px) nor taller than the viewport allows. */

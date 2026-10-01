@@ -2,6 +2,15 @@
 
 Non-obvious decisions. Format: **Context / Decision / Reason / Alternatives rejected.** Newest on top.
 
+### D-032 — Phase 2B page decisions
+- Projects archive uses an even 3-column grid (`tp-projects-grid--even`): the 7/5 rhythm of the Home grid depends on `nth-child` and would leave gaps when items are hidden by the filter.
+- Filter state is `?type=<slug>` (valid slugs only; anything else = All) written with `replaceState`; counts are static in the markup and recomputed from the rendered cards.
+- Project template: unknown ids, a missing id and the Wall Cladding showcase all show the not-found state in the hero (noindex added by script; WordPress returns a real 404). Gallery order = `gallery` array; before/after uses the first gallery image as "after". Spec rows: Type, Location, Duration, Completion (month and year, or "Ongoing"; omitted for the one completed project without a date), Consultant when present.
+- Covers below 1200px wide or portrait are framed, never upscaled, and capped at 80vh (`--tp-project-cover-h`).
+- Testimonials: Jan's Noodles shows only the company and its letter; no placeholder sentence is added. Related-project links on testimonials are the inferred ones in `data/testimonials.json` (client to confirm).
+- Contact: no office hours (unknown); the Maps button uses a search URL for the Sky Business Building, Festival City, no embed. Success copy ("Thank you for your message… Our team will get back to you.") is placeholder wording for the client to approve.
+- 404 keeps relative asset paths in the prototype; the PHP template uses theme URIs.
+
 ### D-031 — Prototype files mirror the four theme files (Phase 2B Part 0)
 - Context: PRD v1.5 limits the WordPress front end to `animations.css/js`, `theme.css`, `interactions.js` (+ E3 PHP templates); everything else is Elementor global variables/classes.
 - Decision: `theme.css` takes the header, mobile menu, footer, WhatsApp, lightbox dialog, before/after handle, services chip bar and (new) filter bar, project single template and 404; `interactions.js` merges lightbox, before/after, scrollspy, filter and the header menu (one IIFE, separate sections); `counters.js` merged into `animations.js`; tokens/base/layout/components/inner-pages stay as `ELEMENTOR SOURCE`; `projects.js` is `PROTOTYPE ONLY` and clones `<template id="tp-project-card">`. The header is `position: sticky`, solid and in flow: transparent state, scrolled class, `backdrop-filter` and all hero padding compensation removed.

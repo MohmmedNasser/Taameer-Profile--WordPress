@@ -97,6 +97,6 @@ data/     projects.json · team.json · testimonials.json · site.json
 5. Content import + Elementor page builds exported as JSON templates
 
 ## Current state
-- **Phase:** Phase 2A complete; next: Phase 2B (projects, project detail, testimonials, contact, 404).
-- **Last completed task:** about.html and services.html on the locked-in Official brand, with shared partials, lightbox, page hero and SEO head (see docs/progress-log.md).
-- **Next task:** Phase 2B — projects.html (filter; honour `?type=` used by the Turnkey link), project.html (JSON template, gallery in the lightbox, before/after), testimonials.html (letters in the lightbox), contact.html, 404.html; then Phase 2 acceptance (Lighthouse). Reuse `tp-page-hero`, `lightbox.js`, `tp-projects-grid`, the PARTIAL blocks (copy from index.html; run `scripts/check-partials.py`). Open client questions: PRD §14 + last progress-log entries.
+- **Phase:** Phase 2 complete; next: Phase 3 (Arabic RTL).
+- **Last completed task:** Phase 2B: Elementor v4 alignment (theme.css / interactions.js / animations, ELEMENTOR SOURCE styles), projects (filter), project template, testimonials, contact, 404, and Phase 2 acceptance (see docs/progress-log.md).
+- **Next task:** Phase 3 — Arabic pages in `ar/`, Arabic strings in `data/*.json`, Arabic fonts and the `-rtl` classes listed in docs/wp-mapping.md; the page builders for new pages copy the PARTIAL blocks from index.html (`python scripts/check-partials.py`). Open client questions: PRD §14, progress-log, and docs/wp-mapping.md REPORT list.

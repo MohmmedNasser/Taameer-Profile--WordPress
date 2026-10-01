@@ -2,6 +2,11 @@
 
 One entry per completed task, newest on top. Format: Did / Files / Issues / Next.
 
+### 2026-10-01 — Phase 2B · Part F: Phase 2 acceptance
+- Did: `scripts/check-links.py` (602 references in 8 pages, project ids, anchors, data images: all resolve; ar/ links skipped until Phase 3); screenshots of all 8 pages plus project states (ongoing/render, before/after, not found) at 375/768/1280/1920 LTR, 375/1280 RTL and 1280 reduced motion in `source/screenshots/phase-2/`: 0 console/network issues, no horizontal overflow; `scripts/projects-test.mjs` 49/49 and `interaction-test.mjs` all PASS (filter bar, lightbox from About licenses / Services gallery / project gallery / testimonials letters, form validation, not-found); Lighthouse mobile via `scripts/lighthouse-run.mjs` → `source/lighthouse/phase-2/`; validate-tokens 0 violations; contrast 0 failing; no `ELEMENTOR:` annotation left. `serve.json` added (clean URLs redirect and dropped `?id=`/`?type=` under `npx serve`). Hero reveal delays shortened (LCP was the animated lead paragraph). `project.html` keeps a viewport of space while data loads (CLS 0.8 → 0).
+- Lighthouse (mobile, simulated slow 4G, `npx serve`): Accessibility 100 on all 8; Best Practices 96; SEO 100 (404 = 63 because of its required noindex); Performance index 83, about 89, services 88, projects 87, project 82, testimonials 90, contact 92, 404 91; CLS 0 and TBT 0 everywhere. Below 90: render-blocking resources dominate (7 stylesheets + Google Fonts, ~1.4–1.8 s est. savings; the no-build-step rule forbids concatenating them; WordPress ships one aggregated theme.css and Elementor's inlined CSS) and `uses-responsive-images` (project covers served at 1200px). Making fonts non-blocking cut CLS in the wrong direction (0.8 on the project page) and was reverted. Re-measure on the WordPress build.
+- Next: Phase 3 (Arabic RTL) — not started.
+
 ### 2026-10-01 — Phase 2B · Part E: 404.html
 - Did: on-brand 404 (large "404" with the "+" motif, message, buttons to Home and Projects, 3 featured projects from the card template), `noindex`, no active nav item, no CTA band. Relative asset paths in the prototype; the WordPress `404.php` prints absolute theme URIs so it works from any path.
 - Verified: projects-test 404 block 2/2; check-partials OK on 8 pages.
