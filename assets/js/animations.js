@@ -4,10 +4,57 @@
    parallax element is on screen). Animates once. Transforms/opacity/clip-path only.
    Never targets elements by ID: everything is found by class, so Elementor users can apply effects
    through Advanced → CSS Classes.
-   WP: wp_enqueue_script('tp-animations', …/animations.js, ['tp-counters'], ver, ['strategy' => 'defer']).
+   Also contains tp-counter (formerly counters.js), the first IIFE below.
+   WP: wp_enqueue_script('tp-animations', …/animations.js, [], ver, ['strategy' => 'defer']) with animations.css.
        Add `document.documentElement.classList.add('tp-js')` inline in <head> (wp_add_inline_script
        on an early handle) so hidden states never flash.
    ========================================================================== */
+(function () {
+  /* ---- tp-counter: count-up numbers. Attributes (all optional; the number is read from the text): data-tp-target, data-tp-from (default 0), data-tp-prefix,
+     data-tp-suffix. The element's server-rendered text is the final value, so no-JS / reduced-motion users see it as is.
+     Exposes TP.counter(el); the entrance observer below calls it when the element enters the viewport. ---- */
+  'use strict';
+
+  var TP = (window.TP = window.TP || {});
+  var DURATION = 1800;
+
+  function easeOutCubic(t) {
+    return 1 - Math.pow(1 - t, 3);
+  }
+
+  TP.counter = function (el) {
+    if (el.dataset.tpCounted) return;
+    el.dataset.tpCounted = 'true';
+
+    // Plain markup works without attributes: "100+" counts to 100 with the suffix "+" (attributes override).
+    var m = /^(\D*?)(\d+(?:\.\d+)?)(\D*)$/.exec(el.textContent.trim()) || [];
+    var target = parseFloat(el.dataset.tpTarget !== undefined ? el.dataset.tpTarget : m[2]);
+    if (isNaN(target)) return;
+    var from = parseFloat(el.dataset.tpFrom) || 0;
+    var prefix = el.dataset.tpPrefix !== undefined ? el.dataset.tpPrefix : m[1] || '';
+    var suffix = el.dataset.tpSuffix !== undefined ? el.dataset.tpSuffix : m[3] || '';
+    var finalText = prefix + target + suffix;
+
+    if (TP.reducedMotion) {
+      el.textContent = finalText;
+      return;
+    }
+
+    // Screen readers get the final value immediately; only the visual text animates.
+    el.setAttribute('aria-label', finalText);
+    var start = null;
+
+    function frame(now) {
+      if (start === null) start = now;
+      var t = Math.min((now - start) / DURATION, 1);
+      el.textContent = prefix + Math.round(from + (target - from) * easeOutCubic(t)) + suffix;
+      if (t < 1) requestAnimationFrame(frame);
+      else el.removeAttribute('aria-label');
+    }
+    requestAnimationFrame(frame);
+  };
+})();
+
 (function () {
   'use strict';
 

@@ -1,13 +1,13 @@
+/* ELEMENTOR SOURCE — recreated as global variables/classes, not shipped */
 /* ==========================================================================
    components.css — every UI block of the site (BEM, tp- prefix)
    Used by: index.html (Phase 1); later all pages. Sections in order:
-     1 text atoms · 2 buttons & links · 3 frame + setting-out marks · 4 header, nav, menu
-     5 hero · 6 partners marquee · 7 about/stats · 8 chairman quote · 9 section head
-     10 services list · 11 why us · 12 projects grid/cards · 13 spec (title block) · 14 before/after
-     15 letters · 16 CTA · 17 footer · 18 WhatsApp FAB · 19 [dir="rtl"] exceptions
-   CSS Grid appears ONLY in custom-widget blocks: tp-service-list, tp-projects-grid, tp-footer__grid (theme).
-   WP: enqueue after layout.css (handle "tp-components"). Widget-specific parts can later be split per
-       widget and registered with wp_register_style + $widget->get_style_depends().
+     1 text atoms · 2 buttons & links · 3 frame + setting-out marks · 5 hero · 6 partners marquee
+     7 about/stats · 8 chairman quote · 9 section head · 10 services list · 11 why us
+     12 projects grid/cards · 13 spec (title block) · 15 letters · 16 CTA · 19 [dir="rtl"] / -rtl exceptions
+     (Header, footer, WhatsApp, before/after and lightbox moved to theme.css — Part 0 of Phase 2B.)
+   CSS Grid appears only where Flexbox Containers cannot express it (prototype only): tp-service-list, tp-projects-grid.
+   WP: not shipped. Recreated as Elementor v4 global variables / global classes (docs/wp-mapping.md).
    ========================================================================== */
 
 /* ---- 1. Text atoms ---- */
@@ -161,181 +161,10 @@
   object-fit: cover;
 }
 
-/* ---- 4. Header, nav, language switcher, mobile menu (theme template) ---- */
-
-.tp-header {
-  position: fixed;
-  inset-block-start: 0;
-  inset-inline: 0;
-  z-index: var(--tp-z-header);
-  border-block-end: var(--tp-border-w) solid transparent;
-  transition:
-    background-color var(--tp-dur-base) var(--tp-ease-out),
-    border-color var(--tp-dur-base) var(--tp-ease-out),
-    box-shadow var(--tp-dur-base) var(--tp-ease-out);
-}
-
-.tp-header--scrolled {
-  background: var(--tp-color-header-scrolled);
-  border-block-end-color: var(--tp-color-stone);
-  box-shadow: var(--tp-shadow-sm);
-  backdrop-filter: blur(var(--tp-blur-header));
-}
-
-/* backdrop-filter makes the header a containing block for fixed children, which would trap the
-   full-screen menu inside the header bar — so it is removed while the menu is open. */
-.tp-header--menu-open {
-  background: var(--tp-color-bg);
-  backdrop-filter: none;
-}
-
-.tp-header__inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--tp-space-5);
-  block-size: var(--tp-header-h-mobile);
-}
-
-.tp-header__logo { flex: none; display: block; }
-.tp-header__logo img { block-size: var(--tp-logo-h); inline-size: auto; }
-
-.tp-nav { display: none; }
-
-.tp-nav__list {
-  display: flex;
-  gap: var(--tp-nav-gap);
-}
-
-.tp-nav__link {
-  position: relative;
-  display: block;
-  padding-block: var(--tp-space-2);
-  font-size: var(--tp-fs-sm);
-  font-weight: var(--tp-fw-medium);
-  color: var(--tp-color-text);
-  text-decoration: none;
-}
-
-/* Hairline that draws in from inline-start on hover / current page. */
-.tp-nav__link::after {
-  content: "";
-  position: absolute;
-  inset-inline: 0;
-  inset-block-end: 0;
-  block-size: var(--tp-border-w);
-  background: var(--tp-color-accent);
-  transform: scaleX(0);
-  transform-origin: var(--tp-origin-start, left);
-  transition: transform var(--tp-dur-base) var(--tp-ease-out);
-}
-
-.tp-nav__link:hover::after,
-.tp-nav__link[aria-current="page"]::after { transform: scaleX(1); }
-
-.tp-header__actions {
-  display: flex;
-  align-items: center;
-  gap: var(--tp-space-4);
-}
-
-.tp-header__cta { display: none; }
-
-.tp-lang {
-  display: flex;
-  align-items: center;
-  gap: var(--tp-space-2);
-  font-size: var(--tp-fs-sm);
-}
-
-.tp-lang abbr { text-decoration: none; font-weight: var(--tp-fw-semibold); }
-.tp-lang__sep { color: var(--tp-color-stone); }
-.tp-lang__link { color: var(--tp-color-text); text-decoration: none; padding: var(--tp-space-2) var(--tp-space-1); }
-.tp-lang__link:hover { color: var(--tp-color-accent-text); }
-.tp-header__actions > .tp-lang { display: none; }
-
-.tp-menu-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--tp-space-3);
-  min-block-size: var(--tp-touch);
-  padding: var(--tp-space-2) var(--tp-space-3);
-  background: none;
-  border: var(--tp-hairline);
-  border-radius: var(--tp-radius-sm);
-  font-size: var(--tp-fs-xs);
-  font-weight: var(--tp-fw-semibold);
-  letter-spacing: var(--tp-tracking-button);
-  text-transform: uppercase;
-}
-
-/* "+" turns into "×": the logo motif as the menu icon. */
-.tp-menu-toggle__icon {
-  color: var(--tp-color-accent);
-  transition: transform var(--tp-dur-base) var(--tp-ease-out);
-}
-
-.tp-menu-toggle[aria-expanded="true"] .tp-menu-toggle__icon { transform: rotate(45deg); }
-
-.tp-menu {
-  position: fixed;
-  inset: var(--tp-header-h-mobile) 0 0;
-  z-index: var(--tp-z-menu);
-  overflow-y: auto;
-  background: var(--tp-color-bg);
-  border-block-start: var(--tp-hairline);
-  opacity: 0;
-  transition: opacity var(--tp-dur-base) var(--tp-ease-out);
-}
-
-.tp-menu.is-open { opacity: 1; }
-
-.tp-menu__inner {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: var(--tp-space-7);
-  min-block-size: 100%;
-  padding-block: var(--tp-space-7);
-}
-
-.tp-menu__link {
-  display: block;
-  padding-block: var(--tp-space-2);
-  font-family: var(--tp-font-display);
-  font-size: var(--tp-fs-h2);
-  font-weight: var(--tp-fw-light);
-  line-height: var(--tp-lh-heading);
-  color: var(--tp-color-text);
-  text-decoration: none;
-}
-
-.tp-menu__link[aria-current="page"] { color: var(--tp-color-accent-text); }
-
-.tp-menu__foot {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--tp-space-4);
-  padding-block-start: var(--tp-space-6);
-  border-block-start: var(--tp-hairline);
-}
-
-.tp-menu__contact { color: var(--tp-color-text); text-decoration: none; }
-
-@media (min-width: 64em) {
-  .tp-header__inner { block-size: var(--tp-header-h); }
-  .tp-nav,
-  .tp-header__cta,
-  .tp-header__actions > .tp-lang { display: flex; }
-  .tp-menu-toggle,
-  .tp-menu { display: none; }
-}
-
 /* ---- 5. Hero ---- */
 
 .tp-hero {
-  padding-block-start: calc(var(--tp-header-h-mobile) + var(--tp-space-5));
+  padding-block-start: var(--tp-space-5);
   padding-block-end: var(--tp-section-pad-tight);
 }
 
@@ -396,7 +225,7 @@
 
 @media (min-width: 64em) {
   .tp-hero {
-    padding-block-start: calc(var(--tp-header-h) + var(--tp-space-6));
+    padding-block-start: var(--tp-space-6);
   }
 
   .tp-hero__panel {
@@ -413,6 +242,8 @@
     padding-block-start: var(--tp-space-9);
   }
 }
+
+.tp-compare__media { align-items: center; }
 
 /* ---- 6. Partners marquee (custom widget "tp-marquee") ---- */
 
@@ -805,84 +636,6 @@
 
 .tp-spec__row dd { font-family: var(--tp-font-display); font-size: var(--tp-fs-h4); line-height: var(--tp-lh-heading); }
 
-/* ---- 14. Before / after (custom widget "tp-before-after") ---- */
-
-.tp-compare__media { align-items: center; }
-
-.tp-ba {
-  position: relative;
-  inline-size: 100%;
-  max-inline-size: var(--tp-ba-max-w);
-  aspect-ratio: 1;
-  overflow: hidden;
-  border-radius: var(--tp-radius-md);
-  box-shadow: var(--tp-shadow-lg);
-  touch-action: pan-y; /* vertical scroll still works; horizontal drag moves the divider */
-  cursor: ew-resize;
-  user-select: none;
-}
-
-.tp-ba__img,
-.tp-ba__before {
-  position: absolute;
-  inset: 0;
-  inline-size: 100%;
-  block-size: 100%;
-}
-
-.tp-ba__img { object-fit: cover; pointer-events: none; }
-
-.tp-ba__before { clip-path: inset(0 calc(100% - var(--tp-ba-pos)) 0 0); }
-
-.tp-ba__label {
-  position: absolute;
-  inset-block-end: var(--tp-space-4);
-  padding: var(--tp-space-1) var(--tp-space-3);
-  background: var(--tp-color-surface);
-  border-radius: var(--tp-radius-sm);
-  font-size: var(--tp-fs-xs);
-  font-weight: var(--tp-fw-semibold);
-  letter-spacing: var(--tp-tracking-button);
-  text-transform: uppercase;
-}
-
-.tp-ba__label--before { inset-inline-start: var(--tp-space-4); }
-.tp-ba__label--after { inset-inline-end: var(--tp-space-4); }
-
-.tp-ba__handle {
-  position: absolute;
-  inset-block: 0;
-  inset-inline-start: var(--tp-ba-pos);
-  display: grid;
-  place-items: center;
-  inline-size: var(--tp-ba-handle);
-  transform: translateX(-50%);
-  cursor: ew-resize;
-}
-
-/* The divider line */
-.tp-ba__handle::before {
-  content: "";
-  position: absolute;
-  inset-block: 0;
-  inset-inline-start: 50%;
-  inline-size: var(--tp-border-w);
-  background: var(--tp-color-surface);
-}
-
-.tp-ba__handle svg {
-  position: relative;
-  box-sizing: content-box;
-  padding: var(--tp-space-3);
-  background: var(--tp-color-surface);
-  border-radius: var(--tp-radius-round);
-  color: var(--tp-color-accent-text);
-  box-shadow: var(--tp-shadow-md);
-}
-
-.tp-ba__handle:focus-visible { outline: none; }
-.tp-ba__handle:focus-visible svg { outline: var(--tp-focus-ring); outline-offset: var(--tp-focus-offset); }
-
 /* ---- 15. Letters of appreciation ---- */
 
 .tp-letters { align-items: stretch; }
@@ -969,99 +722,12 @@
 
 .tp-cta__contact:hover { border-block-end-color: var(--tp-color-accent); }
 
-/* ---- 17. Footer (theme template) ---- */
-
-.tp-footer {
-  padding-block: var(--tp-space-9) calc(var(--tp-fab-size) + var(--tp-space-7)); /* bottom room so the FAB never covers text */
-  background: var(--tp-color-sand);
-  border-block-start: var(--tp-hairline);
-  font-size: var(--tp-fs-sm);
-}
-
-.tp-footer a { color: var(--tp-color-text); text-decoration: none; }
-.tp-footer a:hover { color: var(--tp-color-accent-text); }
-
-.tp-footer__grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--tp-space-7);
-}
-
-@media (min-width: 40em) {
-  .tp-footer__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-
-@media (min-width: 64em) {
-  .tp-footer__grid { grid-template-columns: minmax(0, 4fr) repeat(2, minmax(0, 2fr)) minmax(0, 3fr); }
-  .tp-footer { padding-block-end: var(--tp-space-6); }
-}
-
-.tp-footer__brand { display: flex; flex-direction: column; align-items: flex-start; gap: var(--tp-space-5); }
-.tp-footer__logo { block-size: var(--tp-logo-h-footer); inline-size: auto; }
-.tp-footer__blurb { max-inline-size: var(--tp-footer-blurb-w); color: var(--tp-color-text-muted); }
-
-.tp-footer__download {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--tp-space-2);
-  padding-block: var(--tp-space-2);
-  font-weight: var(--tp-fw-semibold);
-  border-block-end: var(--tp-hairline-accent);
-}
-
-.tp-footer__meta { font-weight: var(--tp-fw-regular); color: var(--tp-color-text-muted); }
-
-.tp-footer__heading {
-  margin-block-end: var(--tp-space-5);
-  font-family: var(--tp-font-body);
-  font-size: var(--tp-fs-xs);
-  font-weight: var(--tp-fw-semibold);
-  letter-spacing: var(--tp-tracking-eyebrow);
-  text-transform: uppercase;
-  color: var(--tp-eyebrow-color);
-}
-
-.tp-footer__list { display: flex; flex-direction: column; gap: var(--tp-space-3); }
-.tp-footer__list a { display: inline-block; padding-block: var(--tp-space-1); }
-.tp-footer__label { display: inline-block; min-inline-size: var(--tp-footer-label-w); color: var(--tp-color-text-muted); }
-.tp-footer__social { display: flex; flex-wrap: wrap; gap: var(--tp-space-5); }
-.tp-footer__social a { display: inline-flex; align-items: center; gap: var(--tp-space-2); }
-
-.tp-footer__bottom {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  gap: var(--tp-space-4);
-  margin-block-start: var(--tp-space-8);
-  padding-block-start: var(--tp-space-5);
-  border-block-start: var(--tp-hairline);
-  color: var(--tp-color-text-muted);
-}
-
-/* ---- 18. Floating WhatsApp button (theme template) ---- */
-
-.tp-fab {
-  position: fixed;
-  inset-block-end: var(--tp-space-5);
-  inset-inline-end: var(--tp-space-5);
-  z-index: var(--tp-z-fab);
-  display: grid;
-  place-items: center;
-  inline-size: var(--tp-fab-size);
-  block-size: var(--tp-fab-size);
-  background: var(--tp-color-accent);
-  color: var(--tp-color-on-accent);
-  border-radius: var(--tp-radius-round);
-  box-shadow: var(--tp-shadow-lg);
-  transition: background-color var(--tp-dur-fast) var(--tp-ease-out), color var(--tp-dur-fast) var(--tp-ease-out);
-}
-
-.tp-fab:hover { background: var(--tp-btn-bg-hover); color: var(--tp-btn-fg-hover); }
-
 /* ==========================================================================
-   19. [dir="rtl"] — the only direction-specific rules (physical values that logical properties
-   cannot express: transforms, clip-path, gradients, keyframe distance).
+   19. Direction-specific rules — the only physical values (transforms, gradients, keyframe distance).
+   Prototype: selected by [dir="rtl"]. Elementor build (PRD 8.2.2): each global class above stays direction-neutral and
+   the matching "-rtl" class below is added by hand to the same element on Arabic pages only:
+     tp-link-rtl · tp-card__more-rtl · tp-marquee-rtl · tp-service__link-rtl
+   (header, before/after, lightbox and nav underline are theme parts: they follow <html dir> in theme.css.)
    ========================================================================== */
 
 [dir="rtl"] {
@@ -1069,14 +735,19 @@
   --tp-marquee-shift: 100%;
 }
 
-[dir="rtl"] .tp-marquee { mask-image: linear-gradient(to left, transparent, var(--tp-mask-solid) 8%, var(--tp-mask-solid) 92%, transparent); }
-[dir="rtl"] .tp-link:hover svg { transform: translateX(calc(-1 * var(--tp-space-1))) scaleX(-1); }
+[dir="rtl"] .tp-marquee,
+.tp-marquee-rtl { mask-image: linear-gradient(to left, transparent, var(--tp-mask-solid) 8%, var(--tp-mask-solid) 92%, transparent); }
+.tp-marquee-rtl { --tp-marquee-shift: 100%; }
+[dir="rtl"] .tp-link:hover svg,
+.tp-link-rtl:hover svg { transform: translateX(calc(-1 * var(--tp-space-1))) scaleX(-1); }
 [dir="rtl"] .tp-link svg,
-[dir="rtl"] .tp-card__more svg { transform: scaleX(-1); }
-[dir="rtl"] .tp-ba__before { clip-path: inset(0 0 0 calc(100% - var(--tp-ba-pos))); }
-[dir="rtl"] .tp-ba__handle { transform: translateX(50%); }
+[dir="rtl"] .tp-card__more svg,
+.tp-link-rtl svg,
+.tp-card__more-rtl svg { transform: scaleX(-1); }
 
 @media (min-width: 64em) {
   [dir="rtl"] .tp-service__link:hover .tp-service__title,
-  [dir="rtl"] .tp-service__link:focus-visible .tp-service__title { transform: translateX(calc(-1 * var(--tp-space-3))); }
+  [dir="rtl"] .tp-service__link:focus-visible .tp-service__title,
+  .tp-service__link-rtl:hover .tp-service__title,
+  .tp-service__link-rtl:focus-visible .tp-service__title { transform: translateX(calc(-1 * var(--tp-space-3))); }
 }

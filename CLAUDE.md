@@ -8,7 +8,7 @@ A static HTML/CSS/JS prototype of the bilingual (EN default / AR RTL) corporate 
 ## Working rules (every session)
 1. **No sub-agents.** Never spawn Task/Agent tools or parallel agents. Work sequentially in the main session.
 2. **Save tokens.** Never re-read the PDF or re-download the site. Content comes from `source/pdf-text.md` + `source/site-content.md`; image facts from `docs/image-map.md`. Read only the line ranges you need of large files.
-3. **Document as you go.** After *each* task: append to `docs/progress-log.md` (newest on top), add non-obvious choices to `docs/decisions.md`, add new sections to `docs/elementor-mapping.md`, and update **Current state** below.
+3. **Document as you go.** After *each* task: append to `docs/progress-log.md` (newest on top), add non-obvious choices to `docs/decisions.md`, add new sections to `docs/wp-mapping.md`, and update **Current state** below.
 4. **Use all content from both sources.** Every image and datum in the PDF and on taameer.ae is client-approved. Same image in both → keep the higher resolution. Never invent services, projects, clients, numbers or claims.
 5. **Stock only for gaps** (Unsplash → Pexels → Pixabay), downloaded locally, logged in `docs/image-credits.md`. Never hotlink. Never replace a usable client image.
 6. **Text corrections** fix spelling/grammar/formatting only, never facts. The full list lives in [docs/content-corrections.md](docs/content-corrections.md); apply it everywhere and log new ones there.
@@ -19,14 +19,15 @@ A static HTML/CSS/JS prototype of the bilingual (EN default / AR RTL) corporate 
 3. **CSS logical properties only** (`margin-inline-start`, `inset-inline-end`, `text-align: start`…). Never `left`/`right` for layout. Unavoidable direction rules go in a marked `[dir="rtl"]` block.
 4. **BEM with `tp-` prefix**: `tp-hero`, `tp-hero__title`, `tp-card--featured`.
 5. **Elementor structure**: `<section class="tp-section …"> → <div class="tp-container"> → blocks`. Layouts must be buildable with Flexbox Containers. CSS Grid is prototype-only: the WordPress build uses atomic elements, no custom widgets (see Elementor v4 build).
-6. **Annotate every section**: `<!-- ELEMENTOR: native — Heading + Text Editor + Button -->` or, for what atomic elements cannot express, `<!-- ELEMENTOR: GAP — report to owner -->` (no custom widgets).
+6. **Annotate every section** (no `ELEMENTOR:` comments any more): `<!-- ATOMIC: Flexbox > Heading(.tp-h2) + Paragraph(.tp-lead) + Button(.tp-btn) -->` (element tree + global classes), `<!-- THEME: header.php | footer.php | archive-project.php | single-project.php | 404.php -->`, `<!-- INTERACTION: tp-lightbox (interactions.js) -->` next to either, and `<!-- REPORT: … -->` for anything atomic elements cannot express that E1–E3 do not cover (collected for the owner). Every section maps to exactly one destination (Atomic / Theme / Interaction / Report) in `docs/wp-mapping.md`.
 7. **All design values are tokens**, all in `assets/css/tokens.css` (primitive/semantic brand values, then shared scales, then the component layer). No hard-coded colors/fonts/spacing/radii/shadows/durations in component CSS. One brand only: the taameer.ae identity on a light layout (`docs/brand.md`). The earlier warm-bronze design is recoverable via git tag `v1-bronze`; there is no brand switcher and no `data-brand` attribute.
 8. **Animation is class-driven** (below). No JS that targets elements by ID for animation.
 9. **Accessibility**: landmarks, one `<h1>` per page, visible focus, alt on every image, keyboard-operable widgets, WCAG AA contrast, full `prefers-reduced-motion`.
 10. **Performance**: `width`/`height` on every `<img>`, `loading="lazy"` below the fold, `srcset` with `-md` variant, `fetchpriority="high"` on the hero image.
 11. **Relative paths only.**
 12. JSON-rendered data needs a local server: `npx serve .` (see README).
-13. Every CSS/JS file starts with a header comment: purpose, components using it, WP enqueue notes.
+13. Every CSS/JS file starts with a header comment: purpose, components using it, WP notes. Source styles (`tokens`, `base`, `layout`, `components`, `inner-pages`) begin with `/* ELEMENTOR SOURCE — recreated as global variables/classes, not shipped */`; JS that renders JSON on atomic pages or validates a form begins with `/* PROTOTYPE ONLY */`. JS-rendered components clone a `<template>` that holds the markup (so PHP can copy it).
+13a. **Header** is solid and sticky on every page (not transparent, no overlay, no hero top-padding compensation). **Direction-neutral classes**: physical values live only in `[dir="rtl"]` rules paired with `-rtl` suffixed classes (list in `docs/wp-mapping.md`). Behaviours activate by class only (`tp-lightbox`, `tp-before-after`, `tp-scrollspy`, `tp-filter`).
 14. **Partials.** Every page carries the sprite, header (with skip link), footer, WhatsApp button and CTA band literally, wrapped in `<!-- PARTIAL:name START/END -->` (they become `header.php`/`footer.php`). Run `python scripts/check-partials.py` after every page; only the active nav state (`aria-current="page"`, header nav + mobile menu + footer quick links) and the language-switcher target may differ. Copy the blocks from index.html.
 15. **Per-page SEO head** (copy from about.html): unique `<title>` (page — brand) and meta description (>= 60 chars), Open Graph (`og:type`, `og:site_name`, `og:locale`, `og:title`, `og:description`, `og:image`) + `twitter:card`, and a *commented* canonical/hreflang block with the final URLs (filled in Phase 3 / WordPress; never a live link before then). Inner pages load `inner-pages.css`; pages with galleries/licenses/letters also `lightbox.css` + `lightbox.js` (triggers: `<a data-tp-lightbox="group" href="full.webp" data-caption="…">`).
 
@@ -40,7 +41,7 @@ A static HTML/CSS/JS prototype of the bilingual (EN default / AR RTL) corporate 
 ## Elementor v4 build (WordPress; supersedes PRD 8.2, decision D-030)
 - Elementor v4 Atomic Editor (free). Atomic elements only: no v3 widgets, custom PHP widgets, HTML widget or shortcodes. Anything not expressible with atomic elements is reported to the owner, not improvised.
 - Every `--tp-` CSS custom property becomes an Elementor global variable (same name); every repeated class becomes a global class. Set colour explicitly on heading classes.
-- No theme stylesheet except ONE animations-only file (`animations.css`: tp-reveal, tp-stagger, tp-parallax, tp-img-reveal, tp-counter, reduced motion) plus `animations.js`. No Additional CSS.
+- The theme ships exactly four front-end files (PRD 8.2.1, approved exceptions E1–E3): `animations.css` + `animations.js` (tp-reveal, tp-stagger, tp-parallax, tp-img-reveal, tp-split, tp-counter, reduced motion), `theme.css` (header, footer, WhatsApp, lightbox dialog, before/after handle, filter bar, project templates, 404, scroll-nav chips) and `interactions.js` (menu, lightbox, before/after, scrollspy, filter). PHP templates `archive-project.php` and `single-project.php` (E3). No Additional CSS. Nothing else may be added without the owner's approval.
 - Responsive: Elementor per-device controls (tablet, mobile), not the prototype media queries. Test RTL manually on every Arabic page.
 - Images: photographs WebP, longest edge <= 1600 px, < 400 KB, converted on the server before upload; logos and transparency stay PNG (SVG if a vector logo is supplied).
 - Theme stays Hello Elementor child (not Astra); header, footer, language switcher and WhatsApp button live in the theme. Pages are content only: header not transparent, no overlay, no hero top-padding compensation.
@@ -67,8 +68,8 @@ docs/     PRD, logs, maps (index below)
 scripts/  extract_pdf.py → fetch_site.py → site_to_text.py → build_site_images.py → image_meta.py (re-runnable pipeline)
           contrast.py, check-partials.py, screenshot.mjs, interaction-test.mjs (QA; see README)
 source/   PDF, pdf-text.md, extracted/, site/ (website mirror), site-content.md, screenshots/
-assets/css  tokens · base · layout · components · inner-pages · lightbox · animations
-assets/js   animations · header · counters · projects · before-after · lightbox · service-nav
+assets/css  ELEMENTOR SOURCE: tokens · base · layout · components · inner-pages | SHIPPED: theme · animations
+assets/js   SHIPPED: animations · interactions | PROTOTYPE ONLY: projects · project-page · contact-form
 assets/docs company profile PDF (download link)
 assets/img  <meaning>.webp + <meaning>-md.webp (900px) ; stock/ for stock images
 data/     projects.json · team.json · testimonials.json · site.json
@@ -86,7 +87,7 @@ data/     projects.json · team.json · testimonials.json · site.json
 | `docs/image-map.md` | Every extracted image → PDF page → usage → pixel size, low-res flags |
 | `docs/image-credits.md` | Every stock image → source, author, URL, license, usage |
 | `docs/content-corrections.md` | Every text correction: original → corrected → where used |
-| `docs/elementor-mapping.md` | Every built section → Elementor build method + controls (Phase 4–5 build sheet) |
+| `docs/wp-mapping.md` | Every section of every page → destination (Atomic / Theme / Interaction / Report), atomic tree, global classes, responsive notes; master tables of global variables and global classes (regenerate with `python scripts/gen-wp-tables.py`); REPORT list |
 
 ## Roadmap
 1. Design system + English homepage

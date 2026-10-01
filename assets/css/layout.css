@@ -1,3 +1,4 @@
+/* ELEMENTOR SOURCE — recreated as global variables/classes, not shipped */
 /* ==========================================================================
    layout.css — section / container / flex row primitives
    Used by: every section. Mirrors Elementor Flexbox Containers 1:1:
@@ -5,8 +6,7 @@
      <div class="tp-container">    = inner Container (boxed, content width)
      .tp-row / .tp-col             = nested Containers (direction row/column, gap, wrap)
    Grid is NOT used here (only inside custom-widget blocks in components.css).
-   WP: enqueue after base.css (handle "tp-layout"). In Elementor, set Container > Content Width = Boxed
-       with --tp-container, and paste .tp-row / .tp-col into Advanced > CSS Classes where needed.
+   WP: not shipped. Recreated as Elementor v4 global variables / global classes (docs/wp-mapping.md).
    ========================================================================== */
 
 .tp-section {

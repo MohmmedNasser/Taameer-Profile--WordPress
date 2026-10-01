@@ -22,8 +22,8 @@ PARTS = ("sprite", "header", "footer", "whatsapp", "cta")
 OPTIONAL = {"cta"}  # pages such as 404 may omit the CTA band
 # Pages whose nav highlight is a different page (None = no active link).
 NAV_FOR = {"project.html": "projects.html", "404.html": None}
-SHARED_CSS = ("tokens.css", "base.css", "layout.css", "components.css", "animations.css")
-SHARED_JS = ("counters.js", "animations.js", "header.js")
+SHARED_CSS = ("tokens.css", "base.css", "layout.css", "components.css", "theme.css", "animations.css")
+SHARED_JS = ("animations.js", "interactions.js")
 
 failures = []
 

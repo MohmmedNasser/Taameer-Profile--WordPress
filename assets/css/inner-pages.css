@@ -1,25 +1,26 @@
+/* ELEMENTOR SOURCE — recreated as global variables/classes, not shipped */
 /* ==========================================================================
    inner-pages.css — components used by the inner pages (About, Services; later Projects, Contact…)
    Sections in order:
-     1 page hero + breadcrumbs · 2 footer/CTA adjustments · 3 chairman's message (full) · 4 about text + fact
+     1 page hero + breadcrumbs · 2 CTA adjustment · 3 chairman's message (full) · 4 about text + fact
      5 aims · 6 team cards + philosophy · 7 team experience · 8 partners grid · 9 licenses (+ compact spec)
-     10 service navigation chips · 11 service blocks + related projects · 12 gallery (wall cladding)
+     (10 service navigation chips moved to theme.css) · 11 service blocks + related projects · 12 gallery (wall cladding)
    Flexbox for layout (Elementor Containers); CSS Grid only inside custom-widget blocks: tp-team, tp-exp,
    tp-projects-grid--related, tp-gallery. Tokens only; logical properties only ([dir="rtl"] block at the end).
-   WP: enqueue after components.css (handle "tp-inner-pages"); load lightbox.css only where triggers exist.
+   WP: not shipped. Recreated as Elementor v4 global variables / global classes (docs/wp-mapping.md).
    ========================================================================== */
 
 /* ---- 1. Page hero (compact inner-page header) + breadcrumbs ----
    Elementor: Container (sand) > Text Editor (breadcrumbs, theme-rendered later) + Heading (eyebrow) + Heading H1 + Text Editor. */
 
 .tp-page-hero {
-  padding-block-start: calc(var(--tp-header-h-mobile) + var(--tp-space-6));
+  padding-block-start: var(--tp-space-6);
   padding-block-end: var(--tp-section-pad-tight);
   border-block-end: var(--tp-hairline);
 }
 
 @media (min-width: 64em) {
-  .tp-page-hero { padding-block-start: calc(var(--tp-header-h) + var(--tp-space-7)); }
+  .tp-page-hero { padding-block-start: var(--tp-space-7); }
 }
 
 .tp-page-hero__body { margin-block-start: var(--tp-space-6); align-items: flex-end; }
@@ -63,14 +64,6 @@
   background:
     linear-gradient(var(--tp-color-accent), var(--tp-color-accent)) center / 100% var(--tp-border-w) no-repeat,
     linear-gradient(var(--tp-color-accent), var(--tp-color-accent)) center / var(--tp-border-w) 100% no-repeat;
-}
-
-/* ---- 2. Footer / CTA adjustments ---- */
-
-.tp-footer__list a[aria-current="page"] {
-  color: var(--tp-color-accent-text);
-  font-weight: var(--tp-fw-semibold);
-  border-block-end: var(--tp-hairline-accent);
 }
 
 /* The shared CTA band has no top padding (it follows a white section); after a sand section it needs it. */
@@ -365,64 +358,6 @@
 .tp-license__activities { display: flex; flex-direction: column; gap: var(--tp-space-1); }
 .tp-license__actions { display: flex; flex-wrap: wrap; gap: var(--tp-space-3); }
 
-/* ---- 10. Service navigation (sticky, horizontally scrollable chips) ----
-   Elementor: no native equivalent — custom widget "tp-service-nav" (repeater: label, anchor). Sticky under the header. */
-
-.tp-service-nav {
-  position: sticky;
-  inset-block-start: var(--tp-header-h-mobile);
-  z-index: var(--tp-z-subnav);
-  background: var(--tp-color-header-scrolled);
-  backdrop-filter: blur(var(--tp-blur-header));
-  border-block-end: var(--tp-hairline);
-}
-
-@media (min-width: 64em) {
-  :root { --tp-sticky-offset: calc(var(--tp-header-h) + var(--tp-chipbar-h)); }
-  .tp-service-nav { inset-block-start: var(--tp-header-h); }
-}
-
-.tp-chips {
-  display: flex;
-  align-items: center;
-  gap: var(--tp-space-2);
-  min-block-size: var(--tp-chipbar-h);
-  padding-block: var(--tp-space-1);
-  overflow-x: auto;
-  scrollbar-width: none;
-  overscroll-behavior-x: contain;
-}
-
-.tp-chips::-webkit-scrollbar { display: none; }
-
-.tp-chip {
-  flex: none;
-  display: inline-flex;
-  align-items: center;
-  min-block-size: var(--tp-touch);
-  padding-inline: var(--tp-space-4);
-  border: var(--tp-hairline);
-  border-radius: var(--tp-radius-sm);
-  font-size: var(--tp-fs-xs);
-  font-weight: var(--tp-fw-semibold);
-  letter-spacing: var(--tp-tracking-button);
-  text-transform: uppercase;
-  text-decoration: none;
-  white-space: nowrap;
-  color: var(--tp-color-text);
-  transition: background-color var(--tp-dur-fast) var(--tp-ease-out), color var(--tp-dur-fast) var(--tp-ease-out), border-color var(--tp-dur-fast) var(--tp-ease-out);
-}
-
-/* Inset ring: the scrolling list would clip an outside outline. */
-.tp-chip:focus-visible { outline-offset: calc(-1 * var(--tp-space-1)); }
-.tp-chip:hover { border-color: var(--tp-color-accent); color: var(--tp-color-text); }
-
-.tp-chip[aria-current="true"] {
-  background: var(--tp-btn-bg);
-  border-color: var(--tp-btn-bg);
-  color: var(--tp-btn-fg);
-}
-
 /* ---- 11. Service blocks + related projects ---- */
 
 .tp-service-block { scroll-margin-block-start: var(--tp-sticky-offset); }
@@ -452,6 +387,21 @@
 }
 
 .tp-projects-grid--related .tp-card__media { block-size: auto; aspect-ratio: 4 / 3; }
+
+/* Archive grid (filterable): equal cells, so hiding items never leaves gaps in the 7/5 rhythm.
+   Flexbox wrap with a 1/2/3-column basis in Elementor. */
+.tp-projects-grid--even { grid-template-columns: minmax(0, 1fr); }
+
+@media (min-width: 40em) {
+  .tp-projects-grid--even { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 64em) {
+  .tp-projects-grid--even { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .tp-projects-grid--even > :nth-child(n) { grid-column: auto; }
+}
+
+.tp-projects-grid--even .tp-card__media { block-size: auto; aspect-ratio: 4 / 3; }
 
 /* ---- 12. Gallery (custom widget "tp-gallery"; lightbox triggers) ---- */
 

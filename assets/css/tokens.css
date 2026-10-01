@@ -1,12 +1,11 @@
+/* ELEMENTOR SOURCE — recreated as global variables/classes, not shipped */
 /* ==========================================================================
    tokens.css — Taameer Plus design tokens (single brand: the taameer.ae identity on a light layout).
    Layers: primitive/semantic brand values (colors, fonts, display sizes, radii, shadows, button hover)
    first, then shared scales (spacing, layout, motion, z-index) and the component layer.
    Extracted brand values: docs/brand.md. Adaptations (dark -> light, contrast): docs/decisions.md D-019..D-023.
    The earlier warm-bronze design is recoverable via git tag v1-bronze.
-   WP: enqueue first (handle "tp-tokens"); every other stylesheet depends on it.
-       Colors map to Elementor Global Colors, font families to Global Fonts (docs/elementor-mapping.md).
-   Contrast of every text/background pair: python scripts/contrast.py
+   WP: not shipped. Recreated as Elementor v4 global variables / global classes (docs/wp-mapping.md).
    ========================================================================== */
 
 :root {
@@ -173,10 +172,10 @@
   /* ---- Inner pages ---- */
   --tp-chipbar-h: 3.5rem;            /* sticky service navigation bar */
   --tp-sticky-offset: calc(var(--tp-header-h-mobile) + var(--tp-chipbar-h));   /* header + chip bar (desktop: see inner-pages.css) */
-  --tp-lightbox-btn: 3rem;
-  --tp-lightbox-chrome: 7rem;        /* caption bar + gaps reserved below the lightbox image */
-  --tp-lightbox-chrome-mobile: 11rem;
-  --tp-lightbox-pad: clamp(1rem, 0.5rem + 2vw, 2.5rem);
+  --tp-lbox-btn: 3rem;
+  --tp-lbox-chrome: 7rem;        /* caption bar + gaps reserved below the lightbox image */
+  --tp-lbox-chrome-mobile: 11rem;
+  --tp-lbox-pad: clamp(1rem, 0.5rem + 2vw, 2.5rem);
   --tp-team-photo-ratio: 700 / 736;  /* native aspect of the leadership portraits */
   --tp-license-preview-w: 8rem;
   --tp-spec-col-min: 9rem;           /* compact spec (licenses, team experience): min column width */

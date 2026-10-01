@@ -28,19 +28,16 @@
   <link rel="stylesheet" href="assets/css/layout.css">
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/inner-pages.css">
-  <link rel="stylesheet" href="assets/css/lightbox.css">
+  <link rel="stylesheet" href="assets/css/theme.css">
   <link rel="stylesheet" href="assets/css/animations.css">
-  <script src="assets/js/counters.js" defer></script>
   <script src="assets/js/animations.js" defer></script>
-  <script src="assets/js/header.js" defer></script>
-  <script src="assets/js/lightbox.js" defer></script>
+  <script src="assets/js/interactions.js" defer></script>
   <script src="assets/js/projects.js" defer></script>
-  <script src="assets/js/service-nav.js" defer></script>
 </head>
 <body>
 
 <!-- PARTIAL:sprite START -->
-<!-- Icon sprite (WP: output once in header.php). -->
+<!-- THEME: header.php — icon sprite, output once. -->
 <svg xmlns="http://www.w3.org/2000/svg" hidden>
   <symbol id="tp-i-plus" viewBox="0 0 16 16"><path d="M8 1v14M1 8h14" fill="none" stroke="currentColor" stroke-width="1.25"/></symbol>
   <symbol id="tp-i-arrow" viewBox="0 0 24 24"><path d="M4 12h15m-5-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.25"/></symbol>
@@ -54,7 +51,8 @@
 <a class="tp-skip-link" href="#main">Skip to content</a>
 
 <!-- ==========================================================================
-     HEADER — theme-controlled (header.php), NOT Elementor. Menu = Appearance → Menus (location "primary").
+     THEME: header.php — solid, sticky on every page (never transparent, no overlay, no hero padding compensation).
+     Menu toggle behaviour lives in interactions.js (see REPORT in docs/wp-mapping.md: not on the E2 list). Menu = Appearance → Menus (location "primary").
      Language switcher = Polylang pll_the_languages(). Button URL = Customizer "quote_url".
      ========================================================================== -->
 <header class="tp-header" data-tp-header>
@@ -88,7 +86,7 @@
     </div>
   </div>
 
-  <!-- Mobile overlay menu (disclosure pattern): full-screen light panel, focus-trapped by header.js, Esc closes. -->
+  <!-- Mobile overlay menu (disclosure pattern): full-screen light panel, focus-trapped by interactions.js, Esc closes. -->
   <div class="tp-menu" id="tp-menu" hidden data-tp-menu>
     <div class="tp-container tp-menu__inner">
       <nav aria-label="Main (mobile)">
@@ -118,7 +116,7 @@
 
 <main id="main">
 
-  <!-- ELEMENTOR: native — Container (sand) > breadcrumbs (theme shortcode, static list until then) + Heading (eyebrow) + Heading H1 + Text Editor -->
+  <!-- ATOMIC: Flexbox(.tp-section .tp-page-hero) > Flexbox(.tp-container) > Flexbox(.tp-breadcrumb__list: Link + separator + Paragraph(current page)) + Paragraph(.tp-eyebrow) + Heading H1(.tp-page-hero__title) + Paragraph(.tp-page-hero__lead). Breadcrumbs are static atomic links (no shortcode). -->
   <section class="tp-section tp-section--sand tp-page-hero" aria-labelledby="tp-page-title">
     <div class="tp-container">
       <nav class="tp-breadcrumb" aria-label="Breadcrumb">
@@ -130,15 +128,16 @@
       <div class="tp-page-hero__body tp-row">
         <div class="tp-col tp-col--7 tp-page-hero__text">
           <p class="tp-eyebrow tp-reveal" data-tp-delay="100">Our expertise</p>
-          <h1 class="tp-page-hero__title tp-reveal" id="tp-page-title" data-tp-delay="200">Our services</h1>
+          <h1 class="tp-h1 tp-page-hero__title tp-reveal" id="tp-page-title" data-tp-delay="200">Our services</h1>
           <p class="tp-page-hero__lead tp-reveal" data-tp-delay="350">Taameer Plus is a pioneer general contractor in the United Arab Emirates, delivering construction solutions in a professional and cost-effective manner.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ELEMENTOR: custom widget "tp-service-nav" — controls: repeater (label, anchor id); sticky under the header, IntersectionObserver highlights the current section (service-nav.js) -->
-  <div class="tp-service-nav" data-tp-service-nav>
+  <!-- ATOMIC: Flexbox(.tp-service-nav .tp-scrollspy, position: sticky) > Flexbox(.tp-container) > Flexbox(.tp-chips, overflow-x: auto) > 6 x Link(.tp-chip) -->
+  <!-- INTERACTION: tp-scrollspy (interactions.js) — marks the chip of the section in view with aria-current="true" -->
+  <div class="tp-service-nav tp-scrollspy">
     <div class="tp-container">
       <nav aria-label="Services on this page">
         <ul class="tp-chips" role="list">
@@ -153,13 +152,15 @@
     </div>
   </div>
 
-  <!-- ELEMENTOR: native — Container (row) > [Container: Heading (eyebrow) + Heading + Text Editor (lead) + Text Editor] + [Image (class tp-frame)] · related projects: custom widget tp-projects-grid (type = mapped project types, count 3) -->
+  <!-- ATOMIC: Flexbox(.tp-section .tp-service-block) > Flexbox(row) > [Flexbox > Paragraph(.tp-eyebrow) + Heading H2 + Paragraph(.tp-lead) + Paragraph + Button(.tp-link)] + [Flexbox(.tp-frame) > Image] -->
+  <!-- ATOMIC (related projects): Flexbox wrap(.tp-projects-grid--related) > up to 3 static atomic project cards (see Home featured projects) -->
+  <!-- REPORT: related-project cards are static; the client updates them by hand unless Atomic Loop is confirmed free (Phase 4 spike). projects.js rendering is PROTOTYPE ONLY. -->
   <section class="tp-section tp-service-block" id="construction" data-tp-service-section aria-labelledby="tp-svc-construction">
     <div class="tp-container">
       <div class="tp-service-block__row tp-row tp-row--center">
         <div class="tp-col tp-service-block__text">
           <p class="tp-eyebrow tp-reveal">Service 01</p>
-          <h2 class="tp-reveal" id="tp-svc-construction">Construction</h2>
+          <h2 class="tp-h2 tp-reveal" id="tp-svc-construction">Construction</h2>
           <p class="tp-lead tp-reveal">Full-scale construction ranging from G+1 luxury villas to G+4 residential and commercial buildings, with complete structural integrity.</p>
           <p class="tp-reveal">As an approved G+4 contractor, Taameer Plus has successfully completed many turnkey projects, including the structure and full fit-out of villas and service blocks, with remarkable quality.</p>
         </div>
@@ -172,7 +173,7 @@
         </div>
       </div>
       <div class="tp-service-block__related" data-tp-related>
-        <h3 class="tp-eyebrow tp-service-block__related-title">Related projects</h3>
+        <h3 class="tp-h3 tp-eyebrow tp-service-block__related-title">Related projects</h3>
         <div class="tp-projects-grid tp-projects-grid--related" data-tp-projects data-tp-service="construction" data-tp-count="3" aria-live="polite">
           <p class="tp-projects-grid__fallback">Browse our construction work on the <a href="projects.html">projects page</a>.</p>
         </div>
@@ -180,13 +181,13 @@
     </div>
   </section>
 
-  <!-- ELEMENTOR: native — Container (row, sand bg, direction reversed via CSS class tp-service-block--flip) > [Container: Heading (eyebrow) + Heading + Text Editor (lead) + Text Editor] + [Image (class tp-frame)] -->
+  <!-- ATOMIC: Flexbox(.tp-section .tp-service-block--flip) > Flexbox(row) > [Flexbox > Paragraph(.tp-eyebrow) + Heading H2 + Paragraph(.tp-lead) + Paragraph + Button(.tp-link)] + [Flexbox(.tp-frame) > Image] -->
   <section class="tp-section tp-section--sand tp-service-block tp-service-block--flip" id="design-build" data-tp-service-section aria-labelledby="tp-svc-design-build">
     <div class="tp-container">
       <div class="tp-service-block__row tp-row tp-row--center">
         <div class="tp-col tp-service-block__text">
           <p class="tp-eyebrow tp-reveal">Service 02</p>
-          <h2 class="tp-reveal" id="tp-svc-design-build">Design &amp; Build</h2>
+          <h2 class="tp-h2 tp-reveal" id="tp-svc-design-build">Design &amp; Build</h2>
           <p class="tp-lead tp-reveal">Direct single-contract solutions covering structural, architectural, and electromechanical works, evaluated for cost and buildability by one team.</p>
           <p class="tp-reveal">Taameer Plus handles Design-Build projects by entering into a direct contract with the client to provide all design aspects related to structural, architectural and electromechanical works. The team evaluates alternative materials and methods efficiently and accurately, and value engineering and constructability are applied continuously and more effectively when designers and Taameer Plus work together as one team throughout the design process. These steps ultimately save the owner significant amounts of money and time.</p>
         </div>
@@ -201,13 +202,15 @@
     </div>
   </section>
 
-  <!-- ELEMENTOR: native — Container (row) > [Container: Heading (eyebrow) + Heading + Text Editor (lead) + Text Editor + Button (link style)] + [Image (class tp-frame)] · related projects: custom widget tp-projects-grid (type = mapped project types, count 3) -->
+  <!-- ATOMIC: Flexbox(.tp-section .tp-service-block) > Flexbox(row) > [Flexbox > Paragraph(.tp-eyebrow) + Heading H2 + Paragraph(.tp-lead) + Paragraph + Button(.tp-link)] + [Flexbox(.tp-frame) > Image] -->
+  <!-- ATOMIC (related projects): Flexbox wrap(.tp-projects-grid--related) > up to 3 static atomic project cards (see Home featured projects) -->
+  <!-- REPORT: related-project cards are static; the client updates them by hand unless Atomic Loop is confirmed free (Phase 4 spike). projects.js rendering is PROTOTYPE ONLY. -->
   <section class="tp-section tp-service-block" id="decoration-fitout" data-tp-service-section aria-labelledby="tp-svc-decoration-fitout">
     <div class="tp-container">
       <div class="tp-service-block__row tp-row tp-row--center">
         <div class="tp-col tp-service-block__text">
           <p class="tp-eyebrow tp-reveal">Service 03</p>
-          <h2 class="tp-reveal" id="tp-svc-decoration-fitout">Decoration &amp; Fit-out</h2>
+          <h2 class="tp-h2 tp-reveal" id="tp-svc-decoration-fitout">Decoration &amp; Fit-out</h2>
           <p class="tp-lead tp-reveal">Premium corporate, retail, hospitality, and residential fit-out and decoration, including custom wall cladding and joinery through our carpentry division.</p>
           <p class="tp-reveal"><a class="tp-link" href="#wall-cladding">See the wall cladding showcase <svg aria-hidden="true" width="20" height="20"><use href="#tp-i-arrow"/></svg></a></p>
         </div>
@@ -220,7 +223,7 @@
         </div>
       </div>
       <div class="tp-service-block__related" data-tp-related>
-        <h3 class="tp-eyebrow tp-service-block__related-title">Related projects</h3>
+        <h3 class="tp-h3 tp-eyebrow tp-service-block__related-title">Related projects</h3>
         <div class="tp-projects-grid tp-projects-grid--related" data-tp-projects data-tp-service="decoration-fitout" data-tp-count="3" aria-live="polite">
           <p class="tp-projects-grid__fallback">Browse our fit-out and landscaping work on the <a href="projects.html">projects page</a>.</p>
         </div>
@@ -228,13 +231,15 @@
     </div>
   </section>
 
-  <!-- ELEMENTOR: native — Container (row, sand bg, direction reversed via CSS class tp-service-block--flip) > [Container: Heading (eyebrow) + Heading + Text Editor (lead) + Text Editor] + [Image (class tp-frame)] · related projects: custom widget tp-projects-grid (type = mapped project types, count 3) -->
+  <!-- ATOMIC: Flexbox(.tp-section .tp-service-block--flip) > Flexbox(row) > [Flexbox > Paragraph(.tp-eyebrow) + Heading H2 + Paragraph(.tp-lead) + Paragraph + Button(.tp-link)] + [Flexbox(.tp-frame) > Image] -->
+  <!-- ATOMIC (related projects): Flexbox wrap(.tp-projects-grid--related) > up to 3 static atomic project cards (see Home featured projects) -->
+  <!-- REPORT: related-project cards are static; the client updates them by hand unless Atomic Loop is confirmed free (Phase 4 spike). projects.js rendering is PROTOTYPE ONLY. -->
   <section class="tp-section tp-section--sand tp-service-block tp-service-block--flip" id="renovation" data-tp-service-section aria-labelledby="tp-svc-renovation">
     <div class="tp-container">
       <div class="tp-service-block__row tp-row tp-row--center">
         <div class="tp-col tp-service-block__text">
           <p class="tp-eyebrow tp-reveal">Service 04</p>
-          <h2 class="tp-reveal" id="tp-svc-renovation">Renovation</h2>
+          <h2 class="tp-h2 tp-reveal" id="tp-svc-renovation">Renovation</h2>
           <p class="tp-lead tp-reveal">Complete building and villa refurbishments, interior modernisations and structural updates executed on schedule.</p>
         </div>
         <div class="tp-col tp-service-block__media">
@@ -246,7 +251,7 @@
         </div>
       </div>
       <div class="tp-service-block__related" data-tp-related>
-        <h3 class="tp-eyebrow tp-service-block__related-title">Related projects</h3>
+        <h3 class="tp-h3 tp-eyebrow tp-service-block__related-title">Related projects</h3>
         <div class="tp-projects-grid tp-projects-grid--related" data-tp-projects data-tp-service="renovation" data-tp-count="3" aria-live="polite">
           <p class="tp-projects-grid__fallback">Browse our renovation & decoration work on the <a href="projects.html">projects page</a>.</p>
         </div>
@@ -254,13 +259,13 @@
     </div>
   </section>
 
-  <!-- ELEMENTOR: native — Container (row) > [Container: Heading (eyebrow) + Heading + Text Editor (lead) + Text Editor] + [Image (class tp-frame)] -->
+  <!-- ATOMIC: Flexbox(.tp-section .tp-service-block) > Flexbox(row) > [Flexbox > Paragraph(.tp-eyebrow) + Heading H2 + Paragraph(.tp-lead) + Paragraph + Button(.tp-link)] + [Flexbox(.tp-frame) > Image] -->
   <section class="tp-section tp-service-block" id="maintenance" data-tp-service-section aria-labelledby="tp-svc-maintenance">
     <div class="tp-container">
       <div class="tp-service-block__row tp-row tp-row--center">
         <div class="tp-col tp-service-block__text">
           <p class="tp-eyebrow tp-reveal">Service 05</p>
-          <h2 class="tp-reveal" id="tp-svc-maintenance">Maintenance</h2>
+          <h2 class="tp-h2 tp-reveal" id="tp-svc-maintenance">Maintenance</h2>
           <p class="tp-lead tp-reveal">Ongoing technical services, active maintenance, and facility support that keep structures in prime condition long after handover.</p>
         </div>
         <div class="tp-col tp-service-block__media">
@@ -274,13 +279,13 @@
     </div>
   </section>
 
-  <!-- ELEMENTOR: native — Container (row, sand bg, direction reversed via CSS class tp-service-block--flip) > [Container: Heading (eyebrow) + Heading + Text Editor (lead) + Text Editor + Button (link style)] + [Image (class tp-frame)] -->
+  <!-- ATOMIC: Flexbox(.tp-section .tp-service-block--flip) > Flexbox(row) > [Flexbox > Paragraph(.tp-eyebrow) + Heading H2 + Paragraph(.tp-lead) + Paragraph + Button(.tp-link)] + [Flexbox(.tp-frame) > Image] -->
   <section class="tp-section tp-section--sand tp-service-block tp-service-block--flip" id="turnkey" data-tp-service-section aria-labelledby="tp-svc-turnkey">
     <div class="tp-container">
       <div class="tp-service-block__row tp-row tp-row--center">
         <div class="tp-col tp-service-block__text">
           <p class="tp-eyebrow tp-reveal">Service 06</p>
-          <h2 class="tp-reveal" id="tp-svc-turnkey">Turnkey Projects</h2>
+          <h2 class="tp-h2 tp-reveal" id="tp-svc-turnkey">Turnkey Projects</h2>
           <p class="tp-lead tp-reveal">Experienced professionals handling all phases of construction — from new build to renovation — coordinated with qualified subcontractors to meet deadlines.</p>
           <p class="tp-reveal">Taameer Plus provides experienced and knowledgeable professionals to handle all phases of project construction. As a general contractor, we handle all types and volumes of projects, from new construction to renovations. Our project management team maintains full coordination throughout every phase with our field staff and qualified subcontractors, delivering projects on schedule with the highest standards of safety and quality to ensure deadlines are met.</p>
           <p class="tp-reveal"><a class="tp-link" href="projects.html?type=construction">View construction projects <svg aria-hidden="true" width="20" height="20"><use href="#tp-i-arrow"/></svg></a></p>
@@ -296,35 +301,36 @@
     </div>
   </section>
 
-  <!-- ELEMENTOR: native head (Heading eyebrow + Heading + Text Editor) + custom widget "tp-gallery" (repeater: image, caption; lightbox group). Data: Project CPT type "showcase" (Wall Cladding). CSS Grid inside the widget. -->
+  <!-- ATOMIC: Flexbox(.tp-section .tp-cladding) > section head + Flexbox wrap(.tp-gallery .tp-lightbox) > 6 x Link-wrapped Image(.tp-gallery__item) -->
+  <!-- INTERACTION: tp-lightbox (interactions.js) — one gallery group; links open the full image, captions in data-caption (REPORT if links cannot carry attributes: the lightbox then falls back to the thumbnail alt) -->
   <section class="tp-section tp-cladding" id="wall-cladding" aria-labelledby="tp-cladding-title">
     <div class="tp-container">
       <div class="tp-section-head tp-row tp-row--end tp-row--between">
         <div class="tp-col tp-col--7">
           <p class="tp-eyebrow tp-reveal">Showcase</p>
-          <h2 class="tp-reveal" id="tp-cladding-title">Wall cladding</h2>
+          <h2 class="tp-h2 tp-reveal" id="tp-cladding-title">Wall cladding</h2>
         </div>
         <div class="tp-col tp-col--4">
           <p class="tp-reveal">Wall cladding for multiple projects. Designed and executed by the Taameer Plus team.</p>
         </div>
       </div>
-      <ul class="tp-gallery tp-stagger" role="list">
-        <li><a class="tp-gallery__item" href="assets/img/project-wall-cladding-01.webp" data-tp-lightbox="wall-cladding" data-caption="Wall cladding, designed and executed by the Taameer Plus team (1 of 6)"><img src="assets/img/project-wall-cladding-01.webp" width="768" height="476" alt="Living room wall with vertical slat cladding, floating shelf and a wall-mounted TV" loading="lazy" decoding="async"></a></li>
-        <li><a class="tp-gallery__item" href="assets/img/project-wall-cladding-02.webp" data-tp-lightbox="wall-cladding" data-caption="Wall cladding, designed and executed by the Taameer Plus team (2 of 6)"><img src="assets/img/project-wall-cladding-02.webp" width="383" height="376" alt="Timber-effect wall cladding with a bar-chart feature logo in an office reception" loading="lazy" decoding="async"></a></li>
-        <li><a class="tp-gallery__item" href="assets/img/project-wall-cladding-03.webp" data-tp-lightbox="wall-cladding" data-caption="Wall cladding, designed and executed by the Taameer Plus team (3 of 6)"><img src="assets/img/project-wall-cladding-03.webp" width="381" height="376" alt="Floor-to-ceiling vertical timber slat partition in an open-plan office" loading="lazy" decoding="async"></a></li>
-        <li><a class="tp-gallery__item" href="assets/img/project-wall-cladding-04.webp" data-tp-lightbox="wall-cladding" data-caption="Wall cladding, designed and executed by the Taameer Plus team (4 of 6)"><img src="assets/img/project-wall-cladding-04.webp" width="385" height="376" alt="Slatted timber wall panel behind a wall-mounted TV and desk in a with a desk and chair" loading="lazy" decoding="async"></a></li>
-        <li><a class="tp-gallery__item" href="assets/img/project-wall-cladding-05.webp" data-tp-lightbox="wall-cladding" data-caption="Wall cladding, designed and executed by the Taameer Plus team (5 of 6)"><img src="assets/img/project-wall-cladding-05.webp" width="406" height="581" alt="Geometric dark wall cladding with LED strip lighting in an office room" loading="lazy" decoding="async"></a></li>
-        <li><a class="tp-gallery__item" href="assets/img/project-wall-cladding-06.webp" data-tp-lightbox="wall-cladding" data-caption="Wall cladding, designed and executed by the Taameer Plus team (6 of 6)"><img src="assets/img/project-wall-cladding-06.webp" width="393" height="476" alt="Vertical dark timber slat doors with a gold geometric emblem in an office" loading="lazy" decoding="async"></a></li>
+      <ul class="tp-gallery tp-lightbox tp-stagger" role="list">
+        <li><a class="tp-gallery__item" href="assets/img/project-wall-cladding-01.webp" data-caption="Wall cladding, designed and executed by the Taameer Plus team (1 of 6)"><img src="assets/img/project-wall-cladding-01.webp" width="768" height="476" alt="Living room wall with vertical slat cladding, floating shelf and a wall-mounted TV" loading="lazy" decoding="async"></a></li>
+        <li><a class="tp-gallery__item" href="assets/img/project-wall-cladding-02.webp" data-caption="Wall cladding, designed and executed by the Taameer Plus team (2 of 6)"><img src="assets/img/project-wall-cladding-02.webp" width="383" height="376" alt="Timber-effect wall cladding with a bar-chart feature logo in an office reception" loading="lazy" decoding="async"></a></li>
+        <li><a class="tp-gallery__item" href="assets/img/project-wall-cladding-03.webp" data-caption="Wall cladding, designed and executed by the Taameer Plus team (3 of 6)"><img src="assets/img/project-wall-cladding-03.webp" width="381" height="376" alt="Floor-to-ceiling vertical timber slat partition in an open-plan office" loading="lazy" decoding="async"></a></li>
+        <li><a class="tp-gallery__item" href="assets/img/project-wall-cladding-04.webp" data-caption="Wall cladding, designed and executed by the Taameer Plus team (4 of 6)"><img src="assets/img/project-wall-cladding-04.webp" width="385" height="376" alt="Slatted timber wall panel behind a wall-mounted TV and desk in a with a desk and chair" loading="lazy" decoding="async"></a></li>
+        <li><a class="tp-gallery__item" href="assets/img/project-wall-cladding-05.webp" data-caption="Wall cladding, designed and executed by the Taameer Plus team (5 of 6)"><img src="assets/img/project-wall-cladding-05.webp" width="406" height="581" alt="Geometric dark wall cladding with LED strip lighting in an office room" loading="lazy" decoding="async"></a></li>
+        <li><a class="tp-gallery__item" href="assets/img/project-wall-cladding-06.webp" data-caption="Wall cladding, designed and executed by the Taameer Plus team (6 of 6)"><img src="assets/img/project-wall-cladding-06.webp" width="393" height="476" alt="Vertical dark timber slat doors with a gold geometric emblem in an office" loading="lazy" decoding="async"></a></li>
       </ul>
     </div>
   </section>
 
 <!-- PARTIAL:cta START -->
-  <!-- ELEMENTOR: native — Container (boxed, hairline frame via CSS class tp-cta__box) > Heading + Text Editor + Button + Icon List (phone, email) -->
+  <!-- ATOMIC: Flexbox(.tp-section .tp-cta) > Flexbox(.tp-container .tp-cta__box) > Paragraph(.tp-eyebrow) + Heading H2(.tp-h2) + Paragraph(.tp-lead) + Button(.tp-btn--primary) + Flexbox > Link(phone) + Link(email) -->
   <section class="tp-section tp-cta" aria-labelledby="tp-cta-title">
     <div class="tp-container">
       <div class="tp-cta__box tp-reveal">
-        <h2 class="tp-cta__title" id="tp-cta-title">Ready to build your next project?</h2>
+        <h2 class="tp-h2 tp-cta__title" id="tp-cta-title">Ready to build your next project?</h2>
         <p class="tp-cta__text">Contact Taameer Plus Contracting for expert consultations, value engineering and turnkey proposals.</p>
         <div class="tp-cta__actions">
           <a class="tp-btn tp-btn--primary" href="contact.html">Get a Quote</a>
@@ -336,11 +342,30 @@
   </section>
   <!-- PARTIAL:cta END -->
 
+  <!-- THEME: loop card — in WordPress this markup is the PHP card (archive-project.php, single-project.php related, 404.php); Home/Services use static atomic cards. -->
+  <template id="tp-project-card">
+    <article class="tp-project" data-tp-type="">
+      <a class="tp-card" href="#">
+        <div class="tp-card__media">
+          <img class="tp-card__img" alt="" loading="lazy" decoding="async">
+          <div class="tp-card__badges">
+            <span class="tp-badge" data-tp-badge="ongoing">Ongoing</span>
+            <span class="tp-badge" data-tp-badge="render">3D Visualization</span>
+          </div>
+        </div>
+        <p class="tp-card__meta"><span data-tp-field="type"></span><span data-tp-field="when"></span></p>
+        <h3 class="tp-h3 tp-card__title" data-tp-field="title"></h3>
+        <p class="tp-card__location" data-tp-field="location"></p>
+        <span class="tp-card__more">View project <svg aria-hidden="true" width="20" height="20"><use href="#tp-i-arrow"/></svg></span>
+      </a>
+    </article>
+  </template>
+
 </main>
 
 <!-- PARTIAL:footer START -->
 <!-- ==========================================================================
-     FOOTER — theme-controlled (footer.php), NOT Elementor. Contact values = Customizer; menus = Appearance → Menus
+     THEME: footer.php — Contact values = Customizer; menus = Appearance → Menus
      ("footer-quick", "footer-services"); language switcher = Polylang.
      ========================================================================== -->
 <footer class="tp-footer">
@@ -356,7 +381,7 @@
       </div>
 
       <nav class="tp-footer__col" aria-labelledby="tp-footer-links">
-        <h2 class="tp-footer__heading" id="tp-footer-links">Quick links</h2>
+        <h2 class="tp-h2 tp-footer__heading" id="tp-footer-links">Quick links</h2>
         <ul class="tp-footer__list">
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
@@ -368,7 +393,7 @@
       </nav>
 
       <nav class="tp-footer__col" aria-labelledby="tp-footer-services">
-        <h2 class="tp-footer__heading" id="tp-footer-services">Services</h2>
+        <h2 class="tp-h2 tp-footer__heading" id="tp-footer-services">Services</h2>
         <ul class="tp-footer__list">
           <li><a href="services.html#construction">Construction</a></li>
           <li><a href="services.html#design-build">Design &amp; Build</a></li>
@@ -380,7 +405,7 @@
       </nav>
 
       <div class="tp-footer__col">
-        <h2 class="tp-footer__heading">Contact</h2>
+        <h2 class="tp-h2 tp-footer__heading">Contact</h2>
         <address class="tp-footer__list">
           <p>Sky Business Building, Office M30,<br>Festival City, Dubai, UAE</p>
           <p><span class="tp-footer__label">Office</span> <a href="tel:+97143290500">+971 4 329 0500</a></p>
@@ -407,7 +432,7 @@
 <!-- PARTIAL:footer END -->
 
 <!-- PARTIAL:whatsapp START -->
-<!-- Floating WhatsApp — theme-controlled (footer.php). Number = Customizer "whatsapp". -->
+<!-- THEME: footer.php — floating WhatsApp button. Number = Customizer "whatsapp". -->
 <a class="tp-fab" href="https://wa.me/971503029281" rel="noopener" target="_blank" aria-label="Chat with Taameer Plus on WhatsApp (opens in a new tab)">
   <svg aria-hidden="true" width="26" height="26"><use href="#tp-i-whatsapp"/></svg>
 </a>

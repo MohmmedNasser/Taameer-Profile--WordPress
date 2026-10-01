@@ -28,17 +28,15 @@
   <link rel="stylesheet" href="assets/css/layout.css">
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/inner-pages.css">
-  <link rel="stylesheet" href="assets/css/lightbox.css">
+  <link rel="stylesheet" href="assets/css/theme.css">
   <link rel="stylesheet" href="assets/css/animations.css">
-  <script src="assets/js/counters.js" defer></script>
   <script src="assets/js/animations.js" defer></script>
-  <script src="assets/js/header.js" defer></script>
-  <script src="assets/js/lightbox.js" defer></script>
+  <script src="assets/js/interactions.js" defer></script>
 </head>
 <body>
 
 <!-- PARTIAL:sprite START -->
-<!-- Icon sprite (WP: output once in header.php). -->
+<!-- THEME: header.php — icon sprite, output once. -->
 <svg xmlns="http://www.w3.org/2000/svg" hidden>
   <symbol id="tp-i-plus" viewBox="0 0 16 16"><path d="M8 1v14M1 8h14" fill="none" stroke="currentColor" stroke-width="1.25"/></symbol>
   <symbol id="tp-i-arrow" viewBox="0 0 24 24"><path d="M4 12h15m-5-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.25"/></symbol>
@@ -52,7 +50,8 @@
 <a class="tp-skip-link" href="#main">Skip to content</a>
 
 <!-- ==========================================================================
-     HEADER — theme-controlled (header.php), NOT Elementor. Menu = Appearance → Menus (location "primary").
+     THEME: header.php — solid, sticky on every page (never transparent, no overlay, no hero padding compensation).
+     Menu toggle behaviour lives in interactions.js (see REPORT in docs/wp-mapping.md: not on the E2 list). Menu = Appearance → Menus (location "primary").
      Language switcher = Polylang pll_the_languages(). Button URL = Customizer "quote_url".
      ========================================================================== -->
 <header class="tp-header" data-tp-header>
@@ -86,7 +85,7 @@
     </div>
   </div>
 
-  <!-- Mobile overlay menu (disclosure pattern): full-screen light panel, focus-trapped by header.js, Esc closes. -->
+  <!-- Mobile overlay menu (disclosure pattern): full-screen light panel, focus-trapped by interactions.js, Esc closes. -->
   <div class="tp-menu" id="tp-menu" hidden data-tp-menu>
     <div class="tp-container tp-menu__inner">
       <nav aria-label="Main (mobile)">
@@ -116,7 +115,7 @@
 
 <main id="main">
 
-  <!-- ELEMENTOR: native — Container (sand) > breadcrumbs (theme shortcode, static list until then) + Heading (eyebrow) + Heading H1 + Text Editor -->
+  <!-- ATOMIC: Flexbox(.tp-section .tp-page-hero) > Flexbox(.tp-container) > Flexbox(.tp-breadcrumb__list: Link + separator + Paragraph(current page)) + Paragraph(.tp-eyebrow) + Heading H1(.tp-page-hero__title) + Paragraph(.tp-page-hero__lead). Breadcrumbs are static atomic links (no shortcode). -->
   <section class="tp-section tp-section--sand tp-page-hero" aria-labelledby="tp-page-title">
     <div class="tp-container">
       <nav class="tp-breadcrumb" aria-label="Breadcrumb">
@@ -128,14 +127,14 @@
       <div class="tp-page-hero__body tp-row">
         <div class="tp-col tp-col--7 tp-page-hero__text">
           <p class="tp-eyebrow tp-reveal" data-tp-delay="100">Taameer Plus Contracting LLC — Dubai, UAE</p>
-          <h1 class="tp-page-hero__title tp-reveal" id="tp-page-title" data-tp-delay="200">About Taameer Plus</h1>
+          <h1 class="tp-h1 tp-page-hero__title tp-reveal" id="tp-page-title" data-tp-delay="200">About Taameer Plus</h1>
           <p class="tp-page-hero__lead tp-reveal" data-tp-delay="350">Established in Dubai in 2015 as a small technical services company, Taameer Plus Contracting LLC has grown steadily through years of gaining exceptional experience in the market.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ELEMENTOR: native — Container (row) > [Image (CSS class tp-frame)] + [Container: Heading (eyebrow) + Text Editor ×2 (lead paragraph, body) + Heading (name) + Text (title)]. Sticky portrait on desktop = CSS class only. -->
+  <!-- ATOMIC: Flexbox(.tp-section) > Flexbox(row) > [Flexbox(.tp-chair-page__media) > Flexbox(.tp-frame) > Image] + [Flexbox(.tp-chair-page__msg) > Paragraph(.tp-eyebrow) + Heading H2 + Paragraph(.tp-lead) + Paragraph xN + Heading H3(name) + Paragraph(title)]. Sticky portrait on desktop = Elementor position: sticky. -->
   <section class="tp-section tp-chair-page" aria-labelledby="tp-chair-title">
     <div class="tp-container tp-row">
       <div class="tp-col tp-chair-page__media">
@@ -147,7 +146,7 @@
         </div>
       </div>
       <div class="tp-col tp-chair-page__msg">
-        <h2 class="tp-eyebrow tp-reveal" id="tp-chair-title">Chairman’s message</h2>
+        <h2 class="tp-h2 tp-eyebrow tp-reveal" id="tp-chair-title">Chairman’s message</h2>
         <blockquote class="tp-chair-page__lead tp-reveal">
           <p>Welcome to our company, Taameer Plus Contracting LLC. Taameer Plus has gained a good reputable name in the market over the years. Through hard work, professionalism and dedication it has become one of the leading companies in Dubai within the industry of design, fit-out, decoration and contracting.</p>
         </blockquote>
@@ -160,12 +159,12 @@
     </div>
   </section>
 
-  <!-- ELEMENTOR: native — Container (row, sand bg) > [Container: Heading (eyebrow) + Heading + Text Editor ×2] + [Container: Heading/Text block, CSS class tp-fact (framed, tp-frame marks), counter via class tp-counter] -->
+  <!-- ATOMIC: Flexbox(.tp-section .tp-section--sand) > Flexbox(row) > [Flexbox > Paragraph(.tp-eyebrow) + Heading H2 + Paragraph x2] + [Flexbox(.tp-fact .tp-frame) > Heading(.tp-fact__value .tp-counter) + Paragraph(.tp-fact__label)] -->
   <section class="tp-section tp-section--sand tp-about-page" aria-labelledby="tp-about-title">
     <div class="tp-container tp-row tp-row--center">
       <div class="tp-col tp-about-page__text">
         <p class="tp-eyebrow tp-reveal">About Taameer Plus</p>
-        <h2 class="tp-reveal" id="tp-about-title">Pioneering engineering &amp; construction solutions</h2>
+        <h2 class="tp-h2 tp-reveal" id="tp-about-title">Pioneering engineering &amp; construction solutions</h2>
         <p class="tp-lead tp-reveal">Established in Dubai in 2015 as a small technical services company, Taameer Plus Contracting LLC has grown steadily through years of gaining exceptional experience in the market. Today, Taameer Plus is a full-service contracting company with well-trained staff delivering high quality and standards, using state-of-the-art engineering processes.</p>
         <p class="tp-reveal">Our primary goal is to achieve the highest quality in all our operations without compromise — offering our customers a safe, cost-effective and professional service. Quality performance is the cornerstone of our company culture and a personal responsibility of every employee.</p>
       </div>
@@ -181,13 +180,13 @@
     </div>
   </section>
 
-  <!-- ELEMENTOR: native — Container > Heading (eyebrow) + Heading + Text Editor, then Container (row, wrap) of 4 Containers [Heading H3 + Text Editor] (CSS class tp-aim gives the "+" and hairline) -->
+  <!-- ATOMIC: Flexbox(.tp-section) > Paragraph(.tp-eyebrow) + Heading H2 + Paragraph + Flexbox wrap > 4 x Flexbox(.tp-aim) > Heading H3 + Paragraph -->
   <section class="tp-section tp-aims-section" aria-labelledby="tp-aims-title">
     <div class="tp-container">
       <div class="tp-section-head tp-row tp-row--end tp-row--between">
         <div class="tp-col tp-col--7">
           <p class="tp-eyebrow tp-reveal">Quality performance</p>
-          <h2 class="tp-reveal" id="tp-aims-title">Our aim</h2>
+          <h2 class="tp-h2 tp-reveal" id="tp-aims-title">Our aim</h2>
         </div>
         <div class="tp-col tp-col--4">
           <p class="tp-reveal">To maintain quality performance at the highest level, these four aims are pursued.</p>
@@ -195,26 +194,26 @@
       </div>
       <ul class="tp-aims tp-stagger" role="list">
           <li class="tp-aim">
-            <h3 class="tp-aim__title">Exceed Expectations</h3>
+            <h3 class="tp-h3 tp-aim__title">Exceed Expectations</h3>
             <p>Fulfill or exceed customer needs and expectations by delivering a quality project consistently and promptly.</p>
           </li>
           <li class="tp-aim">
-            <h3 class="tp-aim__title">Continuous Improvement</h3>
+            <h3 class="tp-h3 tp-aim__title">Continuous Improvement</h3>
             <p>Maintain the commitment to continuous improvement and communicate our goals to every employee.</p>
           </li>
           <li class="tp-aim">
-            <h3 class="tp-aim__title">Safe &amp; Efficient Environment</h3>
+            <h3 class="tp-h3 tp-aim__title">Safe &amp; Efficient Environment</h3>
             <p>Promote a working environment where training and tools are provided so work proceeds safely.</p>
           </li>
           <li class="tp-aim">
-            <h3 class="tp-aim__title">Reviewed Standards</h3>
+            <h3 class="tp-h3 tp-aim__title">Reviewed Standards</h3>
             <p>Implement a system of policies, periodically reviewed, so all working groups perform effectively.</p>
           </li>
       </ul>
     </div>
   </section>
 
-  <!-- ELEMENTOR: native — Container (row, sand bg) > [Image (classes tp-frame tp-parallax)] + [Container: Heading (eyebrow) + Heading + Icon List ("+" icon)]. Same component as Home. -->
+  <!-- ATOMIC: Flexbox(.tp-section .tp-section--sand) > Flexbox(row) > [Flexbox(.tp-frame) > Image(.tp-parallax)] + [Flexbox(.tp-why__text) > Paragraph(.tp-eyebrow) + Heading H2 + 3 x Flexbox(.tp-why__item) > Heading H3 + Paragraph]. Same section as Home. -->
   <section class="tp-section tp-section--sand tp-why" aria-labelledby="tp-why-title">
     <div class="tp-container tp-row tp-row--center">
       <div class="tp-col tp-col--6 tp-why__media">
@@ -229,18 +228,18 @@
       </div>
       <div class="tp-col tp-col--6 tp-why__text">
         <p class="tp-eyebrow tp-reveal">Why Taameer Plus</p>
-        <h2 class="tp-reveal" id="tp-why-title">Why choose us</h2>
+        <h2 class="tp-h2 tp-reveal" id="tp-why-title">Why choose us</h2>
         <ul class="tp-why__list tp-stagger">
           <li class="tp-why__item">
-            <h3 class="tp-why__title">Approved G+4 Contractor</h3>
+            <h3 class="tp-h3 tp-why__title">Approved G+4 Contractor</h3>
             <p>Licensed by the Government of Dubai for multi-storey residential and commercial structural developments.</p>
           </li>
           <li class="tp-why__item">
-            <h3 class="tp-why__title">Turnkey &amp; Value Engineering</h3>
+            <h3 class="tp-h3 tp-why__title">Turnkey &amp; Value Engineering</h3>
             <p>Design-build contracts covering structural, architectural and electromechanical works under one roof, saving cost and time.</p>
           </li>
           <li class="tp-why__item">
-            <h3 class="tp-why__title">Uncompromising Quality</h3>
+            <h3 class="tp-h3 tp-why__title">Uncompromising Quality</h3>
             <p>Rigorous quality control, trustworthy relations with private and government agencies, and reliable delivery timelines.</p>
           </li>
         </ul>
@@ -248,13 +247,14 @@
     </div>
   </section>
 
-  <!-- ELEMENTOR: native head (Heading eyebrow + Heading + Text Editor) · cards: custom widget "tp-team-cards" — controls: number, order (Team Member CPT: photo, name, title, bio, years of experience, display order). CSS Grid inside the widget. · philosophy: Text Editor. -->
+  <!-- ATOMIC: Flexbox(.tp-section) > section head + Flexbox wrap(.tp-team) > 3 x Flexbox(.tp-team__card) > Flexbox(.tp-frame) > Image + Heading H3(name) + Paragraph(title) + Paragraph(bio) ; Flexbox(.tp-philosophy) > Paragraph xN -->
+  <!-- REPORT: team members are static atomic cards (the Team Member CPT exists for the data model, but atomic elements cannot read CPT fields without Atomic Loop / dynamic tags — Phase 4 spike). -->
   <section class="tp-section tp-leadership" aria-labelledby="tp-team-title">
     <div class="tp-container">
       <div class="tp-section-head tp-row tp-row--end tp-row--between">
         <div class="tp-col tp-col--7">
           <p class="tp-eyebrow tp-reveal">Expert leadership</p>
-          <h2 class="tp-reveal" id="tp-team-title">Meet our core leadership</h2>
+          <h2 class="tp-h2 tp-reveal" id="tp-team-title">Meet our core leadership</h2>
         </div>
         <div class="tp-col tp-col--4">
           <p class="tp-reveal">Taameer Plus is a very selective company when it comes to staff — we consider our employees the real treasure of our company.</p>
@@ -266,7 +266,7 @@
             <img src="assets/img/team-mohannad-al-musleh.webp" width="700" height="736" alt="Portrait of Eng. Mohannad Al Musleh, General Manager" loading="lazy" decoding="async">
           </div>
           <div>
-            <h3 class="tp-team__name">Eng. Mohannad Al Musleh</h3>
+            <h3 class="tp-h3 tp-team__name">Eng. Mohannad Al Musleh</h3>
             <p class="tp-team__role">General Manager</p>
           </div>
           <p class="tp-team__bio">With extensive experience in the UAE’s construction and development sector, he has built strong expertise through senior roles with leading contracting companies in Dubai, contributing to the successful delivery of a diverse portfolio of prestigious projects.</p>
@@ -276,7 +276,7 @@
             <img src="assets/img/team-rauof-al-otaibi.webp" width="700" height="736" alt="Portrait of Eng. Rauof Al-Otaibi, Business Development Manager" loading="lazy" decoding="async">
           </div>
           <div>
-            <h3 class="tp-team__name">Eng. Rauof Al-Otaibi</h3>
+            <h3 class="tp-h3 tp-team__name">Eng. Rauof Al-Otaibi</h3>
             <p class="tp-team__role">Business Development Manager</p>
           </div>
           <p class="tp-team__bio">With extensive experience in the UAE’s construction and development sector, he has built a strong background in business development and real estate, including five years in a Vice President role with a leading Dubai developer.</p>
@@ -286,7 +286,7 @@
             <img src="assets/img/team-mohammad-amer.webp" width="700" height="736" alt="Portrait of Eng. Mohammad Amer, Projects Manager" loading="lazy" decoding="async">
           </div>
           <div>
-            <h3 class="tp-team__name">Eng. Mohammad Amer</h3>
+            <h3 class="tp-h3 tp-team__name">Eng. Mohammad Amer</h3>
             <p class="tp-team__role">Projects Manager</p>
           </div>
           <p class="tp-team__bio">With extensive experience in the UAE construction sector, he has successfully managed a wide range of major projects, building a strong track record in project delivery, coordination, and execution.</p>
@@ -299,13 +299,13 @@
     </div>
   </section>
 
-  <!-- ELEMENTOR: native head + custom widget "tp-exp-cards" (Team Experience data: title, location, consultant, image). CSS Grid inside the widget. Cards are not links: they are not company projects. -->
+  <!-- ATOMIC: Flexbox(.tp-section) > section head (labelled "by the Taameer Plus team") + Flexbox wrap(.tp-exp) > 4 x Flexbox(.tp-exp__card) > Image + Heading H3 + Paragraph(location) + Paragraph(consultant). Cards are not links: they are not company projects. -->
   <section class="tp-section tp-section--sand tp-exp-section" aria-labelledby="tp-exp-title">
     <div class="tp-container">
       <div class="tp-section-head tp-row tp-row--end tp-row--between">
         <div class="tp-col tp-col--7">
           <p class="tp-eyebrow tp-reveal">Recently executed</p>
-          <h2 class="tp-reveal" id="tp-exp-title">Large-scale projects by the Taameer Plus team</h2>
+          <h2 class="tp-h2 tp-reveal" id="tp-exp-title">Large-scale projects by the Taameer Plus team</h2>
         </div>
         <div class="tp-col tp-col--4">
           <p class="tp-exp__note tp-reveal">Buildings executed by members of the Taameer Plus team as part of their earlier experience. They are not Taameer Plus company projects.</p>
@@ -317,7 +317,7 @@
             <img src="assets/img/team-exp-al-barsha-hotel.webp" width="496" height="621" alt="Four-star hotel building with a brick and cream facade in Al Barsha 1st, Dubai" loading="lazy" decoding="async">
             <div class="tp-card__badges"><span class="tp-badge">Team experience</span></div>
           </div>
-          <h3 class="tp-exp__title">2B+G+6+HC 4-Star Hotel</h3>
+          <h3 class="tp-h3 tp-exp__title">2B+G+6+HC 4-Star Hotel</h3>
           <dl class="tp-spec tp-spec--compact">
             <div class="tp-spec__row tp-spec__row--wide"><dt>Location</dt><dd>Al Barsha 1st, Dubai</dd></div>
             <div class="tp-spec__row tp-spec__row--wide"><dt>Consultant</dt><dd>Alhashmi Planners, Arc. Engs.</dd></div>
@@ -328,7 +328,7 @@
             <img src="assets/img/team-exp-nadd-al-hamar-residential.webp" width="605" height="739" alt="Tall residential tower with glazed balconies in Nadd Al Hamar, Dubai" loading="lazy" decoding="async">
             <div class="tp-card__badges"><span class="tp-badge">Team experience</span></div>
           </div>
-          <h3 class="tp-exp__title">G+P+10 Typical + Gym + 2 Roof</h3>
+          <h3 class="tp-h3 tp-exp__title">G+P+10 Typical + Gym + 2 Roof</h3>
           <dl class="tp-spec tp-spec--compact">
             <div class="tp-spec__row tp-spec__row--wide"><dt>Location</dt><dd>Nadd Al Hamar, Dubai</dd></div>
             <div class="tp-spec__row tp-spec__row--wide"><dt>Consultant</dt><dd>R-Qitect Design Studio</dd></div>
@@ -339,7 +339,7 @@
             <img src="assets/img/team-exp-dubai-investments-hq.webp" srcset="assets/img/team-exp-dubai-investments-hq-md.webp 900w, assets/img/team-exp-dubai-investments-hq.webp 1025w" sizes="(min-width: 64em) 22vw, (min-width: 40em) 45vw, 100vw" width="1025" height="704" alt="Dubai Investments headquarters, a glass and steel office complex with flags at Dubai Investment Park" loading="lazy" decoding="async">
             <div class="tp-card__badges"><span class="tp-badge">Team experience</span></div>
           </div>
-          <h3 class="tp-exp__title">Dubai Investments Headquarters</h3>
+          <h3 class="tp-h3 tp-exp__title">Dubai Investments Headquarters</h3>
           <dl class="tp-spec tp-spec--compact">
             <div class="tp-spec__row tp-spec__row--wide"><dt>Location</dt><dd>Dubai Investment Park, Dubai</dd></div>
             <div class="tp-spec__row tp-spec__row--wide"><dt>Consultant</dt><dd>Dewan Al Amara Engineering Consultants</dd></div>
@@ -350,7 +350,7 @@
             <img src="assets/img/team-exp-souq-al-kabeer-mixed-use.webp" width="673" height="733" alt="Mixed-use shopping mall and residential building in Souq Al Kabeer, Dubai" loading="lazy" decoding="async">
             <div class="tp-card__badges"><span class="tp-badge">Team experience</span></div>
           </div>
-          <h3 class="tp-exp__title">G+M+5 Floors + Roof Shopping Mall / Residential</h3>
+          <h3 class="tp-h3 tp-exp__title">G+M+5 Floors + Roof Shopping Mall / Residential</h3>
           <dl class="tp-spec tp-spec--compact">
             <div class="tp-spec__row tp-spec__row--wide"><dt>Location</dt><dd>Souq Al Kabeer, Dubai</dd></div>
             <div class="tp-spec__row tp-spec__row--wide"><dt>Consultant</dt><dd>Al-Shurooq Consultants</dd></div>
@@ -360,13 +360,13 @@
     </div>
   </section>
 
-  <!-- ELEMENTOR: native head + custom widget "tp-partners-grid" (same repeater as the marquee: logo, name, blend toggle; static grid, grayscale to colour on hover) -->
+  <!-- ATOMIC: Flexbox(.tp-section) > section head + Flexbox wrap(.tp-partners-grid) > 14 x Flexbox(.tp-partner) > Image(.tp-partner__logo). Grayscale-to-colour hover = global class filter if Elementor v4 exposes CSS filters; otherwise drop the hover effect. -->
   <section class="tp-section tp-partners-section" aria-labelledby="tp-partners-title">
     <div class="tp-container">
       <div class="tp-section-head tp-row tp-row--end tp-row--between">
         <div class="tp-col tp-col--7">
           <p class="tp-eyebrow tp-reveal">Strategic alliance</p>
-          <h2 class="tp-reveal" id="tp-partners-title">Our trusted partners</h2>
+          <h2 class="tp-h2 tp-reveal" id="tp-partners-title">Our trusted partners</h2>
         </div>
       </div>
       <ul class="tp-partner-grid tp-stagger" role="list">
@@ -388,26 +388,28 @@
     </div>
   </section>
 
-  <!-- ELEMENTOR: native head + custom widget "tp-license-card" ×2 (or Text/Icon List inside Containers): controls: company, fields (license no., legal type, register no., DCCI no., issue/expiry dates, activities, status), license image, PDF. Lightbox via data-tp-lightbox on the preview and the button. -->
+  <!-- ATOMIC: Flexbox(.tp-section .tp-section--sand) > section head + Flexbox(.tp-licenses .tp-lightbox) > 2 x Flexbox(.tp-license) > Link-wrapped Image(.tp-license__preview) + Heading H3 + Flexbox(.tp-spec) rows (Paragraph label + Paragraph value) + Button(.tp-btn--ghost "View license") -->
+  <!-- INTERACTION: tp-lightbox (interactions.js) — the container class groups the previews and buttons; the PDF links carry data-image (needs custom attributes on links) -->
+  <!-- REPORT: lightbox for the PDF licenses needs `data-image` (and `data-caption`) on links. If Elementor v4 cannot set custom link attributes, fall back to linking the PDF directly (opens in a new tab, no lightbox) or add an image-only link beside each PDF link. -->
   <section class="tp-section tp-section--sand tp-licenses-section" aria-labelledby="tp-licenses-title" id="licenses">
     <div class="tp-container">
       <div class="tp-section-head tp-row tp-row--end tp-row--between">
         <div class="tp-col tp-col--7">
           <p class="tp-eyebrow tp-reveal">Compliance &amp; trust</p>
-          <h2 class="tp-reveal" id="tp-licenses-title">Official licenses</h2>
+          <h2 class="tp-h2 tp-reveal" id="tp-licenses-title">Official licenses</h2>
         </div>
         <div class="tp-col tp-col--4">
           <p class="tp-reveal">Commercial licenses issued by the Dubai Department of Economy and Tourism. Open a license to view the full document.</p>
         </div>
       </div>
-      <ul class="tp-licenses tp-stagger" role="list">
+      <ul class="tp-licenses tp-lightbox tp-stagger" role="list">
         <li class="tp-license">
-          <a class="tp-license__preview" href="assets/docs/license-taameer-plus-contracting.pdf" data-image="assets/img/license-contracting.webp" data-tp-lightbox="licenses" data-caption="Commercial license — Taameer Plus Contracting LLC">
+          <a class="tp-license__preview" href="assets/docs/license-taameer-plus-contracting.pdf" data-image="assets/img/license-contracting.webp" data-caption="Commercial license — Taameer Plus Contracting LLC">
             <img src="assets/img/license-contracting-md.webp" width="900" height="1273" alt="Preview of the commercial license of Taameer Plus Contracting LLC" loading="lazy" decoding="async">
           </a>
           <div class="tp-license__body">
             <div class="tp-license__head">
-              <h3 class="tp-license__title">Taameer Plus Contracting LLC</h3>
+              <h3 class="tp-h3 tp-license__title">Taameer Plus Contracting LLC</h3>
               <span class="tp-badge">Active</span>
             </div>
             <dl class="tp-spec tp-spec--compact">
@@ -424,18 +426,18 @@
               </dd></div>
             </dl>
             <p class="tp-license__actions">
-              <a class="tp-btn tp-btn--ghost" href="assets/docs/license-taameer-plus-contracting.pdf" data-image="assets/img/license-contracting.webp" data-tp-lightbox="licenses" data-caption="Commercial license — Taameer Plus Contracting LLC">View license</a>
+              <a class="tp-btn tp-btn--ghost" href="assets/docs/license-taameer-plus-contracting.pdf" data-image="assets/img/license-contracting.webp" data-caption="Commercial license — Taameer Plus Contracting LLC">View license</a>
               <a class="tp-link" href="assets/docs/license-taameer-plus-contracting.pdf" target="_blank" rel="noopener">Open PDF<span class="tp-visually-hidden"> (opens in a new tab)</span></a>
             </p>
           </div>
         </li>
         <li class="tp-license">
-          <a class="tp-license__preview" href="assets/docs/license-taameer-plus-carpentry.pdf" data-image="assets/img/license-carpentry.webp" data-tp-lightbox="licenses" data-caption="Commercial license — Taameer Plus Carpentry LLC">
+          <a class="tp-license__preview" href="assets/docs/license-taameer-plus-carpentry.pdf" data-image="assets/img/license-carpentry.webp" data-caption="Commercial license — Taameer Plus Carpentry LLC">
             <img src="assets/img/license-carpentry-md.webp" width="900" height="1273" alt="Preview of the commercial license of Taameer Plus Carpentry LLC" loading="lazy" decoding="async">
           </a>
           <div class="tp-license__body">
             <div class="tp-license__head">
-              <h3 class="tp-license__title">Taameer Plus Carpentry LLC</h3>
+              <h3 class="tp-h3 tp-license__title">Taameer Plus Carpentry LLC</h3>
               <span class="tp-badge">Active</span>
             </div>
             <dl class="tp-spec tp-spec--compact">
@@ -450,7 +452,7 @@
               </dd></div>
             </dl>
             <p class="tp-license__actions">
-              <a class="tp-btn tp-btn--ghost" href="assets/docs/license-taameer-plus-carpentry.pdf" data-image="assets/img/license-carpentry.webp" data-tp-lightbox="licenses" data-caption="Commercial license — Taameer Plus Carpentry LLC">View license</a>
+              <a class="tp-btn tp-btn--ghost" href="assets/docs/license-taameer-plus-carpentry.pdf" data-image="assets/img/license-carpentry.webp" data-caption="Commercial license — Taameer Plus Carpentry LLC">View license</a>
               <a class="tp-link" href="assets/docs/license-taameer-plus-carpentry.pdf" target="_blank" rel="noopener">Open PDF<span class="tp-visually-hidden"> (opens in a new tab)</span></a>
             </p>
           </div>
@@ -460,11 +462,11 @@
   </section>
 
 <!-- PARTIAL:cta START -->
-  <!-- ELEMENTOR: native — Container (boxed, hairline frame via CSS class tp-cta__box) > Heading + Text Editor + Button + Icon List (phone, email) -->
+  <!-- ATOMIC: Flexbox(.tp-section .tp-cta) > Flexbox(.tp-container .tp-cta__box) > Paragraph(.tp-eyebrow) + Heading H2(.tp-h2) + Paragraph(.tp-lead) + Button(.tp-btn--primary) + Flexbox > Link(phone) + Link(email) -->
   <section class="tp-section tp-cta" aria-labelledby="tp-cta-title">
     <div class="tp-container">
       <div class="tp-cta__box tp-reveal">
-        <h2 class="tp-cta__title" id="tp-cta-title">Ready to build your next project?</h2>
+        <h2 class="tp-h2 tp-cta__title" id="tp-cta-title">Ready to build your next project?</h2>
         <p class="tp-cta__text">Contact Taameer Plus Contracting for expert consultations, value engineering and turnkey proposals.</p>
         <div class="tp-cta__actions">
           <a class="tp-btn tp-btn--primary" href="contact.html">Get a Quote</a>
@@ -480,7 +482,7 @@
 
 <!-- PARTIAL:footer START -->
 <!-- ==========================================================================
-     FOOTER — theme-controlled (footer.php), NOT Elementor. Contact values = Customizer; menus = Appearance → Menus
+     THEME: footer.php — Contact values = Customizer; menus = Appearance → Menus
      ("footer-quick", "footer-services"); language switcher = Polylang.
      ========================================================================== -->
 <footer class="tp-footer">
@@ -496,7 +498,7 @@
       </div>
 
       <nav class="tp-footer__col" aria-labelledby="tp-footer-links">
-        <h2 class="tp-footer__heading" id="tp-footer-links">Quick links</h2>
+        <h2 class="tp-h2 tp-footer__heading" id="tp-footer-links">Quick links</h2>
         <ul class="tp-footer__list">
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html" aria-current="page">About</a></li>
@@ -508,7 +510,7 @@
       </nav>
 
       <nav class="tp-footer__col" aria-labelledby="tp-footer-services">
-        <h2 class="tp-footer__heading" id="tp-footer-services">Services</h2>
+        <h2 class="tp-h2 tp-footer__heading" id="tp-footer-services">Services</h2>
         <ul class="tp-footer__list">
           <li><a href="services.html#construction">Construction</a></li>
           <li><a href="services.html#design-build">Design &amp; Build</a></li>
@@ -520,7 +522,7 @@
       </nav>
 
       <div class="tp-footer__col">
-        <h2 class="tp-footer__heading">Contact</h2>
+        <h2 class="tp-h2 tp-footer__heading">Contact</h2>
         <address class="tp-footer__list">
           <p>Sky Business Building, Office M30,<br>Festival City, Dubai, UAE</p>
           <p><span class="tp-footer__label">Office</span> <a href="tel:+97143290500">+971 4 329 0500</a></p>
@@ -547,7 +549,7 @@
 <!-- PARTIAL:footer END -->
 
 <!-- PARTIAL:whatsapp START -->
-<!-- Floating WhatsApp — theme-controlled (footer.php). Number = Customizer "whatsapp". -->
+<!-- THEME: footer.php — floating WhatsApp button. Number = Customizer "whatsapp". -->
 <a class="tp-fab" href="https://wa.me/971503029281" rel="noopener" target="_blank" aria-label="Chat with Taameer Plus on WhatsApp (opens in a new tab)">
   <svg aria-hidden="true" width="26" height="26"><use href="#tp-i-whatsapp"/></svg>
 </a>

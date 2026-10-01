@@ -101,41 +101,41 @@ for (const dir of ['ltr', 'rtl']) {
     const pg = await ctx.newPage();
     if (dir === 'rtl') await pg.addInitScript(rtlInit);
     await pg.goto(ORIGIN + 'services.html', { waitUntil: 'networkidle' });
-    const first = pg.locator('[data-tp-lightbox="wall-cladding"]').first();
+    const first = pg.locator('.tp-gallery a').first();
     await first.scrollIntoViewIfNeeded();
     await pg.waitForTimeout(800);
     const y0 = await pg.evaluate(() => window.scrollY);
     await first.focus();
     await pg.keyboard.press('Enter');
-    await pg.waitForSelector('.tp-lightbox.is-open');
+    await pg.waitForSelector('.tp-lbox.is-open');
     const st = await pg.evaluate(() => {
-      const d = document.querySelector('.tp-lightbox');
+      const d = document.querySelector('.tp-lbox');
       return { role: d.getAttribute('role'), modal: d.getAttribute('aria-modal'), labelled: !!document.getElementById(d.getAttribute('aria-labelledby')).textContent.trim(),
-        count: d.querySelector('.tp-lightbox__count').textContent, locked: document.body.classList.contains('tp-is-locked'),
+        count: d.querySelector('.tp-lbox__count').textContent, locked: document.body.classList.contains('tp-is-locked'),
         focusIn: d.contains(document.activeElement) };
     });
     check(`${dir}: lightbox opens as labelled modal dialog, body locked, focus inside`, st.role === 'dialog' && st.modal === 'true' && st.labelled && st.locked && st.focusIn);
     check(`${dir}: lightbox counter "1 / 6"`, st.count === '1 / 6', st.count);
     // ArrowRight = next in LTR, previous (wraps to 6) in RTL
     await pg.keyboard.press('ArrowRight');
-    const c1 = await pg.textContent('.tp-lightbox__count');
+    const c1 = await pg.textContent('.tp-lbox__count');
     check(`${dir}: ArrowRight ${dir === 'ltr' ? 'goes to next (2 / 6)' : 'goes to previous (6 / 6)'}`, c1 === (dir === 'ltr' ? '2 / 6' : '6 / 6'), c1);
     for (let i = 0; i < 8; i++) await pg.keyboard.press('Tab');
-    const trapped = await pg.evaluate(() => document.querySelector('.tp-lightbox').contains(document.activeElement));
+    const trapped = await pg.evaluate(() => document.querySelector('.tp-lbox').contains(document.activeElement));
     check(`${dir}: Tab stays trapped inside the dialog`, trapped);
     // Swipe toward the left edge (touch events dispatched synthetically)
     await pg.evaluate(() => {
-      const el = document.querySelector('.tp-lightbox');
+      const el = document.querySelector('.tp-lbox');
       const t = (x) => new Touch({ identifier: 1, target: el, clientX: x, clientY: 300 });
       el.dispatchEvent(new TouchEvent('touchstart', { bubbles: true, touches: [t(600)], changedTouches: [t(600)] }));
       el.dispatchEvent(new TouchEvent('touchend', { bubbles: true, touches: [], changedTouches: [t(300)] }));
     });
-    const c2 = await pg.textContent('.tp-lightbox__count');
+    const c2 = await pg.textContent('.tp-lbox__count');
     check(`${dir}: swipe left ${dir === 'ltr' ? 'shows next' : 'shows previous'}`, dir === 'ltr' ? c2 === '3 / 6' : c2 === '5 / 6', `${c1} → ${c2}`);
     await pg.keyboard.press('Escape');
-    const closed = await pg.evaluate(() => ({ hidden: document.querySelector('.tp-lightbox').hidden, unlocked: !document.body.classList.contains('tp-is-locked'),
-      focus: document.activeElement.getAttribute('data-tp-lightbox'), y: window.scrollY }));
-    check(`${dir}: Esc closes, unlocks scroll, returns focus to trigger`, closed.hidden && closed.unlocked && closed.focus === 'wall-cladding');
+    const closed = await pg.evaluate(() => ({ hidden: document.querySelector('.tp-lbox').hidden, unlocked: !document.body.classList.contains('tp-is-locked'),
+      focus: document.activeElement.classList.contains('tp-gallery__item'), y: window.scrollY }));
+    check(`${dir}: Esc closes, unlocks scroll, returns focus to trigger`, closed.hidden && closed.unlocked && closed.focus);
     check(`${dir}: no scroll jump on close`, Math.abs(closed.y - y0) <= 2, `${y0} → ${closed.y}`);
     await ctx.close();
   }
@@ -143,13 +143,13 @@ for (const dir of ['ltr', 'rtl']) {
   // Lightbox: licenses on about.html (PDF trigger → image rendition + View PDF; thumbnail and button de-duplicated)
   {
     await page.goto(ORIGIN + 'about.html', { waitUntil: 'networkidle' });
-    const btn = page.locator('.tp-license__actions [data-tp-lightbox]').first();
+    const btn = page.locator('.tp-license__actions a').first();
     await btn.scrollIntoViewIfNeeded();
     await btn.click();
-    await page.waitForSelector('.tp-lightbox.is-open');
-    const lic = await page.evaluate(() => ({ src: document.querySelector('.tp-lightbox__img').getAttribute('src'),
-      pdf: !document.querySelector('.tp-lightbox__pdf').hidden && document.querySelector('.tp-lightbox__pdf').getAttribute('href'),
-      count: document.querySelector('.tp-lightbox__count').textContent }));
+    await page.waitForSelector('.tp-lbox.is-open');
+    const lic = await page.evaluate(() => ({ src: document.querySelector('.tp-lbox__img').getAttribute('src'),
+      pdf: !document.querySelector('.tp-lbox__pdf').hidden && document.querySelector('.tp-lbox__pdf').getAttribute('href'),
+      count: document.querySelector('.tp-lbox__count').textContent }));
     check('license lightbox shows the image rendition and a View PDF link', /license-.*\.webp$/.test(lic.src) && /\.pdf$/.test(lic.pdf), `${lic.src} ${lic.pdf}`);
     check('license lightbox lists 2 licenses (thumbnail + button de-duplicated)', lic.count === '1 / 2', lic.count);
     await page.keyboard.press('Escape');
@@ -157,13 +157,13 @@ for (const dir of ['ltr', 'rtl']) {
 
   // Service navigation
   await page.goto(ORIGIN + 'services.html', { waitUntil: 'networkidle' });
-  const chipCount = await page.$$eval('[data-tp-service-nav] a', (a) => a.length);
+  const chipCount = await page.$$eval('.tp-scrollspy a', (a) => a.length);
   check('service nav has 6 chips', chipCount === 6);
   await page.locator('.tp-chip', { hasText: 'Renovation' }).focus();
   await page.keyboard.press('Enter');
   await page.waitForTimeout(1800);
   const nav = await page.evaluate(() => ({ cur: [...document.querySelectorAll('.tp-chip[aria-current]')].map((a) => a.textContent.trim()),
-    top: document.getElementById('renovation').getBoundingClientRect().top, bar: document.querySelector('[data-tp-service-nav]').getBoundingClientRect().bottom,
+    top: document.getElementById('renovation').getBoundingClientRect().top, bar: document.querySelector('.tp-scrollspy').getBoundingClientRect().bottom,
     hash: location.hash }));
   check('keyboard activation scrolls to the section, hash set, chip becomes current', nav.hash === '#renovation' && nav.cur.length === 1 && nav.cur[0] === 'Renovation', JSON.stringify(nav));
   check('target section sits below the sticky bars', nav.top >= nav.bar - 2, `${Math.round(nav.top)} vs ${Math.round(nav.bar)}`);
@@ -171,7 +171,7 @@ for (const dir of ['ltr', 'rtl']) {
   await page.waitForTimeout(700);
   const cur2 = await page.$$eval('.tp-chip[aria-current]', (a) => a.map((x) => x.textContent.trim()));
   check('scrolling to Turnkey highlights the Turnkey chip', cur2.length === 1 && cur2[0] === 'Turnkey Projects', cur2.join(','));
-  const stuck = await page.evaluate(() => document.querySelector('[data-tp-service-nav]').getBoundingClientRect().top);
+  const stuck = await page.evaluate(() => document.querySelector('.tp-scrollspy').getBoundingClientRect().top);
   check('chip bar is sticky under the header', stuck > 0 && stuck < 120, String(Math.round(stuck)));
   const rel = await page.evaluate(() => ({ construction: document.querySelectorAll('#construction .tp-project').length, fit: document.querySelectorAll('#decoration-fitout .tp-project').length,
     reno: document.querySelectorAll('#renovation .tp-project').length, none: document.querySelectorAll('#maintenance [data-tp-related], #design-build [data-tp-related], #turnkey [data-tp-related]').length }));

@@ -2,6 +2,12 @@
 
 One entry per completed task, newest on top. Format: Did / Files / Issues / Next.
 
+### 2026-10-01 — Phase 2B · Part 0: align with Elementor v4 (PRD v1.5)
+- Did: header is now solid, sticky and in flow (transparent state, scrolled class, backdrop-filter and all hero top-padding compensation removed). Front end reorganised to the four theme files: new `theme.css` (header, menu, footer, WhatsApp, lightbox dialog, before/after handle, scroll-nav chips; filter bar added in Part A), new `interactions.js` (menu, lightbox, before/after, scrollspy, filter in one IIFE, each activated by class), `counters.js` merged into `animations.js`; header/lightbox/before-after/service-nav/counters scripts and lightbox.css deleted. tokens/base/layout/components/inner-pages marked `ELEMENTOR SOURCE`; `projects.js` marked `PROTOTYPE ONLY` and now clones `<template id="tp-project-card">` (added to Home and Services). Behaviours run from plain markup: `.tp-lightbox` container, `.tp-before-after` two images (JS builds the handle), `.tp-scrollspy`, counters read the number from the text. Dialog classes renamed `tp-lbox*`. Direction audit: `-rtl` classes for the 4 classes with physical values. Heading classes `tp-h1`–`tp-h4` (explicit colour). Every `ELEMENTOR:` comment on Home/About/Services replaced by ATOMIC / THEME / INTERACTION / REPORT. `docs/elementor-mapping.md` replaced by `docs/wp-mapping.md` (destinations, atomic trees, responsive notes, generated master tables: 135 variables, 269 global-class rules). CLAUDE.md rules and D-031 updated.
+- Verified: check-partials OK; contrast 0 failing; interaction-test all PASS (menu, slider LTR/RTL, lightbox LTR/RTL, licenses, scroll-nav, related projects); screenshots of Home/About/Services (375/768/1280/1920 LTR+RTL+reduced) with 0 console issues and no overflow.
+- Issues: the header menu toggle needs JS but is not in E2; list/dl semantics, the marquee and the services hover image swap are not atomic (REPORT items in docs/wp-mapping.md).
+- Next: Part A projects.html.
+
 ### 2026-09-30 — Decision: Elementor v4 (Atomic) page building
 - Did: recorded the move to Elementor v4 atomic elements in CLAUDE.md, docs/decisions.md (D-030) and docs/PRD.md (v1.3: scope 4.1, 8.1, 8.2 rewritten, 8.3, 9, 11, Phase 4, risks, change log). No other content changed.
 - Note: the PRD was already at 1.3 (Homepage approved), so the change extends the 1.3 row instead of adding a second 1.3.

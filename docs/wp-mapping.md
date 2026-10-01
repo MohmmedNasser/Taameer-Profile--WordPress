@@ -1,0 +1,101 @@
+# WordPress mapping (Elementor v4 build sheet)
+
+Replaces `docs/elementor-mapping.md` (v3-era custom widgets). Source of truth: PRD v1.5 sections 8.2–8.3 and CLAUDE.md. Every section of every page has exactly one destination:
+
+| Destination | Meaning | Annotation in the HTML |
+|---|---|---|
+| **Atomic** | Built in Elementor v4 with atomic elements only (Flexbox, Div Block, Heading, Paragraph, Image, Button, Link, SVG, Divider, Form). Styles = global variables + global classes. | `<!-- ATOMIC: Flexbox > Heading(.tp-h2) + … -->` |
+| **Theme** | `theme.css` (E1) + PHP templates (E3): header, footer, language switcher, WhatsApp, 404, project archive and single | `<!-- THEME: header.php / footer.php / archive-project.php / single-project.php / 404.php -->` |
+| **Interaction** | Class-driven behaviour in `interactions.js` (E2) on atomic markup | `<!-- INTERACTION: tp-lightbox (interactions.js) -->` |
+| **Animation** | `animations.css` + `animations.js` classes | applied through class names |
+| **Report** | Cannot be expressed atomically and is not covered by E1–E3: reported to the owner, never improvised | `<!-- REPORT: … -->` (all collected in the last section) |
+| **Prototype only** | JS that renders JSON into pages; never shipped | `/* PROTOTYPE ONLY */` in the file header |
+
+## Front-end files
+
+| File | Ships? | Role |
+|---|---|---|
+| `tokens.css`, `base.css`, `layout.css`, `components.css`, `inner-pages.css` | No — `/* ELEMENTOR SOURCE */` | Recreated as global variables / global classes (tables at the end) |
+| `animations.css` + `animations.js` | Yes | `tp-reveal`, `tp-stagger`, `tp-parallax`, `tp-img-reveal`, `tp-split`, `tp-counter`, reduced motion. (`tp-counter` code was merged in from counters.js.) |
+| `theme.css` | Yes (E1) | header, mobile menu, footer, WhatsApp, lightbox dialog, before/after slider, services scroll-nav chips, filter bar, project archive + single templates, 404 |
+| `interactions.js` | Yes (E2) | menu · lightbox (`tp-lightbox`) · before/after (`tp-before-after`) · scrollspy (`tp-scrollspy`) · project filter (`tp-filter`) |
+| `projects.js`, `project-page.js`, `contact-form.js` | No — `/* PROTOTYPE ONLY */` | JSON rendering and form validation stand-ins for PHP / Atomic Form |
+
+Page settings for every Elementor page: Full Width template, title hidden, no sidebar. The page starts below the solid sticky header (no overlay, no padding compensation).
+
+## Interaction contracts (class-driven, atomic-friendly markup)
+
+| Class | Markup | Behaviour |
+|---|---|---|
+| `tp-lightbox` | A Flexbox/Div container; every link inside that points to an image (`.webp/.jpg/.png`) or a PDF with `data-image` opens in the dialog; the container is one gallery | Dialog UI classes `tp-lbox*` are generated, styled in theme.css. Caption: `data-caption` → image alt → aria-label |
+| `tp-before-after` | Container with `Image(.tp-before-after__after)` + `Image(.tp-before-after__before)` | Adds clip layer, labels and `role="slider"` handle (`tp-ba*` classes, theme.css). Without JS the images stack |
+| `tp-scrollspy` | Container of links to `#id` anchors | Marks the link of the section in view with `aria-current="true"` |
+| `tp-filter` | Archive template only (E3): `.tp-filter__btn[data-tp-filter]`, `.tp-filter__items > [data-tp-type]`, `.tp-filter__status` | FLIP animation, `?type=` URL state, live region |
+
+## Direction-neutral classes and `-rtl` classes (PRD 8.2.2)
+
+Audit result: every global class uses logical properties. The only physical values are in the classes below; each keeps its neutral rule and gets a sibling `-rtl` class that is added by hand to the same element on Arabic pages only.
+
+| Neutral class | Physical value | Arabic-only class |
+|---|---|---|
+| `tp-link` | arrow icon `translateX` on hover | `tp-link-rtl` (flips the arrow, reverses the nudge) |
+| `tp-card__more` | arrow icon direction | `tp-card__more-rtl` |
+| `tp-marquee` | edge-fade gradient `to right`, scroll distance | `tp-marquee-rtl` |
+| `tp-service__link` | title nudge on hover `translateX` | `tp-service__link-rtl` |
+| `tp-img-reveal` and the `tp-reveal--start/--end` variants | clip-path / translate direction | handled inside `animations.css` through `--tp-dir-x` (not a class the client sets) |
+
+Theme parts (header underline, before/after, lightbox arrows) follow `<html dir>` in `theme.css`.
+
+---
+
+## Page sections
+
+Responsive rule used everywhere: desktop rows (`Flexbox direction: row`) become `column` on tablet; gaps/padding step down one token (`--tp-space-8` → `-7` → `-6`); card rows use `wrap` with a basis of 3 / 2 / 1 columns (desktop / tablet / mobile).
+
+### Home (`index.html`)
+
+| Section | Dest | Atomic tree and global classes | Tablet / mobile |
+|---|---|---|---|
+| Header, mobile menu, footer, WhatsApp, sprite | Theme | `header.php`, `footer.php` | menu button < 64em |
+| Hero | Atomic + Animation | `Flexbox.tp-hero > Flexbox.tp-hero__panel > Paragraph.tp-eyebrow + Heading H1.tp-h1.tp-hero__title(.tp-split) + Paragraph.tp-hero__lead + Flexbox.tp-hero__actions > Button.tp-btn--primary + Button.tp-btn--ghost`; `Flexbox.tp-hero__media > Flexbox.tp-frame > Image.tp-frame__img(.tp-parallax) + Paragraph.tp-caption`. Image `fetchpriority=high` | stack media under panel; remove media overlap |
+| Partners marquee | Atomic + **Report** | `Flexbox.tp-marquee > Flexbox.tp-marquee__track > Image.tp-marquee__logo ×14` | same; reduced motion = wrapped static row |
+| About + stats | Atomic | `Flexbox row > [Flexbox.tp-about__text > Paragraph.tp-eyebrow + Heading.tp-h2 + Paragraph.tp-lead + Paragraph + Link.tp-link] + [Flexbox.tp-stats > 3 × Flexbox.tp-stats__item > Paragraph.tp-stats__label + Heading.tp-stats__value(.tp-counter)]` | stats stack |
+| Chairman quote | Atomic | `Flexbox.tp-section--sand > Flexbox row > Flexbox.tp-frame > Image + Flexbox.tp-quote > Paragraph.tp-eyebrow + Paragraph.tp-quote__text + Heading.tp-quote__name + Paragraph.tp-quote__role` | portrait above quote |
+| Services list | Atomic + **Report** | rows `Flexbox.tp-service > Link > Heading.tp-service__title + Paragraph.tp-service__text + SVG.tp-service__plus`; one `Image.tp-service__img` each | no hover swap (see Report) |
+| Why choose us | Atomic | `Flexbox.tp-section--sand > Image(.tp-parallax) + Flexbox.tp-why__text > … 3 × Flexbox.tp-why__item` | stack |
+| Featured projects (6) | Atomic + **Report** | `Flexbox wrap.tp-projects-grid > 6 × Flexbox.tp-project > Link.tp-card > Image.tp-card__img + Paragraph.tp-card__meta + Heading.tp-card__title + Paragraph.tp-card__location` (Atomic Loop if the Phase 4 spike confirms it) | 3 → 2 → 1 columns |
+| Before / after | Atomic + Interaction | `Flexbox.tp-compare > [text + Flexbox.tp-spec] + Flexbox.tp-before-after > Image.tp-before-after__after + Image.tp-before-after__before` | stack, slider full width |
+| Letters of appreciation | Atomic | `Flexbox wrap > 3 × Flexbox.tp-letter > Paragraph.tp-letter__text + author + company` | 3 → 1 |
+| CTA band | Atomic | `Flexbox.tp-cta > Flexbox.tp-cta__box > Paragraph.tp-eyebrow + Heading.tp-h2 + Paragraph + Button + links` | stack buttons |
+
+### About (`about.html`)
+
+| Section | Dest | Atomic tree and global classes | Tablet / mobile |
+|---|---|---|---|
+| Page hero + breadcrumbs | Atomic | `Flexbox.tp-page-hero > Flexbox(.tp-breadcrumb__list: Link + Paragraph) + Paragraph.tp-eyebrow + Heading H1.tp-h1.tp-page-hero__title + Paragraph.tp-page-hero__lead` | — |
+| Chairman's message | Atomic | `Flexbox row > Flexbox.tp-chair-page__media(sticky) > Flexbox.tp-frame > Image + Flexbox.tp-chair-page__msg > …` | portrait not sticky, above text |
+| About + 2015 fact | Atomic + Animation | `Flexbox.tp-section--sand > text + Flexbox.tp-fact.tp-frame > Heading.tp-fact__value(.tp-counter)` | stack |
+| Aims | Atomic | `Flexbox wrap > 4 × Flexbox.tp-aim` | 4 → 2 → 1 |
+| Why choose us | Atomic | same as Home | |
+| Leadership + philosophy | Atomic + **Report** | `Flexbox wrap.tp-team > 3 × Flexbox.tp-team__card`; `Flexbox.tp-philosophy` | 3 → 1 |
+| Team experience | Atomic | `Flexbox wrap.tp-exp > 4 × Flexbox.tp-exp__card` (no links) | 4 → 2 → 1 |
+| Partners (14) | Atomic | `Flexbox wrap.tp-partners-grid > Image.tp-partner__logo ×14` | 7 → 4 → 3 |
+| Licenses | Atomic + Interaction + **Report** | `Flexbox.tp-licenses.tp-lightbox > 2 × Flexbox.tp-license > Link > Image.tp-license__preview + Flexbox.tp-spec + Button` | stack |
+| CTA band | Atomic | as Home | |
+
+### Services (`services.html`)
+
+| Section | Dest | Atomic tree and global classes | Tablet / mobile |
+|---|---|---|---|
+| Page hero + breadcrumbs | Atomic | as About | |
+| Chip navigation | Atomic + Interaction | `Flexbox.tp-service-nav.tp-scrollspy(sticky) > Flexbox.tp-chips > Link.tp-chip ×6` | horizontal scroll |
+| 6 service blocks | Atomic | `Flexbox.tp-service-block(--flip) > [Paragraph.tp-eyebrow + Heading.tp-h2 + Paragraph.tp-lead + Paragraph + Button.tp-link] + Flexbox.tp-frame > Image`; anchor id = service id | stack, image first |
+| Related projects (3 of 6 blocks) | Atomic + **Report** | `Flexbox wrap.tp-projects-grid--related > 3 × project card` (static) | 3 → 1 |
+| Wall cladding showcase | Atomic + Interaction | `Flexbox wrap.tp-gallery.tp-lightbox > Link > Image.tp-gallery__item ×6` | 3 → 2 |
+| CTA band | Atomic | as Home | |
+
+<!-- PAGES-2B:START -->
+<!-- PAGES-2B:END -->
+
+<!-- GENERATED:START -->
+<!-- GENERATED:END -->

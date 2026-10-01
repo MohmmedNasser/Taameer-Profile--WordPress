@@ -1,8 +1,8 @@
+/* ELEMENTOR SOURCE — recreated as global variables/classes, not shipped */
 /* ==========================================================================
    base.css — reset, element defaults, typography, focus, utilities
    Used by: every page. Element-level styles only (no components).
-   WP: enqueue after tokens.css (handle "tp-base", deps ["tp-tokens"]). Hello Elementor's own reset
-       is lighter than this; keep this file so prototype and theme render identically.
+   WP: not shipped. Recreated as Elementor v4 global variables / global classes (docs/wp-mapping.md).
    ========================================================================== */
 
 *,
@@ -36,7 +36,7 @@ body {
   overflow-x: clip; /* guards against off-canvas reveal transforms causing horizontal scroll */
 }
 
-/* Body scroll lock while the mobile menu is open (set by header.js). */
+/* Body scroll lock while the mobile menu is open (set by interactions.js). */
 body.tp-is-locked {
   overflow: hidden;
 }
@@ -70,6 +70,22 @@ h1 { font-size: var(--tp-fs-h1); line-height: var(--tp-lh-tight); }
 h2 { font-size: var(--tp-fs-h2); }
 h3 { font-size: var(--tp-fs-h3); font-weight: var(--tp-fw-regular); }
 h4 { font-size: var(--tp-fs-h4); font-weight: var(--tp-fw-medium); }
+
+/* Global-class equivalents of the element rules above (Elementor headings carry classes, not element styles).
+   Colour is set explicitly so a heading never depends on inherited colour. */
+.tp-h1, .tp-h2, .tp-h3, .tp-h4 {
+  margin: 0;
+  color: var(--tp-color-text);
+  font-family: var(--tp-font-display);
+  font-weight: var(--tp-fw-light);
+  line-height: var(--tp-lh-heading);
+  letter-spacing: var(--tp-tracking-display);
+  text-wrap: balance;
+}
+.tp-h1 { font-size: var(--tp-fs-h1); line-height: var(--tp-lh-tight); }
+.tp-h2 { font-size: var(--tp-fs-h2); }
+.tp-h3 { font-size: var(--tp-fs-h3); font-weight: var(--tp-fw-regular); }
+.tp-h4 { font-size: var(--tp-fs-h4); font-weight: var(--tp-fw-medium); }
 
 p,
 ul,
