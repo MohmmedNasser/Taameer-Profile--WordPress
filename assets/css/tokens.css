@@ -56,13 +56,14 @@
   --tp-btn-fg-hover: #FFFFFF;
 
   /* ---- Typography: families ---- */
-  --tp-font-display-ar: "Noto Kufi Arabic", "Segoe UI", Tahoma, sans-serif;     /* Phase 3 */
+  --tp-font-display-ar: "El Messiri", "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;  /* Phase 3, D-034: H1-H4, pull-quote, stat numbers */
   --tp-font-body-ar: "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;    /* Phase 3 */
 
   /* ---- Typography: weights ---- */
   --tp-fw-regular: 400;
   --tp-fw-medium: 500;
   --tp-fw-semibold: 600;
+  --tp-fw-display-ar: 500;         /* El Messiri; the only weight loaded */
 
   /* ---- Typography: fluid scale (360px → 1920px viewport) ---- */
   --tp-fs-xs: clamp(0.75rem, 0.73rem + 0.08vw, 0.8125rem);

@@ -2,6 +2,12 @@
 
 Non-obvious decisions. Format: **Context / Decision / Reason / Alternatives rejected.** Newest on top.
 
+### D-034 — Arabic fonts (Phase 3 Part A)
+- Context: Arabic heading font had to pair with Playfair Display; candidates tested side by side with real tokens (El Messiri, Noto Naskh Arabic, Amiri; `source/font-test/`).
+- Decision: **El Messiri 500** for Arabic H1–H4, the pull-quote and stat numbers (`--tp-font-display-ar`, `--tp-fw-display-ar: 500`); **IBM Plex Sans Arabic** for everything else (body 400, plus 500/600 only where the English UI uses them). Heading line-height stays `--tp-lh-snug` (1.35). Letter-spacing 0 and no `text-transform` on Arabic. Only El Messiri 500 and the Plex weights in use are requested from Google Fonts, on Arabic pages only.
+- Reason: chosen by the owner for a modern, sturdy look that stays legible at small sizes (verified at 375 px: H3 24 px and H4 20 px read cleanly).
+- Rejected: Amiri (closest to Playfair but thin strokes at small sizes), Noto Naskh Arabic (neutral, plain), Noto Kufi Arabic (earlier token placeholder).
+
 ### D-033 — Part 0 (PRD v1.6): data attributes, marquee, header menu
 - Context: PRD v1.6 (Phase 2 review) resolved report items R1, R2, R3, R5, R6 and states that interactions use only `href`/`alt` (no data attributes), because the free atomic editor may not expose custom attributes on elements built atomically.
 - Decision (data-attribute rule):

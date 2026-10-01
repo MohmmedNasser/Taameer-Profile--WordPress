@@ -2,6 +2,10 @@
 
 One entry per completed task, newest on top. Format: Did / Files / Issues / Next.
 
+### 2026-10-01 — Phase 3 · Part A done: font chosen
+- Did: owner chose El Messiri 500 (headings, quote, stats) + IBM Plex Sans Arabic. Token `--tp-font-display-ar` updated, `--tp-fw-display-ar: 500` added, D-034 written, test page reduced to the final combination (H1–H4 + stat + quote + body + mixed), screenshots at 1280 and 375; H3/H4 legible on mobile.
+- Next: Part B glossary.
+
 ### 2026-10-01 — Phase 3 · Part A: Arabic heading font test (waiting for the owner)
 - Did: `source/font-test/index.html` (not part of the site): El Messiri, Noto Naskh Arabic and Amiri side by side with the real tokens, IBM Plex Sans Arabic body, no letter-spacing, heading line-height `--tp-lh-snug` (1.35; the English 1.05 clips Arabic marks). Screenshots `source/screenshots/phase-3/font-test-1280.png` and `-375.png`; no horizontal overflow. Chairman quote is a draft translation. CLAUDE.md docs index gained the `docs/prompts/` line.
 - Next: owner picks the font; record it in decisions.md, then Part B.
