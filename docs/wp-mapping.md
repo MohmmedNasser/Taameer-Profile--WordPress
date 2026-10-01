@@ -95,6 +95,19 @@ Responsive rule used everywhere: desktop rows (`Flexbox direction: row`) become 
 | CTA band | Atomic | as Home | |
 
 <!-- PAGES-2B:START -->
+
+### Projects (`projects.html`) â€” theme template `archive-project.php` (E3)
+
+| Section | Dest | Tree / classes | Tablet / mobile |
+|---|---|---|---|
+| Page hero + breadcrumbs | Theme (printed by the archive template; same markup as the atomic page hero) | `.tp-page-hero`, breadcrumbs, `.tp-h1`, `.tp-page-hero__lead` | â€” |
+| Filter bar | Theme + Interaction | `.tp-filter > .tp-filter__bar > button.tp-filter__btn[data-tp-filter][aria-pressed] > .tp-filter__count`; `.tp-filter__status` (aria-live) | buttons wrap |
+| Grid (22 projects) | Theme + Interaction | `.tp-filter__items.tp-projects-grid.tp-projects-grid--even > article.tp-project[data-tp-type] > a.tp-card`. Order: ongoing first, then completion date newest first (the PHP query must reproduce this: `meta_key` status then date). Wall Cladding (showcase) excluded. FLIP animation + `?type=` state in `interactions.js` | 3 â†’ 2 â†’ 1 columns |
+| Team experience (4) | Atomic-equivalent markup inside the template (same classes as About) | `.tp-exp` cards, "by the Taameer Plus team" framing | 4 â†’ 2 â†’ 1 |
+| CTA band | Atomic-equivalent | as Home | |
+
+Card markup lives in `<template id="tp-project-card">` (copy into PHP). Taxonomy archive URLs `/projects/?type=fit-out` â†” `project-type` term links.
+
 <!-- PAGES-2B:END -->
 
 <!-- GENERATED:START -->
